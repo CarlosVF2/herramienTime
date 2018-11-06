@@ -1,6 +1,8 @@
 package android.com.herramientime.modules.domain.injection;
 
 import android.com.herramientime.injection.Constants;
+import android.com.herramientime.injection.InteractorFactory;
+import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.modules.domain.interactor.MainActivityInteractor;
 
 /**
@@ -11,10 +13,12 @@ public class MainActivityModule {
 
     private Constants constants;
     private MainActivityInteractor activityInteractor;
+    private NavigationManager navigationManager;
 
-    public MainActivityModule(Constants constants, MainActivityInteractor activityInteractor) {
+    public MainActivityModule(Constants constants, InteractorFactory interactorFactory, NavigationManager navigationManager) {
         this.constants = constants;
-        this.activityInteractor = activityInteractor;
+        this.activityInteractor = interactorFactory.getMainActivityInteractor();
+        this.navigationManager = navigationManager;
     }
 
     public Constants getConstants() {
@@ -23,5 +27,9 @@ public class MainActivityModule {
 
     public MainActivityInteractor getActivityInteractor() {
         return activityInteractor;
+    }
+
+    public NavigationManager getNavigationManager() {
+        return navigationManager;
     }
 }
