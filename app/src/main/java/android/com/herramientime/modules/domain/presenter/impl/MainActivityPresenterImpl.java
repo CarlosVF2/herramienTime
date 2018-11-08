@@ -1,5 +1,6 @@
 package android.com.herramientime.modules.domain.presenter.impl;
 
+import android.com.herramientime.core.presenter.impl.MvpActivityPresenterImpl;
 import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.injection.impl.NavigationManagerImpl;
 import android.com.herramientime.modules.domain.injection.MainActivityComponent;
@@ -14,8 +15,7 @@ import javax.inject.Inject;
  * Created by carlo on 06/11/2018.
  */
 
-public class MainActivityPresenterImpl
-        <ACTIVITY extends MainActivity>
+public class MainActivityPresenterImpl<VIEW extends MainActivity> extends MvpActivityPresenterImpl<VIEW>
         implements MainActivityPresenter, NavigationManagerImpl.NavigationListener {
 
     private NavigationManager navigationManager;
@@ -32,7 +32,7 @@ public class MainActivityPresenterImpl
         //configureIntent(intentWrapper);
     }
 
-    protected MainActivityPresenterImpl() {
+    public MainActivityPresenterImpl() {
         super();
     }
 
@@ -50,6 +50,25 @@ public class MainActivityPresenterImpl
         //    // never can happen
         //}
     }
+
+    //region Lyfecicle core
+
+    @Override
+    public void onViewBinded() {
+        super.onViewBinded();
+    }
+
+    @Override
+    public void onViewUnbinded() {
+        super.onViewUnbinded();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    //endregion Lyfecicle core
 
     //region NavigationListener
     @Override

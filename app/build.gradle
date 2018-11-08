@@ -16,6 +16,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        buildTypes.each {
+            it.buildConfigField "String", "EXTRA_PRESENTER_DEFAULT", '"android.com.herramientime.core.presenter.MvpPresenterArgument.PRESENTER_DEFAULT"'
+            it.resValue "string", "EXTRA_PRESENTER_DEFAULT", '"android.com.herramientime.core.presenter.MvpPresenterArgument.PRESENTER_DEFAULT"'
+        }
+    }
+    android {
+        configurations.all {
+            resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+        }
     }
 }
 
