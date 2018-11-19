@@ -1,5 +1,6 @@
 package android.com.herramientime.injection.impl;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.com.herramientime.R;
@@ -7,6 +8,7 @@ import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.injection.PresenterFactory;
 import android.com.herramientime.injection.ViewFactory;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.herramientas.view.impl.HerramientasFragmentImpl;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -43,14 +45,32 @@ public class NavigationManagerImpl implements NavigationManager, Application.Act
         application.registerActivityLifecycleCallbacks(this);
     }
 
-    //region MainActivity
+    //region HerramientasFragment
     @Override
     public void navigateToMainActivity() {
         Intent intent = new Intent(viewFactory.getMainActivityIntent());
         presenterFactory.setupMainActivityIntent(intent);
         context.startActivity(intent);
     }
-    //endregion MainActivity
+    //endregion HerramientasFragment
+
+    //region Herramientas
+
+    @Override
+    public void navigateToHerramientas() throws LocalException {
+        if (currentActivity != null) {
+            navigateToRoot(currentActivity.getSupportFragmentManager());
+            Bundle args = new Bundle();
+            presenterFactory.setupHerramientasFragmentInstance(args);
+            HerramientasFragmentImpl fragment = viewFactory.newHerramientasFragmentInstance();
+            fragment.setArguments(args);
+            open(currentActivity.getSupportFragmentManager(), fragment, null);
+        } else {
+            throw new LocalException(context.getString(R.string.error_activity_not_prepared));
+        }
+    }
+
+    //endregion Herramientas
 
     //region NavigateBack
 
@@ -59,7 +79,7 @@ public class NavigationManagerImpl implements NavigationManager, Application.Act
         if (currentActivity != null) {
             navigateBack(currentActivity, currentActivity.getSupportFragmentManager());
         } else {
-            throw new LocalException("Activity unprepared");
+            throw new LocalException(context.getString(R.string.error_activity_not_prepared));
         }
     }
 
@@ -75,6 +95,28 @@ public class NavigationManagerImpl implements NavigationManager, Application.Act
     //endregion NavigateBack
 
     //region Gestion Fragments / Activity
+
+    /**
+     * @return true if the has fragment displayed
+     */
+    @Override
+    public boolean isFragmentAttached() throws LocalException {
+        if (currentActivity != null) {
+            return isFragmentAttached(currentActivity.getSupportFragmentManager());
+        } else {
+            throw new LocalException(context.getString(R.string.error_activity_not_prepared));
+        }
+    }
+
+    private void navigateToRoot(@NonNull FragmentManager fragmentManager) {
+        while (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStackImmediate();
+        }
+    }
+
+    private boolean isFragmentAttached(FragmentManager fragmentManager) {
+        return fragmentManager.getBackStackEntryCount() > 0;
+    }
 
     private void startActivity(Intent intent) {
         if (currentActivity == null) {
@@ -136,6 +178,7 @@ public class NavigationManagerImpl implements NavigationManager, Application.Act
         return false;
     }
 
+    @SuppressLint("RestrictedApi")
     private FragmentManager getParentManager(Fragment targetFragment) {
         Fragment parentFragment = targetFragment.getParentFragment();
         if (parentFragment != null) {

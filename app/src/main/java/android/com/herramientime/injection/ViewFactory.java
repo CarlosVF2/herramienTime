@@ -1,6 +1,7 @@
 package android.com.herramientime.injection;
 
 
+import android.com.herramientime.modules.herramientas.view.impl.HerramientasFragmentImpl;
 import android.content.Intent;
 
 /**
@@ -9,7 +10,9 @@ import android.content.Intent;
 
 public interface ViewFactory {
 
-    //MainActivity
+    //HerramientasFragment
     Intent getMainActivityIntent();
 
+    //Herramientas
+    HerramientasFragmentImpl newHerramientasFragmentInstance();
 }

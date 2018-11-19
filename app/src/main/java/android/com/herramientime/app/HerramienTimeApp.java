@@ -9,6 +9,8 @@ import android.com.herramientime.domain.ComponentDependencies;
 
 public class HerramienTimeApp extends Application {
 
+    private static ComponentDependencies componentDependencies;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -16,6 +18,10 @@ public class HerramienTimeApp extends Application {
     }
 
     private void setupDependencyInjection() {
-        new ComponentDependencies(this);
+        componentDependencies = new ComponentDependencies(this);
+    }
+
+    public static ComponentDependencies getComponentDependencies() {
+        return componentDependencies;
     }
 }

@@ -1,8 +1,10 @@
 package android.com.herramientime.modules.domain.presenter.impl;
 
+import android.com.herramientime.app.HerramienTimeApp;
 import android.com.herramientime.core.presenter.impl.MvpActivityPresenterImpl;
 import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.injection.impl.NavigationManagerImpl;
+import android.com.herramientime.modules.domain.entities.LocalException;
 import android.com.herramientime.modules.domain.injection.MainActivityComponent;
 import android.com.herramientime.modules.domain.interactor.MainActivityInteractor;
 import android.com.herramientime.modules.domain.presenter.MainActivityPresenter;
@@ -56,6 +58,17 @@ public class MainActivityPresenterImpl<VIEW extends MainActivity> extends MvpAct
     @Override
     public void onViewBinded() {
         super.onViewBinded();
+        if (navigationManager == null) {
+            navigationManager = HerramienTimeApp.getComponentDependencies().getNavigationManager();
+        }
+        navigationManager.setNavigationListener(this);
+        try {
+            if (!navigationManager.isFragmentAttached()) {
+                navigationManager.navigateToHerramientas();
+            }
+        } catch (LocalException ignored) {
+            // never can happen
+        }
     }
 
     @Override

@@ -7,10 +7,12 @@ import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.injection.PresenterFactory;
 import android.com.herramientime.injection.RepositoryFactory;
 import android.com.herramientime.injection.ViewFactory;
+import android.com.herramientime.injection.impl.ConstantsImpl;
 import android.com.herramientime.injection.impl.InteractorFactoryImpl;
 import android.com.herramientime.injection.impl.NavigationManagerImpl;
 import android.com.herramientime.injection.impl.PresenterFactoryImpl;
 import android.com.herramientime.injection.impl.RepositoryFactoryImpl;
+import android.com.herramientime.injection.impl.ViewFactoryImpl;
 import android.content.Context;
 
 import dagger.Provides;
@@ -21,8 +23,6 @@ import dagger.Provides;
 
 public abstract class DependencyInjectionImpl {
 
-    private static final String TAG = "DependencyInjectionImpl";
-
     private NavigationManager navigationManager;
     private PresenterFactory presenterFactory;
     private ViewFactory viewFactory;
@@ -32,26 +32,36 @@ public abstract class DependencyInjectionImpl {
 
     public DependencyInjectionImpl(Application application) {
         /* THIS CLASS INVOKES: */
+        setupConstantsDependency();
         setupPresenterFactoryDependency();
-        setupInteractorFactoryDependency(null);
-        setupRepositoryFactoryDependency(null, null);
-        setupNavigationManagerDependency(application, viewFactory, presenterFactory, application.getApplicationContext());
+        setupRepositoryFactoryDependency(application.getApplicationContext(), presenterFactory);
+        setupInteractorFactoryDependency(getRepositoryFactoryInstance());
+        setupViewFactoryDependency(application.getApplicationContext());
+        setupNavigationManagerDependency(application, getViewFactoryInstance(), getPresenterFactory(), application.getApplicationContext());
     }
+
 
     // region setup
 
+    private void setupConstantsDependency() {
+        constants = new ConstantsImpl();
+    }
+
+    private void setupViewFactoryDependency(Context context) {
+        viewFactory = new ViewFactoryImpl(context);
+    }
+
     private void setupInteractorFactoryDependency(RepositoryFactory repositoryFactory) {
-        interactorFactory = new InteractorFactoryImpl();
+        interactorFactory = new InteractorFactoryImpl(repositoryFactory);
     }
 
     private void setupRepositoryFactoryDependency(Context context, PresenterFactory presenterFactory) {
-        repositoryFactory = new RepositoryFactoryImpl();
+        repositoryFactory = new RepositoryFactoryImpl(context, presenterFactory);
     }
 
     private void setupNavigationManagerDependency(Application application, ViewFactory viewFactory, PresenterFactory presenterFactory, Context context) {
         navigationManager = new NavigationManagerImpl(application, viewFactory, presenterFactory, context);
     }
-
 
     private void setupPresenterFactoryDependency() {
         presenterFactory = new PresenterFactoryImpl();
@@ -61,7 +71,8 @@ public abstract class DependencyInjectionImpl {
 
     // region get
 
-    protected NavigationManager getNavigationManager() {
+    @Provides
+    public NavigationManager getNavigationManager() {
         return navigationManager;
     }
 
@@ -75,11 +86,15 @@ public abstract class DependencyInjectionImpl {
         return constants;
     }
 
+    private PresenterFactory getPresenterFactory() {
+        return presenterFactory;
+    }
+
     protected InteractorFactory getInteractorFactoryInstance() {
         return interactorFactory;
     }
 
-    protected RepositoryFactory getRepositoryFactoryInstance() {
+    private RepositoryFactory getRepositoryFactoryInstance() {
         return repositoryFactory;
     }
 
