@@ -5,8 +5,11 @@ import android.com.herramientime.core.presenter.MvpPresenterArgument;
 import android.com.herramientime.core.view.MvpFragment;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
 
-public class MvpFragmentPresenterImpl<VIEW extends MvpFragment> implements MvpFragmentPresenter, MvpPresenterArgument {
+public abstract class MvpFragmentPresenterImpl<VIEW extends MvpFragment> implements MvpFragmentPresenter, MvpPresenterArgument {
+
+    private VIEW mvpFragment;
 
     @CallSuper
     public Bundle setArguments(Bundle args) {
@@ -15,17 +18,14 @@ public class MvpFragmentPresenterImpl<VIEW extends MvpFragment> implements MvpFr
     }
 
     @Override
-    public void onViewBinded() {
-
-    }
+    public abstract void onViewBinded();
+    @Override
+    public abstract void onViewUnbinded();
+    @Override
+    public abstract void onDestroy();
 
     @Override
-    public void onViewUnbinded() {
-
-    }
-
-    @Override
-    public void onDestroy() {
-
+    public void setMvpFragment(@NonNull MvpFragment mvpFragment) {
+        this.mvpFragment = (VIEW) mvpFragment;
     }
 }

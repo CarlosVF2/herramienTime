@@ -1,6 +1,11 @@
 package android.com.rest;
 
 
+import android.com.rest.entities.HerramientaRest;
+import android.com.rest.entities.InternetException;
+
+import java.util.List;
+
 /**
  * Created by cvegaf on 19/11/2018.
  * <p>
@@ -9,5 +14,6 @@ package android.com.rest;
 
 public interface RestApiServiceHelper {
 
+    List<HerramientaRest> getHerramientas() throws InternetException;
 
 }

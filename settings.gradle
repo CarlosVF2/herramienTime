@@ -1,1 +1,1 @@
-include ':app', ':mvp', ':utils_wrapper', ':domain', ':rest'
+include ':app',  ':rest'

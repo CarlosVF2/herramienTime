@@ -1,11 +1,13 @@
 package android.com.herramientime.injection.impl;
 
+import android.com.herramientime.domain.processor.Processors;
 import android.com.herramientime.injection.PresenterFactory;
 import android.com.herramientime.injection.RepositoryFactory;
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
 import android.com.herramientime.modules.domain.repository.impl.MainActivityRepositoryImpl;
 import android.com.herramientime.modules.herramientas.repository.HerramientasFragmentRepository;
 import android.com.herramientime.modules.herramientas.repository.impl.HerramientasFragmentRepositoryImpl;
+import android.com.rest.RestApiServiceHelper;
 import android.content.Context;
 
 /**
@@ -13,13 +15,17 @@ import android.content.Context;
  */
 public class RepositoryFactoryImpl implements RepositoryFactory {
 
-    private Context context;
-    private PresenterFactory presenterFactory;
+    private final Context context;
+    private final PresenterFactory presenterFactory;
+    private final RestApiServiceHelper restApiServiceHelper;
+    private final Processors processors;
 
 
-    public RepositoryFactoryImpl(Context context, PresenterFactory presenterFactory) {
+    public RepositoryFactoryImpl(Context context, PresenterFactory presenterFactory, RestApiServiceHelper restApiServiceHelper, Processors processors) {
         this.context = context;
         this.presenterFactory = presenterFactory;
+        this.restApiServiceHelper = restApiServiceHelper;
+        this.processors = processors;
     }
 
     @Override
@@ -29,6 +35,6 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
 
     @Override
     public HerramientasFragmentRepository getHerramientasFragmentRepository() {
-        return new HerramientasFragmentRepositoryImpl();
+        return new HerramientasFragmentRepositoryImpl(processors.getProcessorHerramienta(), restApiServiceHelper);
     }
 }
