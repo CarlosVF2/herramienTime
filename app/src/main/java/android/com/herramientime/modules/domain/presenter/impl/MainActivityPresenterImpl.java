@@ -11,7 +11,10 @@ import android.com.herramientime.modules.domain.presenter.MainActivityPresenter;
 import android.com.herramientime.modules.domain.view.MainActivity;
 import android.content.Intent;
 
-import javax.inject.Inject;
+import com.seidor.core.di.InjectorClass;
+import com.seidor.core.di.annotations.Inject;
+
+import java.io.IOException;
 
 /**
  * Created by carlo on 06/11/2018.
@@ -43,25 +46,22 @@ public class MainActivityPresenterImpl<VIEW extends MainActivity> extends MvpAct
         activityInteractor = activityComponent.getMainActivityModule().getActivityInteractor();
         navigationManager = activityComponent.getMainActivityModule().getNavigationManager();
         navigationManager.setNavigationListener(this);
-        //try {
-        //    if (!getNavigationManager().isFragmentAttached()) {
-        //        //getNavigationManager().navigateToAnadirElementos("", AccionType.MONTAJE_DE_ELEMENTOS,"","","");
-        //        getNavigationManager().navigateToOrdersGroup();
-        //    }
-        //} catch (IOException ignored) {
-        //    // never can happen
-        //}
+        try {
+            if (!navigationManager.isFragmentAttached()) {
+                navigationManager.navigateToHerramientas();
+            }
+        } catch (LocalException ignored) {
+            // never can happen
+        }
     }
 
     //region Lyfecicle core
 
     @Override
     public void onViewBinded() {
-        super.onViewBinded();
-        if (navigationManager == null) {
+        if(navigationManager == null){
             navigationManager = HerramienTimeApp.getComponentDependencies().getNavigationManager();
         }
-        navigationManager.setNavigationListener(this);
         try {
             if (!navigationManager.isFragmentAttached()) {
                 navigationManager.navigateToHerramientas();
@@ -73,15 +73,40 @@ public class MainActivityPresenterImpl<VIEW extends MainActivity> extends MvpAct
 
     @Override
     public void onViewUnbinded() {
-        super.onViewUnbinded();
+
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+    }
+
+    @Override
+    public void onDataLoaded() {
+        if (isLoadingFinish()) {
+
+        }
+    }
+
+    @Override
+    public boolean isLoadingFinish() {
+        return true;
     }
 
     //endregion Lyfecicle core
+
+    @Override
+    public void onBackPressed() {
+
+        try {
+            if (navigationManager.isRootFragment()) {
+                //getMvpActivity().showMessageExitConfirm();
+            } else {
+                navigationManager.navigateBack();
+            }
+        } catch (LocalException e) {
+            e.printStackTrace();
+        }
+    }
 
     //region NavigationListener
     @Override

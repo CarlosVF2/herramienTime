@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface HerramientasFragmentRepository {
 
-    List<Herramienta> getHerramientas();
+    List<Herramienta> getHerramientas() throws Exception;
 
 }

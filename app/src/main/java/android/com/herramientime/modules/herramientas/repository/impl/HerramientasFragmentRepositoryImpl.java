@@ -21,7 +21,7 @@ public class HerramientasFragmentRepositoryImpl implements HerramientasFragmentR
     }
 
     @Override
-    public List<Herramienta> getHerramientas() {
+    public List<Herramienta> getHerramientas() throws Exception {
         try {
             List<HerramientaRest> herramientaRests = restApiServiceHelper.getHerramientas();
             return processorHerramienta.convertFrom(herramientaRests);

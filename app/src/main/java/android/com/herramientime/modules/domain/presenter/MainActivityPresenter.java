@@ -7,4 +7,6 @@ import android.com.herramientime.core.presenter.MvpActivityPresenter;
  */
 
 public interface MainActivityPresenter extends MvpActivityPresenter {
+    void onBackPressed();
+
 }

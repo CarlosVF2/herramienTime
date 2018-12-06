@@ -1,7 +1,7 @@
 package android.com.herramientime.modules.herramientas.injection;
 
-import android.com.herramientime.injection.Constants;
 import android.com.herramientime.injection.InteractorFactory;
+import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.modules.herramientas.interactor.HerramientasFragmentInteractor;
 
 /**
@@ -10,19 +10,19 @@ import android.com.herramientime.modules.herramientas.interactor.HerramientasFra
 
 public class HerramientasFragmentModule {
 
-    private Constants constants;
-    private HerramientasFragmentInteractor activityInteractor;
+    private final HerramientasFragmentInteractor herramientasFragmentInteractor;
+    private final NavigationManager navigationManager;
 
-    public HerramientasFragmentModule(Constants constants, InteractorFactory interactorFactory) {
-        this.constants = constants;
-        this.activityInteractor = interactorFactory.getHerramientasFragmentInteractor();
+    public HerramientasFragmentModule( NavigationManager navigationManager, InteractorFactory interactorFactory) {
+        this.navigationManager = navigationManager;
+        this.herramientasFragmentInteractor = interactorFactory.getHerramientasFragmentInteractor();
     }
 
-    public Constants getConstants() {
-        return constants;
+    public HerramientasFragmentInteractor getHerramientasFragmentInteractor() {
+        return herramientasFragmentInteractor;
     }
 
-    public HerramientasFragmentInteractor getActivityInteractor() {
-        return activityInteractor;
+    public NavigationManager getNavigationManager() {
+        return navigationManager;
     }
 }

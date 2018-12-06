@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProcessorHerramienta {
+
     public List<Herramienta> convertFrom(List<HerramientaRest> herramientaRests) {
         List<Herramienta> herramientas = new ArrayList<>();
         for (HerramientaRest herramientaRest : herramientaRests) {
@@ -19,6 +20,10 @@ public class ProcessorHerramienta {
         Herramienta herramienta = new Herramienta();
         herramienta.setId(from.getId());
         herramienta.setDescripcion(from.getDescripcion());
+        herramienta.setIdUsuario(from.getIdUsuario());
+        herramienta.setNombreUsuario(from.getNombreUsuario());
+        herramienta.setReservada(from.getReservada().contentEquals("1"));
+        herramienta.setUrlImagen(from.getUrlImagen());
         return herramienta;
     }
 }

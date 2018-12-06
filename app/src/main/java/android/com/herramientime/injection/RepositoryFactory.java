@@ -1,6 +1,7 @@
 package android.com.herramientime.injection;
 
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
+import android.com.herramientime.modules.herramientas.repository.HerramientaDetalleFragmentRepository;
 import android.com.herramientime.modules.herramientas.repository.HerramientasFragmentRepository;
 
 /**
@@ -13,4 +14,5 @@ public interface RepositoryFactory {
 
     //Harramientas
     HerramientasFragmentRepository getHerramientasFragmentRepository();
+    HerramientaDetalleFragmentRepository getHerramientaDetalleFragmentRepository();
 }

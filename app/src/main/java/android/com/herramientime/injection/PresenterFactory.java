@@ -15,4 +15,5 @@ public interface PresenterFactory {
 
     //Herramientas
     void setupHerramientasFragmentInstance(Bundle args);
+    void setupHerramientaDetalleFragmentInstance(Bundle args, String idHerramienta);
 }

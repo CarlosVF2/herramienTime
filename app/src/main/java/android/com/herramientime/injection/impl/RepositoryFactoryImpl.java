@@ -5,7 +5,9 @@ import android.com.herramientime.injection.PresenterFactory;
 import android.com.herramientime.injection.RepositoryFactory;
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
 import android.com.herramientime.modules.domain.repository.impl.MainActivityRepositoryImpl;
+import android.com.herramientime.modules.herramientas.repository.HerramientaDetalleFragmentRepository;
 import android.com.herramientime.modules.herramientas.repository.HerramientasFragmentRepository;
+import android.com.herramientime.modules.herramientas.repository.impl.HerramientaDetalleFragmentRepositoryImpl;
 import android.com.herramientime.modules.herramientas.repository.impl.HerramientasFragmentRepositoryImpl;
 import android.com.rest.RestApiServiceHelper;
 import android.content.Context;
@@ -36,5 +38,10 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
     @Override
     public HerramientasFragmentRepository getHerramientasFragmentRepository() {
         return new HerramientasFragmentRepositoryImpl(processors.getProcessorHerramienta(), restApiServiceHelper);
+    }
+
+    @Override
+    public HerramientaDetalleFragmentRepository getHerramientaDetalleFragmentRepository() {
+        return new HerramientaDetalleFragmentRepositoryImpl();
     }
 }

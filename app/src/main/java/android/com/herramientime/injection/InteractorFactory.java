@@ -2,6 +2,7 @@ package android.com.herramientime.injection;
 
 
 import android.com.herramientime.modules.domain.interactor.MainActivityInteractor;
+import android.com.herramientime.modules.herramientas.interactor.HerramientaDetalleFragmentInteractor;
 import android.com.herramientime.modules.herramientas.interactor.HerramientasFragmentInteractor;
 
 /**
@@ -15,5 +16,6 @@ public interface InteractorFactory {
 
     //Herramientas
     HerramientasFragmentInteractor getHerramientasFragmentInteractor();
+    HerramientaDetalleFragmentInteractor getHerramientaDetalleFragmentInteractor();
 }
 

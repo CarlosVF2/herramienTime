@@ -10,9 +10,9 @@ import android.view.View;
 
 import static android.com.herramientime.core.presenter.MvpPresenterArgument.EXTRA_PRESENTER_DEFAULT;
 
-public class MvpFragmentImpl<PRESENTER extends MvpFragmentPresenter> extends Fragment implements MvpFragment {
+public abstract class MvpFragmentImpl<PRESENTER extends MvpFragmentPresenter> extends Fragment implements MvpFragment {
 
-    PRESENTER mvpPresenter;
+    private PRESENTER mvpPresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,9 +20,22 @@ public class MvpFragmentImpl<PRESENTER extends MvpFragmentPresenter> extends Fra
         setMvpPresenter(getArguments());
     }
 
+    public void onResume() {
+        super.onResume();
+        this.setMvpActivityPresenter(this.mvpPresenter);
+        this.mvpPresenter.onViewBinded();
+    }
+
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onPause() {
+        getMvpPresenter().onViewUnbinded();
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        getMvpPresenter().onDestroy();
+        super.onDestroy();
     }
 
     private void setMvpPresenter(Bundle args) {

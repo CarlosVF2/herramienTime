@@ -3,10 +3,12 @@ package android.com.herramientime.domain;
 import android.app.Application;
 import android.com.herramientime.modules.domain.injection.MainActivityComponent;
 import android.com.herramientime.modules.domain.injection.MainActivityModule;
+import android.com.herramientime.modules.herramientas.injection.HerramientaDetalleFragmentComponent;
+import android.com.herramientime.modules.herramientas.injection.HerramientaDetalleFragmentModule;
 import android.com.herramientime.modules.herramientas.injection.HerramientasFragmentComponent;
 import android.com.herramientime.modules.herramientas.injection.HerramientasFragmentModule;
 
-import dagger.Provides;
+import com.seidor.core.di.annotations.Provides;
 
 /**
  * Created by carlo 06/11/2018
@@ -16,15 +18,20 @@ public class ComponentDependencies extends ModuleDependencies {
 
     private MainActivityComponent mainActivityComponent;
     private HerramientasFragmentComponent herramientasFragmentComponent;
+    private HerramientaDetalleFragmentComponent herramientaDetalleFragmentComponent;
 
     public ComponentDependencies(Application application) {
         super(application);
         setupMainActivityComponent(getMainActivityModule());
         setupHerramientasFragmentComponent(getHerramientasFragmentModule());
+        setupHerramientaDetalleFragmentComponent(getHerramientaDetalleFragmentModule());
     }
 
-
     //region Setup
+
+    private void setupHerramientaDetalleFragmentComponent(HerramientaDetalleFragmentModule herramientaDetalleFragmentModule) {
+        herramientaDetalleFragmentComponent = new HerramientaDetalleFragmentComponent(herramientaDetalleFragmentModule);
+    }
 
     private void setupMainActivityComponent(MainActivityModule mainActivityModule) {
         mainActivityComponent = new MainActivityComponent(mainActivityModule);
@@ -46,6 +53,11 @@ public class ComponentDependencies extends ModuleDependencies {
     @Provides
     public HerramientasFragmentComponent getHerramientasFragmentComponent() {
         return herramientasFragmentComponent;
+    }
+
+    @Provides
+    public HerramientaDetalleFragmentComponent getHerramientaDetalleFragmentComponent() {
+        return herramientaDetalleFragmentComponent;
     }
 
     //endregion Get

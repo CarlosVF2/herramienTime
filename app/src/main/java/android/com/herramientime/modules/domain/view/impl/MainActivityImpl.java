@@ -38,4 +38,10 @@ public class MainActivityImpl
     }
 
     //endregion Lifecycle core
+
+
+    @Override
+    public void onBackPressed() {
+        getMvpActivityPresenter().onBackPressed();
+    }
 }

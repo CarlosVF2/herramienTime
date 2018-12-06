@@ -4,18 +4,29 @@ import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.herramientime.modules.herramientas.interactor.HerramientasFragmentInteractor;
 import android.com.herramientime.modules.herramientas.repository.HerramientasFragmentRepository;
 
+import com.seidor.core.task.executor.future.ResponseFuture;
+import com.seidor.core.task.executor.interactor.TaskInteractorImpl;
+import com.seidor.core.utils.scheduler.UiScheduler;
+
 import java.util.List;
+import java.util.concurrent.Callable;
 
-public class HerramientasFragmentInteractorImpl implements HerramientasFragmentInteractor {
+public class HerramientasFragmentInteractorImpl extends TaskInteractorImpl implements HerramientasFragmentInteractor {
 
-    private HerramientasFragmentRepository herramientasFragmentRepository;
+    private final HerramientasFragmentRepository herramientasFragmentRepository;
 
-    public HerramientasFragmentInteractorImpl(HerramientasFragmentRepository herramientasFragmentRepository) {
+    public HerramientasFragmentInteractorImpl(UiScheduler scheduler, HerramientasFragmentRepository herramientasFragmentRepository) {
+        super(scheduler);
         this.herramientasFragmentRepository = herramientasFragmentRepository;
     }
 
     @Override
-    public List<Herramienta> getHerramientas() {
-        return herramientasFragmentRepository.getHerramientas();
+    public ResponseFuture<List<Herramienta>> getHerramientas() {
+        return prepare(new Callable<List<Herramienta>>() {
+            @Override
+            public List<Herramienta> call() throws Exception {
+                return herramientasFragmentRepository.getHerramientas();
+            }
+        });
     }
 }

@@ -21,8 +21,10 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.seidor.core.di.annotations.Provides;
+import com.seidor.core.utils.domain.DependencyInjection;
+import com.seidor.core.utils.injection.SchedulerFactory;
 
-import dagger.Provides;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -30,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by carlo on 06/11/2018.
  */
 
-public abstract class DependencyInjectionImpl {
+public abstract class DependencyInjectionImpl extends DependencyInjection {
 
     private NavigationManager navigationManager;
     private PresenterFactory presenterFactory;
@@ -42,13 +44,13 @@ public abstract class DependencyInjectionImpl {
     private Processors processors;
 
     public DependencyInjectionImpl(Application application) {
-        /* THIS CLASS INVOKES: */
+        super(application);
         setupConstantsDependency();
         setupPresenterFactoryDependency();
         setupProcessors();
         setupRestApiServiceHelper(application.getApplicationContext());
         setupRepositoryFactoryDependency(application.getApplicationContext(), presenterFactory, getRestApiServiceHelper(), getProcessors());
-        setupInteractorFactoryDependency(getRepositoryFactoryInstance());
+        setupInteractorFactoryDependency(getRepositoryFactoryInstance(), getSchedulerFactoryInstance());
         setupViewFactoryDependency(application.getApplicationContext());
         setupNavigationManagerDependency(application, getViewFactoryInstance(), getPresenterFactory(), application.getApplicationContext());
     }
@@ -72,8 +74,8 @@ public abstract class DependencyInjectionImpl {
         viewFactory = new ViewFactoryImpl(context);
     }
 
-    private void setupInteractorFactoryDependency(RepositoryFactory repositoryFactory) {
-        interactorFactory = new InteractorFactoryImpl(repositoryFactory);
+    private void setupInteractorFactoryDependency(RepositoryFactory repositoryFactory, SchedulerFactory schedulerFactory) {
+        interactorFactory = new InteractorFactoryImpl(repositoryFactory, schedulerFactory);
     }
 
     private void setupRepositoryFactoryDependency(Context context, PresenterFactory presenterFactory, RestApiServiceHelper restApiServiceHelper, Processors processors) {

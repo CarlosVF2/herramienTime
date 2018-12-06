@@ -8,6 +8,7 @@ import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.injection.PresenterFactory;
 import android.com.herramientime.injection.ViewFactory;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.herramientas.view.impl.HerramientaDetalleFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientasFragmentImpl;
 import android.content.Context;
 import android.content.Intent;
@@ -70,6 +71,19 @@ public class NavigationManagerImpl implements NavigationManager, Application.Act
         }
     }
 
+    @Override
+    public void navigateToDetalleHerramienta(String idHerramienta) throws LocalException {
+        if (currentActivity != null) {
+            Bundle args = new Bundle();
+            presenterFactory.setupHerramientaDetalleFragmentInstance(args, idHerramienta);
+            HerramientaDetalleFragmentImpl fragment = viewFactory.newHerramientaDetalleFragmentInstance();
+            fragment.setArguments(args);
+            open(currentActivity.getSupportFragmentManager(), fragment, null);
+        } else {
+            throw new LocalException(context.getString(R.string.error_activity_not_prepared));
+        }
+    }
+
     //endregion Herramientas
 
     //region NavigateBack
@@ -103,6 +117,15 @@ public class NavigationManagerImpl implements NavigationManager, Application.Act
     public boolean isFragmentAttached() throws LocalException {
         if (currentActivity != null) {
             return isFragmentAttached(currentActivity.getSupportFragmentManager());
+        } else {
+            throw new LocalException(context.getString(R.string.error_activity_not_prepared));
+        }
+    }
+
+    @Override
+    public boolean isRootFragment() throws LocalException {
+        if (currentActivity != null) {
+            return currentActivity.getSupportFragmentManager().getBackStackEntryCount() == 1;
         } else {
             throw new LocalException(context.getString(R.string.error_activity_not_prepared));
         }

@@ -5,6 +5,7 @@ import android.com.herramientime.injection.Constants;
 import android.com.herramientime.injection.InteractorFactory;
 import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.modules.domain.injection.MainActivityModule;
+import android.com.herramientime.modules.herramientas.injection.HerramientaDetalleFragmentModule;
 import android.com.herramientime.modules.herramientas.injection.HerramientasFragmentModule;
 
 
@@ -16,11 +17,14 @@ public abstract class ModuleDependencies extends DependencyInjectionImpl {
 
     private MainActivityModule mainActivityModule;
     private HerramientasFragmentModule herramientasFragmentModule;
+    private HerramientaDetalleFragmentModule herramientaDetalleFragmentModule;
 
     public ModuleDependencies(Application application) {
         super(application);
         setupMainActivityModule(getConstantsInstance(), getInteractorFactoryInstance(), getNavigationManager());
-        setupHerramientasFragmentModule(getConstantsInstance(), getInteractorFactoryInstance());
+        setupHerramientasFragmentModule(getNavigationManager(), getInteractorFactoryInstance());
+        setupHerramientaDetalleFragmentModule(getInteractorFactoryInstance());
+
     }
 
     //region setup
@@ -29,8 +33,12 @@ public abstract class ModuleDependencies extends DependencyInjectionImpl {
         mainActivityModule = new MainActivityModule(constants, interactorFactory, navigationManager);
     }
 
-    private void setupHerramientasFragmentModule(Constants constants, InteractorFactory interactorFactory) {
-        herramientasFragmentModule = new HerramientasFragmentModule(constants, interactorFactory);
+    private void setupHerramientasFragmentModule(NavigationManager navigationManager, InteractorFactory interactorFactory) {
+        herramientasFragmentModule = new HerramientasFragmentModule(navigationManager, interactorFactory);
+    }
+
+    private void setupHerramientaDetalleFragmentModule(InteractorFactory interactorFactory) {
+        herramientaDetalleFragmentModule = new HerramientaDetalleFragmentModule(interactorFactory);
     }
 
     //endregion setup
@@ -43,6 +51,10 @@ public abstract class ModuleDependencies extends DependencyInjectionImpl {
 
     protected HerramientasFragmentModule getHerramientasFragmentModule() {
         return herramientasFragmentModule;
+    }
+
+    protected HerramientaDetalleFragmentModule getHerramientaDetalleFragmentModule(){
+        return herramientaDetalleFragmentModule;
     }
 
     //endregion GET

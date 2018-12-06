@@ -22,9 +22,10 @@ public class MvpActivityImpl<PRESENTER extends MvpActivityPresenter> extends Fra
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        mvpPresenter.onViewBinded();
+        this.setMvpActivityPresenter(this.mvpPresenter);
+        this.mvpPresenter.onViewBinded();
     }
 
     @SuppressLint("WrongConstant")

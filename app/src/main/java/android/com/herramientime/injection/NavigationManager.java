@@ -14,6 +14,7 @@ public interface NavigationManager {
 
     //Herramientas
     void navigateToHerramientas() throws LocalException;
+    void navigateToDetalleHerramienta(String idHerramienta) throws LocalException;
 
     //Gestionar ir hacia atrás con Fragment
     void navigateBack() throws LocalException;
@@ -24,4 +25,5 @@ public interface NavigationManager {
     boolean isFragmentAttached() throws LocalException;
 
 
+    boolean isRootFragment() throws LocalException;
 }

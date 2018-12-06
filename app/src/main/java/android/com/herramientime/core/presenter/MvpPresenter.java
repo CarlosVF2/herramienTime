@@ -32,4 +32,14 @@ public interface MvpPresenter {
      * Método para limpiar dependencias al destruir el presenter.
      */
     void onDestroy();
+
+    /**
+     * Metodo para ejecutar las cargas en la vista
+     */
+    void onDataLoaded();
+
+    /**
+     * Metodo para determinar cuando la pantalla ha terminado la carga y representar en la vista
+     */
+    boolean isLoadingFinish();
 }

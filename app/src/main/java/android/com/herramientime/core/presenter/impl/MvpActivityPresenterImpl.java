@@ -5,27 +5,25 @@ import android.com.herramientime.core.view.MvpActivity;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 
-public class MvpActivityPresenterImpl<ACTIVITY extends MvpActivity> implements MvpActivityPresenter {
+public abstract class MvpActivityPresenterImpl<ACTIVITY extends MvpActivity> implements MvpActivityPresenter {
 
     private ACTIVITY mvpActivity;
 
     @Override
-    @CallSuper
-    public void onViewBinded() {
+    public abstract void onViewBinded();
 
+    @Override
+    public void onViewUnbinded(){
+        mvpActivity = null;
     }
 
     @Override
-    @CallSuper
-    public void onViewUnbinded() {
-
+    public void onDestroy(){
+        mvpActivity = null;
     }
 
     @Override
-    @CallSuper
-    public void onDestroy() {
-
-    }
+    public abstract boolean isLoadingFinish();
 
     @Override
     public void setMvpActivity(@NonNull MvpActivity mvpActivity) {
