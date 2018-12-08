@@ -17,6 +17,8 @@ public class Herramienta {
     private String simboloMoneda;
     private String resumen;
     private String moneda;
+    private String precioText;
+    private Double precio;
 
     //region GET
 
@@ -70,6 +72,14 @@ public class Herramienta {
 
     public String getMoneda() {
         return moneda;
+    }
+
+    public String getPrecioText() {
+        return precioText;
+    }
+
+    public Double getPrecio() {
+        return precio;
     }
 
     //endregion GET
@@ -126,6 +136,14 @@ public class Herramienta {
 
     public void setMoneda(String moneda) {
         this.moneda = moneda;
+    }
+
+    public void setPrecioText(String precioText) {
+        this.precioText = precioText;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
     }
 
     //endregion SET

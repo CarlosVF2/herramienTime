@@ -32,6 +32,8 @@ public class ProcessorHerramienta {
         herramienta.setSimboloMoneda(from.getSimboloMoneda());
         herramienta.setResumen(from.getResumen());
         herramienta.setMoneda(from.getMoneda());
+        herramienta.setPrecioText(from.getPrecio());
+        herramienta.setPrecio(Double.valueOf(from.getPrecio()));
         return herramienta;
     }
 

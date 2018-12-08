@@ -20,7 +20,12 @@ public class ProcessorExperiencia {
         Experiencia experiencia = new Experiencia();
         experiencia.setId(from.getId());
         experiencia.setIdUsuario(from.getIdUsuario());
-        experiencia.setTitulo(from.getTitulo());
+        experiencia.setDescripcion(from.getDescripcion());
+        experiencia.setResumen(from.getResumen());
+        experiencia.setUrlImagen(from.getUrlImagen());
+        experiencia.setMoneda(from.getMoneda());
+        experiencia.setPrecioHora(from.getPrecioHora());
+        experiencia.setSimboloMoneda(from.getSimboloMoneda());
         return experiencia;
     }
 

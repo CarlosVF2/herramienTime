@@ -1,6 +1,8 @@
 package android.com.herramientime.injection;
 
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
+import android.com.herramientime.modules.experiencias.repository.ExperienciaDetalleFragmentRepository;
+import android.com.herramientime.modules.experiencias.repository.ExperienciasFragmentRepository;
 import android.com.herramientime.modules.herramientas.repository.HerramientaDetalleFragmentRepository;
 import android.com.herramientime.modules.herramientas.repository.HerramientasFragmentRepository;
 
@@ -12,7 +14,12 @@ public interface RepositoryFactory {
     //Main
     MainActivityRepository getMainActivityRepository();
 
-    //Harramientas
+    //Herramientas
     HerramientasFragmentRepository getHerramientasFragmentRepository();
     HerramientaDetalleFragmentRepository getHerramientaDetalleFragmentRepository();
+
+    //Experiencias
+    ExperienciasFragmentRepository getExperienciasFragmentRepository();
+
+    ExperienciaDetalleFragmentRepository getExperienciaDetalleFragmentRepository();
 }

@@ -1,9 +1,9 @@
 package android.com.rest;
 
+import android.com.rest.entities.ExperienciaRest;
 import android.com.rest.entities.HerramientaRest;
 import android.com.rest.entities.InternetException;
 
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.BufferedReader;
@@ -43,9 +43,28 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
     @Override
     public List<HerramientaRest> getHerramientas() throws InternetException {
         checkConnectivity();
-        DatabaseReference mFirebaseDatabase = mFirebaseInstance.getReference("Herramientas");
         try {
             Response<List<HerramientaRest>> response = restApiService.getHerramientas().execute();
+
+            if (response.isSuccessful()) {
+                if (response.body() != null) {
+                    return response.body();
+                } else {
+                    return new ArrayList<>();
+                }
+            } else {
+                return null;
+            }
+        } catch (IOException ex) {
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<ExperienciaRest> getExperiencias() throws InternetException {
+        checkConnectivity();
+        try {
+            Response<List<ExperienciaRest>> response = restApiService.getExperiencias().execute();
 
             if (response.isSuccessful()) {
                 if (response.body() != null) {

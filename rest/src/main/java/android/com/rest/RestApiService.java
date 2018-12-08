@@ -1,5 +1,6 @@
 package android.com.rest;
 
+import android.com.rest.entities.ExperienciaRest;
 import android.com.rest.entities.HerramientaRest;
 
 import java.util.List;
@@ -16,4 +17,7 @@ import retrofit2.http.GET;
 public interface RestApiService {
     @GET("/Herramientas.json")
     Call<List<HerramientaRest>> getHerramientas();
+
+    @GET("/Experiencias.json")
+    Call<List<ExperienciaRest>> getExperiencias();
 }

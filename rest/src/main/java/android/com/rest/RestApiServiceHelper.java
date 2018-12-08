@@ -1,6 +1,7 @@
 package android.com.rest;
 
 
+import android.com.rest.entities.ExperienciaRest;
 import android.com.rest.entities.HerramientaRest;
 import android.com.rest.entities.InternetException;
 
@@ -15,4 +16,6 @@ import java.util.List;
 public interface RestApiServiceHelper {
 
     List<HerramientaRest> getHerramientas() throws InternetException;
+
+    List<ExperienciaRest> getExperiencias() throws InternetException;
 }

@@ -124,6 +124,11 @@ public class MainActivityPresenterImpl<VIEW extends MainActivity> extends MvpAct
         if (view != null) {
             view.closeDrawer();
         }
+        try {
+            navigationManager.navigateToExperiencias();
+        } catch (LocalException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

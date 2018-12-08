@@ -5,6 +5,10 @@ import android.com.herramientime.injection.PresenterFactory;
 import android.com.herramientime.injection.RepositoryFactory;
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
 import android.com.herramientime.modules.domain.repository.impl.MainActivityRepositoryImpl;
+import android.com.herramientime.modules.experiencias.repository.ExperienciaDetalleFragmentRepository;
+import android.com.herramientime.modules.experiencias.repository.ExperienciasFragmentRepository;
+import android.com.herramientime.modules.experiencias.repository.impl.ExperienciaDetalleFragmentRepositoryImpl;
+import android.com.herramientime.modules.experiencias.repository.impl.ExperienciasFragmentRepositoryImpl;
 import android.com.herramientime.modules.herramientas.repository.HerramientaDetalleFragmentRepository;
 import android.com.herramientime.modules.herramientas.repository.HerramientasFragmentRepository;
 import android.com.herramientime.modules.herramientas.repository.impl.HerramientaDetalleFragmentRepositoryImpl;
@@ -43,5 +47,15 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
     @Override
     public HerramientaDetalleFragmentRepository getHerramientaDetalleFragmentRepository() {
         return new HerramientaDetalleFragmentRepositoryImpl(processors.getProcessorHerramienta(), restApiServiceHelper, context.getResources());
+    }
+
+    @Override
+    public ExperienciasFragmentRepository getExperienciasFragmentRepository() {
+        return new ExperienciasFragmentRepositoryImpl(processors.getProcessorExperiencia(), restApiServiceHelper);
+    }
+
+    @Override
+    public ExperienciaDetalleFragmentRepository getExperienciaDetalleFragmentRepository() {
+        return new ExperienciaDetalleFragmentRepositoryImpl(processors.getProcessorExperiencia(), restApiServiceHelper, context.getResources());
     }
 }

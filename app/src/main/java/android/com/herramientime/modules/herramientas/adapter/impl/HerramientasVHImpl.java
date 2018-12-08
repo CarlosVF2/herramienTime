@@ -1,8 +1,8 @@
 package android.com.herramientime.modules.herramientas.adapter.impl;
 
 import android.com.herramientime.R;
-import android.com.herramientime.modules.herramientas.adapter.HerramientasVHListener;
 import android.com.herramientime.modules.herramientas.adapter.HerramientasVH;
+import android.com.herramientime.modules.herramientas.adapter.HerramientasVHListener;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.content.Context;
 import android.support.v7.widget.CardView;
@@ -17,6 +17,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 public class HerramientasVHImpl<DATA extends Herramienta> extends RecyclerView.ViewHolder implements HerramientasVH<DATA>, View.OnClickListener {
 
     private TextView textViewNombreHerramienta;
+    private TextView textViewPrecioExperiencia;
     private ImageView imageViewReservada;
     private ImageView imageViewHerramienta;
     private CardView carViewContainer;
@@ -26,6 +27,7 @@ public class HerramientasVHImpl<DATA extends Herramienta> extends RecyclerView.V
     public HerramientasVHImpl(View itemView, Context context, HerramientasVHListener listener) {
         super(itemView);
         textViewNombreHerramienta = itemView.findViewById(R.id.textViewNombreHerramienta);
+        textViewPrecioExperiencia = itemView.findViewById(R.id.textViewPrecioExperiencia);
         imageViewReservada = itemView.findViewById(R.id.imageViewReservada);
         imageViewHerramienta = itemView.findViewById(R.id.imageViewHerramienta);
         carViewContainer = itemView.findViewById(R.id.carViewContainer);
@@ -37,6 +39,11 @@ public class HerramientasVHImpl<DATA extends Herramienta> extends RecyclerView.V
     @Override
     public void setNombreHerramienta(String text) {
         textViewNombreHerramienta.setText(text);
+    }
+
+    @Override
+    public void setPrecioExperiencia(String text) {
+        textViewPrecioExperiencia.setText(text);
     }
 
     @Override

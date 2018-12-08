@@ -8,6 +8,8 @@ import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.injection.PresenterFactory;
 import android.com.herramientime.injection.ViewFactory;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.experiencias.view.impl.ExperienciaDetalleFragmentImpl;
+import android.com.herramientime.modules.experiencias.view.impl.ExperienciasFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientaDetalleFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientasFragmentImpl;
 import android.content.Context;
@@ -46,14 +48,14 @@ public class NavigationManagerImpl implements NavigationManager, Application.Act
         application.registerActivityLifecycleCallbacks(this);
     }
 
-    //region HerramientasFragment
+    //region ExperienciasFragment
     @Override
     public void navigateToMainActivity() {
         Intent intent = new Intent(viewFactory.getMainActivityIntent());
         presenterFactory.setupMainActivityIntent(intent);
         context.startActivity(intent);
     }
-    //endregion HerramientasFragment
+    //endregion ExperienciasFragment
 
     //region Herramientas
 
@@ -85,6 +87,37 @@ public class NavigationManagerImpl implements NavigationManager, Application.Act
     }
 
     //endregion Herramientas
+
+    //region Experiencias
+
+    @Override
+    public void navigateToExperiencias() throws LocalException {
+        if (currentActivity != null) {
+            navigateToRoot(currentActivity.getSupportFragmentManager());
+            Bundle args = new Bundle();
+            presenterFactory.setupExperienciasFragmentInstance(args);
+            ExperienciasFragmentImpl fragment = viewFactory.newExperienciasFragmentInstance();
+            fragment.setArguments(args);
+            open(currentActivity.getSupportFragmentManager(), fragment, null);
+        } else {
+            throw new LocalException(context.getString(R.string.error_activity_not_prepared));
+        }
+    }
+
+    @Override
+    public void navigateToDetalleExperiencia(String idHerramienta) throws LocalException {
+        if (currentActivity != null) {
+            Bundle args = new Bundle();
+            presenterFactory.setupExperienciaDetalleFragmentInstance(args, idHerramienta);
+            ExperienciaDetalleFragmentImpl fragment = viewFactory.newExperienciaDetalleFragmentInstance();
+            fragment.setArguments(args);
+            open(currentActivity.getSupportFragmentManager(), fragment, null);
+        } else {
+            throw new LocalException(context.getString(R.string.error_activity_not_prepared));
+        }
+    }
+
+    //endregion Experiencias
 
     //region NavigateBack
 

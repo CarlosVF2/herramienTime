@@ -3,6 +3,10 @@ package android.com.herramientime.domain;
 import android.app.Application;
 import android.com.herramientime.modules.domain.injection.MainActivityComponent;
 import android.com.herramientime.modules.domain.injection.MainActivityModule;
+import android.com.herramientime.modules.experiencias.injection.ExperienciaDetalleFragmentComponent;
+import android.com.herramientime.modules.experiencias.injection.ExperienciaDetalleFragmentModule;
+import android.com.herramientime.modules.experiencias.injection.ExperienciasFragmentComponent;
+import android.com.herramientime.modules.experiencias.injection.ExperienciasFragmentModule;
 import android.com.herramientime.modules.herramientas.injection.HerramientaDetalleFragmentComponent;
 import android.com.herramientime.modules.herramientas.injection.HerramientaDetalleFragmentModule;
 import android.com.herramientime.modules.herramientas.injection.HerramientasFragmentComponent;
@@ -19,15 +23,27 @@ public class ComponentDependencies extends ModuleDependencies {
     private MainActivityComponent mainActivityComponent;
     private HerramientasFragmentComponent herramientasFragmentComponent;
     private HerramientaDetalleFragmentComponent herramientaDetalleFragmentComponent;
+    private ExperienciasFragmentComponent experienciasFragmentComponent;
+    private ExperienciaDetalleFragmentComponent experienciaDetalleFragmentComponent;
 
     public ComponentDependencies(Application application) {
         super(application);
         setupMainActivityComponent(getMainActivityModule());
         setupHerramientasFragmentComponent(getHerramientasFragmentModule());
         setupHerramientaDetalleFragmentComponent(getHerramientaDetalleFragmentModule());
+        setupExperienciasFragmentComponent(getExperienciasFragmentModule());
+        setupExperienciaDetalleFragmentComponent(getExperienciaDetalleFragmentModule());
     }
 
     //region Setup
+
+    private void setupExperienciaDetalleFragmentComponent(ExperienciaDetalleFragmentModule experienciaDetalleFragmentModule) {
+        experienciaDetalleFragmentComponent = new ExperienciaDetalleFragmentComponent(experienciaDetalleFragmentModule);
+    }
+
+    private void setupExperienciasFragmentComponent(ExperienciasFragmentModule experienciasFragmentModule) {
+        experienciasFragmentComponent = new ExperienciasFragmentComponent(experienciasFragmentModule);
+    }
 
     private void setupHerramientaDetalleFragmentComponent(HerramientaDetalleFragmentModule herramientaDetalleFragmentModule) {
         herramientaDetalleFragmentComponent = new HerramientaDetalleFragmentComponent(herramientaDetalleFragmentModule);
@@ -58,6 +74,16 @@ public class ComponentDependencies extends ModuleDependencies {
     @Provides
     public HerramientaDetalleFragmentComponent getHerramientaDetalleFragmentComponent() {
         return herramientaDetalleFragmentComponent;
+    }
+
+    @Provides
+    public ExperienciasFragmentComponent getExperienciasFragmentComponent() {
+        return experienciasFragmentComponent;
+    }
+
+    @Provides
+    public ExperienciaDetalleFragmentComponent getExperienciaDetalleFragmentComponent() {
+        return experienciaDetalleFragmentComponent;
     }
 
     //endregion Get

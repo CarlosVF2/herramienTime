@@ -1,8 +1,8 @@
 package android.com.herramientime.modules.herramientas.adapter.impl;
 
 import android.com.herramientime.R;
-import android.com.herramientime.modules.herramientas.adapter.HerramientasVHListener;
 import android.com.herramientime.modules.herramientas.adapter.HerramientasAdapter;
+import android.com.herramientime.modules.herramientas.adapter.HerramientasVHListener;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -37,6 +37,7 @@ public class HerramientasAdapterImpl<MODEL extends Herramienta> extends Recycler
         MODEL model = mAdapterData.get(position);
         holder.setNombreHerramienta(model.getDescripcion());
         holder.setReservadaVisibility(model.isReservada());
+        holder.setPrecioExperiencia(model.getPrecioText() + model.getSimboloMoneda());
         if(!TextUtils.isEmpty(model.getUrlImagen())) {
             holder.setImagenHerramienta(model.getUrlImagen());
         }

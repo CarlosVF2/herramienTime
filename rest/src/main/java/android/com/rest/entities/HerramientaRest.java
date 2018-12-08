@@ -40,6 +40,9 @@ public class HerramientaRest{
 	@SerializedName("urlImagen")
 	private String urlImagen;
 
+    @SerializedName("precio")
+    private String precio;
+
     public HerramientaRest(String id) {
         this.id = id;
     }
@@ -134,6 +137,14 @@ public class HerramientaRest{
 	public String getUrlImagen(){
 		return urlImagen;
 	}
+
+    public String getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(String precio) {
+        this.precio = precio;
+    }
 
     @Override
     public boolean equals(Object o) {

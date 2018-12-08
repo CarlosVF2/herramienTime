@@ -1,6 +1,8 @@
 package android.com.herramientime.injection;
 
 
+import android.com.herramientime.modules.experiencias.view.impl.ExperienciaDetalleFragmentImpl;
+import android.com.herramientime.modules.experiencias.view.impl.ExperienciasFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientaDetalleFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientasFragmentImpl;
 import android.content.Intent;
@@ -11,12 +13,15 @@ import android.content.Intent;
 
 public interface ViewFactory {
 
-    //HerramientasFragment
+    //ExperienciasFragment
     Intent getMainActivityIntent();
 
     //Herramientas
     HerramientasFragmentImpl newHerramientasFragmentInstance();
     HerramientaDetalleFragmentImpl newHerramientaDetalleFragmentInstance();
 
+    //Experiencias
+    ExperienciasFragmentImpl newExperienciasFragmentInstance();
 
+    ExperienciaDetalleFragmentImpl newExperienciaDetalleFragmentInstance();
 }

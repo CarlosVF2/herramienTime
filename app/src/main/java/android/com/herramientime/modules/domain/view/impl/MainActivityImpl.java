@@ -4,6 +4,8 @@ import android.com.herramientime.R;
 import android.com.herramientime.core.view.impl.MvpActivityImpl;
 import android.com.herramientime.modules.domain.presenter.MainActivityPresenter;
 import android.com.herramientime.modules.domain.view.MainActivity;
+import android.com.herramientime.modules.experiencias.view.ExperienciaDetalleFragment;
+import android.com.herramientime.modules.experiencias.view.ExperienciasFragment;
 import android.com.herramientime.modules.herramientas.view.HerramientaDetalleFragment;
 import android.com.herramientime.modules.herramientas.view.HerramientasFragment;
 import android.content.DialogInterface;
@@ -200,6 +202,11 @@ public class MainActivityImpl
             Fragment f = getSupportFragmentManager().findFragmentById(R.id.mainFragment);
             if (f instanceof HerramientasFragment || f instanceof HerramientaDetalleFragment) {
                 MenuItem m = navigationView.getMenu().findItem(R.id.nav_herramientas);
+                if (m != null) {
+                    m.setChecked(true);
+                }
+            } else if (f instanceof ExperienciasFragment || f instanceof ExperienciaDetalleFragment) {
+                MenuItem m = navigationView.getMenu().findItem(R.id.nav_experiencias);
                 if (m != null) {
                     m.setChecked(true);
                 }

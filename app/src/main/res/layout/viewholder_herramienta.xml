@@ -17,7 +17,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_margin="5dp"
-            android:src="@drawable/ic_menu_camera" />
+            android:src="@drawable/ic_not_interested_black_24dp" />
 
         <TextView
             android:id="@+id/textViewNombreHerramienta"
@@ -36,6 +36,14 @@
             android:layout_centerInParent="true"
             android:src="@drawable/ic_menu_camera" />
 
+        <TextView
+            android:id="@+id/textViewPrecioExperiencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/imageViewHerramienta"
+            android:layout_marginTop="5dp"
+            tools:text="20€" />
 
     </RelativeLayout>
 

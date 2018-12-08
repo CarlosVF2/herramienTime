@@ -15,4 +15,6 @@
     <string name="nav_mensajes">Mensajes</string>
     <string name="nav_ayuda">Ayuda</string>
     <string name="nav_group_ajustes">Ajustes</string>
+    <string name="error_not_found_experiencia">No se ha encontrado la experiencia seleccionada</string>
+    <string name="title_experiencias">Experiencias</string>
 </resources>

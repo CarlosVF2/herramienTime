@@ -68,8 +68,8 @@ public class HerramientaDetalleFragmentPresenterImpl<FRAGMENT extends Herramient
                 }
                 fragment.setImageHerramienta(presenterStatus.getHerramienta().getUrlImagen());
                 fragment.setDescripcion(presenterStatus.getHerramienta().getDescripcion());
-                fragment.setPrecio("20 €");
-                fragment.setResumen("Resumen muy largo en el que te digo 4 tonterias y te vendo la moto para que tu te lo creas y todos estemos contentisismos");
+                fragment.setPrecio(presenterStatus.getHerramienta().getMoneda());
+                fragment.setResumen(presenterStatus.getHerramienta().getResumen());
                 fragment.onLoaded();
             }
         }

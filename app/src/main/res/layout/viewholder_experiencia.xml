@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/carViewContainer"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textViewNombreExperiencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="5dp"
+            tools:text="Martillo" />
+
+        <ImageView
+            android:id="@+id/imageViewExperiencia"
+            android:layout_width="@dimen/dimen_image_herramienta"
+            android:layout_height="@dimen/dimen_image_herramienta"
+            android:layout_below="@+id/textViewNombreHerramienta"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_menu_camera" />
+
+        <TextView
+            android:id="@+id/textViewPrecioExperiencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/imageViewExperiencia"
+            android:layout_marginTop="5dp"
+            tools:text="20€" />
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

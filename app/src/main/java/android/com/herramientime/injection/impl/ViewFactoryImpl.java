@@ -2,6 +2,8 @@ package android.com.herramientime.injection.impl;
 
 import android.com.herramientime.injection.ViewFactory;
 import android.com.herramientime.modules.domain.view.impl.MainActivityImpl;
+import android.com.herramientime.modules.experiencias.view.impl.ExperienciaDetalleFragmentImpl;
+import android.com.herramientime.modules.experiencias.view.impl.ExperienciasFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientaDetalleFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientasFragmentImpl;
 import android.content.Context;
@@ -34,6 +36,18 @@ public class ViewFactoryImpl implements ViewFactory {
     @Override
     public HerramientaDetalleFragmentImpl newHerramientaDetalleFragmentInstance() {
         HerramientaDetalleFragmentImpl fragment = new HerramientaDetalleFragmentImpl();
+        return fragment;
+    }
+
+    @Override
+    public ExperienciasFragmentImpl newExperienciasFragmentInstance() {
+        ExperienciasFragmentImpl fragment = new ExperienciasFragmentImpl();
+        return fragment;
+    }
+
+    @Override
+    public ExperienciaDetalleFragmentImpl newExperienciaDetalleFragmentInstance() {
+        ExperienciaDetalleFragmentImpl fragment = new ExperienciaDetalleFragmentImpl();
         return fragment;
     }
 }
