@@ -2,6 +2,7 @@
 package android.com.herramientime.core.presenter;
 
 import android.com.herramientime.core.view.MvpFragment;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 /**
@@ -9,4 +10,6 @@ import android.support.annotation.NonNull;
  */
 public interface MvpFragmentPresenter extends MvpPresenter {
     void setMvpFragment(@NonNull MvpFragment mvpFragment);
+
+    void setParams(Bundle bundle);
 }

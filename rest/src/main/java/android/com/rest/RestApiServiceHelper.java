@@ -15,5 +15,4 @@ import java.util.List;
 public interface RestApiServiceHelper {
 
     List<HerramientaRest> getHerramientas() throws InternetException;
-
 }

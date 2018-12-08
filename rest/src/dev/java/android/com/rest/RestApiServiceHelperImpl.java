@@ -3,6 +3,9 @@ package android.com.rest;
 import android.com.rest.entities.HerramientaRest;
 import android.com.rest.entities.InternetException;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,9 +21,11 @@ import retrofit2.Retrofit;
 public class RestApiServiceHelperImpl implements RestApiServiceHelper {
     private Retrofit.Builder retroFitBuilder;
     private RestApiService restApiService;
+    private FirebaseDatabase mFirebaseInstance;
 
     public RestApiServiceHelperImpl(Retrofit.Builder retroFitBuilder) {
         this.retroFitBuilder = retroFitBuilder;
+        mFirebaseInstance = FirebaseDatabase.getInstance();
     }
 
     private OkHttpClient getclientToken() {
@@ -38,6 +43,7 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
     @Override
     public List<HerramientaRest> getHerramientas() throws InternetException {
         checkConnectivity();
+        DatabaseReference mFirebaseDatabase = mFirebaseInstance.getReference("Herramientas");
         try {
             Response<List<HerramientaRest>> response = restApiService.getHerramientas().execute();
 

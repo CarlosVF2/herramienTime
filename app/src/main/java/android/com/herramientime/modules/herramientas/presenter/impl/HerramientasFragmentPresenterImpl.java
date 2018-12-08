@@ -121,6 +121,9 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
 
     //region ResponseFuture
     private void startGetHerramientas(){
+        if (responseFutureHerramientas != null) {
+            responseFutureHerramientas.cancel(true);
+        }
         responseFutureHerramientas = herramientasFragmentInteractor.getHerramientas().onData(new OnData<List<Herramienta>>() {
             @Override
             public void onData(List<Herramienta> herramientas) {

@@ -1,5 +1,7 @@
 package android.com.herramientime.modules.herramientas.entities;
 
+import java.util.Date;
+
 public class Herramienta {
 
     private String descripcion;
@@ -8,6 +10,13 @@ public class Herramienta {
     private String id;
     private String nombreUsuario;
     private String urlImagen;
+    private String fechaFinTexto;
+    private Date fechaFin;
+    private String fechaInicioTexto;
+    private Date fechaInicio;
+    private String simboloMoneda;
+    private String resumen;
+    private String moneda;
 
     //region GET
 
@@ -34,6 +43,35 @@ public class Herramienta {
     public String getUrlImagen() {
         return urlImagen;
     }
+
+    public String getFechaFinTexto() {
+        return fechaFinTexto;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public String getFechaInicioTexto() {
+        return fechaInicioTexto;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public String getSimboloMoneda() {
+        return simboloMoneda;
+    }
+
+    public String getResumen() {
+        return resumen;
+    }
+
+    public String getMoneda() {
+        return moneda;
+    }
+
     //endregion GET
 
     //region SET
@@ -60,6 +98,34 @@ public class Herramienta {
 
     public void setUrlImagen(String urlImagen) {
         this.urlImagen = urlImagen;
+    }
+
+    public void setFechaFinTexto(String fechaFinTexto) {
+        this.fechaFinTexto = fechaFinTexto;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public void setFechaInicioTexto(String fechaInicioTexto) {
+        this.fechaInicioTexto = fechaInicioTexto;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public void setSimboloMoneda(String simboloMoneda) {
+        this.simboloMoneda = simboloMoneda;
+    }
+
+    public void setResumen(String resumen) {
+        this.resumen = resumen;
+    }
+
+    public void setMoneda(String moneda) {
+        this.moneda = moneda;
     }
 
     //endregion SET

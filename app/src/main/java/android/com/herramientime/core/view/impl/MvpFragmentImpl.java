@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.View;
 
 import static android.com.herramientime.core.presenter.MvpPresenterArgument.EXTRA_PRESENTER_DEFAULT;
 
@@ -22,7 +21,7 @@ public abstract class MvpFragmentImpl<PRESENTER extends MvpFragmentPresenter> ex
 
     public void onResume() {
         super.onResume();
-        this.setMvpActivityPresenter(this.mvpPresenter);
+        this.setMvpFragmentPresenter(this.mvpPresenter);
         this.mvpPresenter.onViewBinded();
     }
 
@@ -41,15 +40,16 @@ public abstract class MvpFragmentImpl<PRESENTER extends MvpFragmentPresenter> ex
     private void setMvpPresenter(Bundle args) {
         try {
             Class c = Class.forName(args.getString(EXTRA_PRESENTER_DEFAULT));
-            setMvpActivityPresenter((PRESENTER) c.newInstance());
+            setMvpFragmentPresenter((PRESENTER) c.newInstance());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void setMvpActivityPresenter(@NonNull MvpFragmentPresenter mvpActivityPresenter) {
+    public void setMvpFragmentPresenter(@NonNull MvpFragmentPresenter mvpActivityPresenter) {
         this.mvpPresenter = (PRESENTER) mvpActivityPresenter;
         this.mvpPresenter.setMvpFragment(this);
+        this.mvpPresenter.setParams(this.getArguments() != null ? new Bundle(this.getArguments()) : new Bundle(new Bundle()));
     }
 
     protected PRESENTER getMvpPresenter() {

@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 
-import com.seidor.core.di.InjectorClass;
-
 public abstract class MvpFragmentPresenterImpl<VIEW extends MvpFragment> implements MvpFragmentPresenter, MvpPresenterArgument {
 
     private VIEW mvpFragment;
@@ -38,6 +36,11 @@ public abstract class MvpFragmentPresenterImpl<VIEW extends MvpFragment> impleme
     @Override
     public void setMvpFragment(@NonNull MvpFragment mvpFragment) {
         this.mvpFragment = (VIEW) mvpFragment;
+    }
+
+    @Override
+    public void setParams(Bundle bundle) {
+
     }
 
     public VIEW getMvpFragment(){

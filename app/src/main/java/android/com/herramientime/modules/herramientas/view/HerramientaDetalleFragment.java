@@ -7,4 +7,16 @@ import android.com.herramientime.core.view.MvpFragment;
  */
 
 public interface HerramientaDetalleFragment extends MvpFragment {
+
+    //region SET text
+
+    void setImageHerramienta(String url);
+
+    void setPrecio(String precio);
+
+    void setDescripcion(String descripcion);
+
+    void setResumen(String resumen);
+
+    //endregion SET text
 }

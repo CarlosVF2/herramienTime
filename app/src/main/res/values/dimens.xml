@@ -7,4 +7,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="dimen_image_herramienta">96dp</dimen>
     <dimen name="dimen_margin_fragment">5dp</dimen>
+    <dimen name="heigt_ppal_image">144dp</dimen>
 </resources>

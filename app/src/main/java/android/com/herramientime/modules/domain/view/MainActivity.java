@@ -7,4 +7,5 @@ import android.com.herramientime.core.view.MvpActivity;
  */
 
 public interface MainActivity extends MvpActivity {
+    void showMessageExitConfirm();
 }

@@ -99,7 +99,6 @@ public class NavigationManagerImpl implements NavigationManager, Application.Act
 
     public void navigateBack(@NonNull Activity activity, @NonNull FragmentManager fragmentManager) {
         if (fragmentManager.getBackStackEntryCount() == 1) {
-            // we can finish the base activity since we have no other fragments
             activity.finish();
         } else {
             fragmentManager.popBackStack();

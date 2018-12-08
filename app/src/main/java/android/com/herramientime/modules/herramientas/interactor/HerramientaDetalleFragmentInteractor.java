@@ -4,8 +4,7 @@ import android.com.herramientime.modules.herramientas.entities.Herramienta;
 
 import com.seidor.core.task.executor.future.ResponseFuture;
 
-import java.util.List;
-
 public interface HerramientaDetalleFragmentInteractor {
 
+    ResponseFuture<Herramienta> getHerramientaById(String idHerramienta);
 }

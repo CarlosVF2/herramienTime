@@ -11,10 +11,7 @@ import android.com.herramientime.modules.domain.presenter.MainActivityPresenter;
 import android.com.herramientime.modules.domain.view.MainActivity;
 import android.content.Intent;
 
-import com.seidor.core.di.InjectorClass;
 import com.seidor.core.di.annotations.Inject;
-
-import java.io.IOException;
 
 /**
  * Created by carlo on 06/11/2018.
@@ -99,10 +96,19 @@ public class MainActivityPresenterImpl<VIEW extends MainActivity> extends MvpAct
 
         try {
             if (navigationManager.isRootFragment()) {
-                //getMvpActivity().showMessageExitConfirm();
+                getMvpActivity().showMessageExitConfirm();
             } else {
                 navigationManager.navigateBack();
             }
+        } catch (LocalException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void exitConfirm() {
+        try {
+            navigationManager.navigateBack();
         } catch (LocalException e) {
             e.printStackTrace();
         }

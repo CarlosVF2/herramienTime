@@ -42,6 +42,6 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
 
     @Override
     public HerramientaDetalleFragmentRepository getHerramientaDetalleFragmentRepository() {
-        return new HerramientaDetalleFragmentRepositoryImpl();
+        return new HerramientaDetalleFragmentRepositoryImpl(processors.getProcessorHerramienta(), restApiServiceHelper, context.getResources());
     }
 }
