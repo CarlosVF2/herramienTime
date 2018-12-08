@@ -2,8 +2,8 @@ package android.com.herramientime.modules.herramientas.view.impl;
 
 import android.com.herramientime.R;
 import android.com.herramientime.core.view.impl.MvpFragmentImpl;
-import android.com.herramientime.modules.herramientas.adapter.HerramientasVHListener;
 import android.com.herramientime.modules.herramientas.adapter.HerramientasAdapter;
+import android.com.herramientime.modules.herramientas.adapter.HerramientasVHListener;
 import android.com.herramientime.modules.herramientas.adapter.impl.HerramientasAdapterImpl;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.herramientime.modules.herramientas.presenter.HerramientasFragmentPresenter;
@@ -13,7 +13,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,6 +35,13 @@ public class HerramientasFragmentImpl
     private RecyclerView recyclerViewHerramienta;
     private GridLayoutManager mLayoutManager;
     private HerramientasAdapter herramientasAdapter;
+    private Toolbar toolbar;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Nullable
     @Override
@@ -58,6 +69,27 @@ public class HerramientasFragmentImpl
             herramientasAdapter = new HerramientasAdapterImpl(getContext());
             recyclerViewHerramienta.setAdapter((RecyclerView.Adapter) herramientasAdapter);
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_herramientas, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_map:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void setTitle(String title) {
+        getActivity().setTitle(title);
     }
 
     //region Core LifeCycle

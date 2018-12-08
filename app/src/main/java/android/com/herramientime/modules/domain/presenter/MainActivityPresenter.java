@@ -10,4 +10,16 @@ public interface MainActivityPresenter extends MvpActivityPresenter {
     void onBackPressed();
 
     void exitConfirm();
+
+    //region Click Navigation Item
+
+    void navigationExperienciasClicked();
+
+    void navigationHelpClicked();
+
+    void navigationSettingsClicked();
+
+    void navigationHerramientasClicked();
+
+    //endregion Click Navigation Item
 }

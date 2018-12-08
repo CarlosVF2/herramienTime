@@ -8,4 +8,14 @@ import android.com.herramientime.core.view.MvpActivity;
 
 public interface MainActivity extends MvpActivity {
     void showMessageExitConfirm();
+
+    void refreshMenu();
+
+    void setNombreUsuarioText(String usuario);
+
+    void setIDUsuarioText(String id);
+
+    void setButtonIniciarSesionVisibility(boolean visibility);
+
+    void closeDrawer();
 }

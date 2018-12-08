@@ -6,7 +6,13 @@
     <string name="title_dialog_atencion">¡Atención!</string>
     <string name="promt_message_exit">¿Deseas salir de la app?</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_map">Mostrar mapa</string>
     <string name="error_activity_not_prepared">Actividad no preparada</string>
     <string name="prompt_not_found_herramienta">No se ha encontrado la herramienta seleccionada</string>
+    <string name="nav_herramientas">Herramientas</string>
+    <string name="nav_experiencias">Experiencias</string>
+    <string name="nav_configuracion">Configuración</string>
+    <string name="nav_mensajes">Mensajes</string>
+    <string name="nav_ayuda">Ayuda</string>
+    <string name="nav_group_ajustes">Ajustes</string>
 </resources>

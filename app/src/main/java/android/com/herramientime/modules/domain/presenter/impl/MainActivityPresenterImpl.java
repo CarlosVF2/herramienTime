@@ -58,6 +58,7 @@ public class MainActivityPresenterImpl<VIEW extends MainActivity> extends MvpAct
     public void onViewBinded() {
         if(navigationManager == null){
             navigationManager = HerramienTimeApp.getComponentDependencies().getNavigationManager();
+            navigationManager.setNavigationListener(this);
         }
         try {
             if (!navigationManager.isFragmentAttached()) {
@@ -66,6 +67,8 @@ public class MainActivityPresenterImpl<VIEW extends MainActivity> extends MvpAct
         } catch (LocalException ignored) {
             // never can happen
         }
+        getMvpActivity().setNombreUsuarioText("Carlos Vega");
+        getMvpActivity().setIDUsuarioText("carvegfer");
     }
 
     @Override
@@ -114,10 +117,56 @@ public class MainActivityPresenterImpl<VIEW extends MainActivity> extends MvpAct
         }
     }
 
+    //region Click Navigation Item
+    @Override
+    public void navigationExperienciasClicked() {
+        VIEW view = getMvpActivity();
+        if (view != null) {
+            view.closeDrawer();
+        }
+    }
+
+    @Override
+    public void navigationHelpClicked() {
+        VIEW view = getMvpActivity();
+        if (view != null) {
+            view.closeDrawer();
+        }
+
+    }
+
+    @Override
+    public void navigationSettingsClicked() {
+        VIEW view = getMvpActivity();
+        if (view != null) {
+            view.closeDrawer();
+        }
+
+    }
+
+    @Override
+    public void navigationHerramientasClicked() {
+        VIEW view = getMvpActivity();
+        if (view != null) {
+            view.closeDrawer();
+        }
+        try {
+            navigationManager.navigateToHerramientas();
+        } catch (LocalException e) {
+            e.printStackTrace();
+        }
+    }
+    //endregion Click Navigation Item
+
     //region NavigationListener
     @Override
     public void onBackstackChanged() {
-        //El contenido de la pila ha cambiado, por tanto recargamos visualmente-
+        //El contenido de la pila ha cambiado, por tanto recargamos visualmente
+
+        VIEW activity = getMvpActivity();
+        if (activity != null) {
+            activity.refreshMenu();
+        }
     }
     //endregion NavigationListener
 }

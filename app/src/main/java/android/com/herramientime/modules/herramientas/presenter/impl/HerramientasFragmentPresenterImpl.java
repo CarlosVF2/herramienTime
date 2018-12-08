@@ -58,6 +58,7 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
             herramientasFragmentInteractor = HerramienTimeApp.getComponentDependencies().getHerramientasFragmentComponent().getHerramientasFragmentModule().getHerramientasFragmentInteractor();
         }
         getMvpFragment().onInitLoading();
+        getMvpFragment().setTitle("Herramientas");
         startGetHerramientas();
     }
 
