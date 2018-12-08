@@ -15,6 +15,7 @@ import android.com.herramientime.modules.experiencias.view.impl.ExperienciasFrag
 import android.com.herramientime.modules.herramientas.view.impl.AlquilarHerramientaFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientaDetalleFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientasFragmentImpl;
+import android.com.herramientime.modules.login.view.impl.LoginFragmentImpl;
 import android.com.herramientime.modules.reservar.view.impl.ReservaFragmentImpl;
 import android.content.Context;
 import android.content.Intent;
@@ -182,6 +183,23 @@ public class NavigationManagerImpl implements NavigationManager, Application.Act
     }
 
     //endregion Alquiler
+
+    //region Login
+
+    @Override
+    public void navigateToLogin() throws LocalException {
+        if (currentActivity != null) {
+            Bundle args = new Bundle();
+            presenterFactory.setupLoginFragmentInstance(args);
+            LoginFragmentImpl fragment = viewFactory.newLoginFragmentInstance();
+            fragment.setArguments(args);
+            open(currentActivity.getSupportFragmentManager(), fragment, null);
+        } else {
+            throw new LocalException(context.getString(R.string.error_activity_not_prepared));
+        }
+    }
+
+    //endregion Login
 
     //region NavigateBack
 

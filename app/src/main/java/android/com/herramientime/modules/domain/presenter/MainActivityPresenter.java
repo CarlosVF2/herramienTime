@@ -22,4 +22,6 @@ public interface MainActivityPresenter extends MvpActivityPresenter {
     void navigationHerramientasClicked();
 
     //endregion Click Navigation Item
+
+    void onClickIniciarSesion();
 }

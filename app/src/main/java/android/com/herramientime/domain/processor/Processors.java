@@ -13,4 +13,12 @@ public class Processors {
     public ProcessorUsuario getProcessorUsuario() {
         return new ProcessorUsuario();
     }
+
+    public ProcessorCategoria getProcessorCategoria() {
+        return new ProcessorCategoria();
+    }
+
+    public ProcessorMoneda geProcessorMoneda() {
+        return new ProcessorMoneda();
+    }
 }

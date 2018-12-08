@@ -3,6 +3,7 @@ package android.com.rest;
 import android.com.rest.entities.ExperienciaRest;
 import android.com.rest.entities.HerramientaRest;
 import android.com.rest.entities.InternetException;
+import android.com.rest.entities.UsuariosRest;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -68,6 +69,26 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
         checkConnectivity();
         try {
             Response<List<ExperienciaRest>> response = restApiService.getExperiencias().execute();
+
+            if (response.isSuccessful()) {
+                if (response.body() != null) {
+                    return response.body();
+                } else {
+                    return new ArrayList<>();
+                }
+            } else {
+                return null;
+            }
+        } catch (IOException ex) {
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<UsuariosRest> getUsuarios() throws InternetException {
+        checkConnectivity();
+        try {
+            Response<List<UsuariosRest>> response = restApiService.getUsuarios().execute();
 
             if (response.isSuccessful()) {
                 if (response.body() != null) {

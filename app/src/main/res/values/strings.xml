@@ -25,4 +25,13 @@
     <string name="prompt_aceptar">Aceptar</string>
     <string name="action_subir_herramienta">Alquilar Herramienta</string>
     <string name="action_subir_experiencia">Contratar experiencia</string>
+    <string name="preference_file_key">Preferences</string>
+    <string name="preference_key_user">key_user</string>
+    <string name="prompt_nombre">Nombre</string>
+    <string name="prompt_apellidos">Apellidos</string>
+    <string name="prompt_usuario">Usuario</string>
+    <string name="prompt_password">Password</string>
+    <string name="error_user_not_found">No existe el usuario introducido</string>
+    <string name="error_fill_user">Tiene que rellenar el usuario</string>
+    <string name="errpr_fill_password">Tiene que rellenar el password</string>
 </resources>

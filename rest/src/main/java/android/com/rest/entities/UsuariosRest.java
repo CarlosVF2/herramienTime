@@ -2,6 +2,8 @@ package android.com.rest.entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class UsuariosRest {
 
     @SerializedName("apellidos")
@@ -30,6 +32,10 @@ public class UsuariosRest {
 
     @SerializedName("nombre")
     private String nombre;
+
+    public UsuariosRest(String id) {
+        this.id = id;
+    }
 
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
@@ -117,5 +123,19 @@ public class UsuariosRest {
                         ",poblacion = '" + poblacion + '\'' +
                         ",nombre = '" + nombre + '\'' +
                         "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UsuariosRest that = (UsuariosRest) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
     }
 }

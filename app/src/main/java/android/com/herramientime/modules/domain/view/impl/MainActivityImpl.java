@@ -21,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -29,7 +30,7 @@ import android.widget.TextView;
 
 public class MainActivityImpl
         <PRESENTER extends MainActivityPresenter> extends MvpActivityImpl<PRESENTER>
-        implements MainActivity, NavigationView.OnNavigationItemSelectedListener {
+        implements MainActivity, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -161,6 +162,20 @@ public class MainActivityImpl
     }
 
     @Override
+    public void setDatosUsuarioVisibility(boolean visibility) {
+        if (navigationView != null) {
+            TextView textViewId = navigationView.findViewById(R.id.texviewId);
+            if (textViewId != null) {
+                textViewId.setVisibility(visibility ? View.VISIBLE : View.GONE);
+            }
+            TextView textViewNombre = navigationView.findViewById(R.id.textViewNombre);
+            if (textViewNombre != null) {
+                textViewNombre.setVisibility(visibility ? View.VISIBLE : View.GONE);
+            }
+        }
+    }
+
+    @Override
     public void setIDUsuarioText(String id) {
         if (navigationView != null) {
             TextView textView = navigationView.findViewById(R.id.texviewId);
@@ -173,10 +188,11 @@ public class MainActivityImpl
     @Override
     public void setButtonIniciarSesionVisibility(boolean visibility) {
         if (navigationView != null) {
-            //Button buttonIniciarSesion = navigationView.findViewById(R.id.texviewId);
-            //if (textView != null) {
-            //    textView.setText(id);
-            //}
+            Button buttonIniciarSesion = navigationView.findViewById(R.id.buttonIniciarSesion);
+            if (buttonIniciarSesion != null) {
+                buttonIniciarSesion.setOnClickListener(this);
+                buttonIniciarSesion.setVisibility(visibility ? View.VISIBLE : View.GONE);
+            }
         }
     }
 
@@ -242,5 +258,19 @@ public class MainActivityImpl
     }
 
     //endregion NavigationItemSelected
+
+    //region OnClickListener
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.buttonIniciarSesion:
+                getMvpActivityPresenter().onClickIniciarSesion();
+                break;
+        }
+    }
+
+    //endregion OnClickListener
 
 }

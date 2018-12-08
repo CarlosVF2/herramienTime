@@ -2,13 +2,12 @@ package android.com.rest;
 
 import android.com.rest.entities.ExperienciaRest;
 import android.com.rest.entities.HerramientaRest;
+import android.com.rest.entities.UsuariosRest;
 
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 
 /**
  * Created by cvegaf on 19/11/2018.
@@ -23,6 +22,6 @@ public interface RestApiService {
     @GET("/Experiencias.json")
     Call<List<ExperienciaRest>> getExperiencias();
 
-    @POST("/Herramientas.json")
-    Call<HerramientaRest> postHerramientaRest(@Body List<HerramientaRest> herramientaResponse);
+    @GET("/Usuarios.json")
+    Call<List<UsuariosRest>> getUsuarios();
 }

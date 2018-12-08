@@ -8,6 +8,7 @@ import android.com.herramientime.modules.experiencias.interactor.ExperienciaFrag
 import android.com.herramientime.modules.herramientas.interactor.AlquilerHerramientaFragmentInteractor;
 import android.com.herramientime.modules.herramientas.interactor.HerramientaDetalleFragmentInteractor;
 import android.com.herramientime.modules.herramientas.interactor.HerramientasFragmentInteractor;
+import android.com.herramientime.modules.login.interactor.LoginFragmentInteractor;
 import android.com.herramientime.modules.reservar.interactor.ReservaFragmentInteractor;
 
 /**
@@ -32,7 +33,9 @@ public interface InteractorFactory {
 
     //Alquileres
     AlquilerHerramientaFragmentInteractor getAlquilerHerramientaFragmentInteractor();
-
     AlquilerExperienciaFragmentInteractor getAlquilerExperienciaFragmentInteractor();
+
+    //Login
+    LoginFragmentInteractor getLoginFragmentInteractor();
 }
 

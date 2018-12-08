@@ -19,6 +19,8 @@ public class Herramienta {
     private String moneda;
     private String precioText;
     private Double precio;
+    private String categoria;
+
 
     //region GET
 
@@ -80,6 +82,10 @@ public class Herramienta {
 
     public Double getPrecio() {
         return precio;
+    }
+
+    public String getCategoria() {
+        return categoria;
     }
 
     //endregion GET
@@ -144,6 +150,10 @@ public class Herramienta {
 
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
     //endregion SET

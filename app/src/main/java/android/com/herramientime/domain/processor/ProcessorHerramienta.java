@@ -34,6 +34,7 @@ public class ProcessorHerramienta {
         herramienta.setMoneda(from.getMoneda());
         herramienta.setPrecioText(from.getPrecio());
         herramienta.setPrecio(Double.valueOf(from.getPrecio()));
+        herramienta.setCategoria(from.getCategoria());
         return herramienta;
     }
 

@@ -30,8 +30,18 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_person_white_24dp" />
 
+        <Button
+            android:id="@+id/buttonIniciarSesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/imageView"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="30dp"
+            android:text="Iniciar sesión" />
+
         <TextView
             android:id="@+id/textViewNombre"
+            android:visibility="gone"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/imageView"
             android:layout_width="match_parent"
@@ -43,6 +53,7 @@
 
         <TextView
             android:id="@+id/texviewId"
+            android:visibility="gone"
             android:layout_toRightOf="@+id/imageView"
             android:layout_below="@+id/textViewNombre"
             android:layout_width="match_parent"

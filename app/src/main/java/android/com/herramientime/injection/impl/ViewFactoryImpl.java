@@ -8,6 +8,7 @@ import android.com.herramientime.modules.experiencias.view.impl.ExperienciasFrag
 import android.com.herramientime.modules.herramientas.view.impl.AlquilarHerramientaFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientaDetalleFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientasFragmentImpl;
+import android.com.herramientime.modules.login.view.impl.LoginFragmentImpl;
 import android.com.herramientime.modules.reservar.view.impl.ReservaFragmentImpl;
 import android.content.Context;
 import android.content.Intent;
@@ -69,6 +70,12 @@ public class ViewFactoryImpl implements ViewFactory {
     @Override
     public AlquilarExperienciaFragmentImpl newAlquilerExperienciaFragmentInstance() {
         AlquilarExperienciaFragmentImpl fragment = new AlquilarExperienciaFragmentImpl();
+        return fragment;
+    }
+
+    @Override
+    public LoginFragmentImpl newLoginFragmentInstance() {
+        LoginFragmentImpl fragment = new LoginFragmentImpl();
         return fragment;
     }
 }

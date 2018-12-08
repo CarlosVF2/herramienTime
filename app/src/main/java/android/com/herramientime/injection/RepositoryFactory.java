@@ -7,6 +7,7 @@ import android.com.herramientime.modules.experiencias.repository.ExperienciasFra
 import android.com.herramientime.modules.herramientas.repository.AlquilerHerramientaFragmentRepository;
 import android.com.herramientime.modules.herramientas.repository.HerramientaDetalleFragmentRepository;
 import android.com.herramientime.modules.herramientas.repository.HerramientasFragmentRepository;
+import android.com.herramientime.modules.login.repository.LoginFragmentRepository;
 import android.com.herramientime.modules.reservar.repository.ReservaFragmentRepository;
 
 /**
@@ -30,6 +31,8 @@ public interface RepositoryFactory {
 
     //Alquileres
     AlquilerHerramientaFragmentRepository getAlquilerHerramientaFragmentRepository();
-
     AlquilerExperienciaFragmentRepository getAlquilerExperienciaFragmentRepository();
+
+    //Login
+    LoginFragmentRepository getLoginFragmentRepository();
 }

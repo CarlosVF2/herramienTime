@@ -17,6 +17,8 @@ import android.com.herramientime.modules.herramientas.repository.HerramientasFra
 import android.com.herramientime.modules.herramientas.repository.impl.AlquilerHerramientaFragmentRepositoryImpl;
 import android.com.herramientime.modules.herramientas.repository.impl.HerramientaDetalleFragmentRepositoryImpl;
 import android.com.herramientime.modules.herramientas.repository.impl.HerramientasFragmentRepositoryImpl;
+import android.com.herramientime.modules.login.repository.LoginFragmentRepository;
+import android.com.herramientime.modules.login.repository.impl.LoginFragmentRepositoryImpl;
 import android.com.herramientime.modules.reservar.repository.ReservaFragmentRepository;
 import android.com.herramientime.modules.reservar.repository.impl.ReservaFragmentRepositoryImpl;
 import android.com.rest.RestApiServiceHelper;
@@ -42,7 +44,7 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
 
     @Override
     public MainActivityRepository getMainActivityRepository() {
-        return new MainActivityRepositoryImpl();
+        return new MainActivityRepositoryImpl(context, processors.getProcessorUsuario(), restApiServiceHelper);
     }
 
     @Override
@@ -78,5 +80,10 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
     @Override
     public AlquilerExperienciaFragmentRepository getAlquilerExperienciaFragmentRepository() {
         return new AlquilerExperienciaFragmentRepositoryImpl(restApiServiceHelper, processors.getProcessorExperiencia());
+    }
+
+    @Override
+    public LoginFragmentRepository getLoginFragmentRepository() {
+        return new LoginFragmentRepositoryImpl(restApiServiceHelper, processors.getProcessorUsuario(), context.getResources(), context);
     }
 }

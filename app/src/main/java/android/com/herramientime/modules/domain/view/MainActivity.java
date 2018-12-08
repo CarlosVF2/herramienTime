@@ -13,9 +13,10 @@ public interface MainActivity extends MvpActivity {
 
     void setNombreUsuarioText(String usuario);
 
-    void setIDUsuarioText(String id);
-
+    void setDatosUsuarioVisibility(boolean visibility);
     void setButtonIniciarSesionVisibility(boolean visibility);
+
+    void setIDUsuarioText(String id);
 
     void closeDrawer();
 }

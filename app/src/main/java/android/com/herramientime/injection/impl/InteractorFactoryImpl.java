@@ -17,6 +17,8 @@ import android.com.herramientime.modules.herramientas.interactor.HerramientasFra
 import android.com.herramientime.modules.herramientas.interactor.impl.AlquilerHerramientaFragmentInteractorImpl;
 import android.com.herramientime.modules.herramientas.interactor.impl.HerramientaDetalleFragmentInteractorImpl;
 import android.com.herramientime.modules.herramientas.interactor.impl.HerramientasFragmentInteractorImpl;
+import android.com.herramientime.modules.login.interactor.LoginFragmentInteractor;
+import android.com.herramientime.modules.login.interactor.impl.LoginFragmentInteractorImpl;
 import android.com.herramientime.modules.reservar.interactor.ReservaFragmentInteractor;
 import android.com.herramientime.modules.reservar.interactor.impl.ReservaFragmentInteractorImpl;
 
@@ -36,7 +38,7 @@ public class InteractorFactoryImpl implements InteractorFactory {
 
     @Override
     public MainActivityInteractor getMainActivityInteractor() {
-        return new MainActivityInteractorImpl(repositoryFactory.getMainActivityRepository());
+        return new MainActivityInteractorImpl(schedulerFactory.getUIScheduler(), repositoryFactory.getMainActivityRepository());
     }
 
     @Override
@@ -72,5 +74,10 @@ public class InteractorFactoryImpl implements InteractorFactory {
     @Override
     public AlquilerExperienciaFragmentInteractor getAlquilerExperienciaFragmentInteractor() {
         return new AlquilerExperienciaFragmentInteractorImpl(schedulerFactory.getUIScheduler(), repositoryFactory.getAlquilerExperienciaFragmentRepository());
+    }
+
+    @Override
+    public LoginFragmentInteractor getLoginFragmentInteractor() {
+        return new LoginFragmentInteractorImpl(schedulerFactory.getUIScheduler(), repositoryFactory.getLoginFragmentRepository());
     }
 }

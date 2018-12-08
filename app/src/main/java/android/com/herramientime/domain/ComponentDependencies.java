@@ -15,6 +15,8 @@ import android.com.herramientime.modules.herramientas.injection.HerramientaDetal
 import android.com.herramientime.modules.herramientas.injection.HerramientaDetalleFragmentModule;
 import android.com.herramientime.modules.herramientas.injection.HerramientasFragmentComponent;
 import android.com.herramientime.modules.herramientas.injection.HerramientasFragmentModule;
+import android.com.herramientime.modules.login.injection.LoginFragmentComponent;
+import android.com.herramientime.modules.login.injection.LoginFragmentModule;
 import android.com.herramientime.modules.reservar.injection.ReservaFragmentComponent;
 import android.com.herramientime.modules.reservar.injection.ReservaFragmentModule;
 
@@ -34,6 +36,7 @@ public class ComponentDependencies extends ModuleDependencies {
     private ReservaFragmentComponent reservaFragmentComponent;
     private AlquilerHerramientaFragmentComponent alquilerHerramientaFragmentComponent;
     private AlquilerExperienciaFragmentComponent alquilerExperienciaFragmentComponent;
+    private LoginFragmentComponent loginFragmentComponent;
 
     public ComponentDependencies(Application application) {
         super(application);
@@ -45,9 +48,14 @@ public class ComponentDependencies extends ModuleDependencies {
         setupReservaFragmentComponent(getReservaFragmentModule());
         setupAlquilerHerramientaFragmentComponent(getAlquilerHerramientaFragmentModule());
         setupAlquilerExperienciaFragmentComponent(getAlquilerExperienciaFragmentModule());
+        setupLoginFragmentComponent(getLoginFragmentModule());
     }
 
     //region Setup
+
+    private void setupLoginFragmentComponent(LoginFragmentModule loginFragmentModule) {
+        loginFragmentComponent = new LoginFragmentComponent(loginFragmentModule);
+    }
 
     private void setupAlquilerExperienciaFragmentComponent(AlquilerExperienciaFragmentModule alquilerExperienciaFragmentModule) {
         alquilerExperienciaFragmentComponent = new AlquilerExperienciaFragmentComponent(alquilerExperienciaFragmentModule);
@@ -123,6 +131,11 @@ public class ComponentDependencies extends ModuleDependencies {
     @Provides
     public AlquilerExperienciaFragmentComponent getAlquilerExperienciaFragmentComponent() {
         return alquilerExperienciaFragmentComponent;
+    }
+
+    @Provides
+    public LoginFragmentComponent getLoginFragmentComponent() {
+        return loginFragmentComponent;
     }
 
     //endregion Get
