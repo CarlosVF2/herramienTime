@@ -8,4 +8,6 @@ import android.com.herramientime.core.presenter.MvpFragmentPresenter;
 
 public interface ExperienciasFragmentPresenter extends MvpFragmentPresenter {
     void onRefresh();
+
+    void onClickActionSubirExperiencia();
 }

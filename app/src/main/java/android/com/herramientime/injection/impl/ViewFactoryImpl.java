@@ -2,6 +2,7 @@ package android.com.herramientime.injection.impl;
 
 import android.com.herramientime.injection.ViewFactory;
 import android.com.herramientime.modules.domain.view.impl.MainActivityImpl;
+import android.com.herramientime.modules.experiencias.view.impl.AlquilarExperienciaFragmentImpl;
 import android.com.herramientime.modules.experiencias.view.impl.ExperienciaDetalleFragmentImpl;
 import android.com.herramientime.modules.experiencias.view.impl.ExperienciasFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.AlquilarHerramientaFragmentImpl;
@@ -62,6 +63,12 @@ public class ViewFactoryImpl implements ViewFactory {
     @Override
     public AlquilarHerramientaFragmentImpl newAlquilerHerramientaFragmentInstance() {
         AlquilarHerramientaFragmentImpl fragment = new AlquilarHerramientaFragmentImpl();
+        return fragment;
+    }
+
+    @Override
+    public AlquilarExperienciaFragmentImpl newAlquilerExperienciaFragmentInstance() {
+        AlquilarExperienciaFragmentImpl fragment = new AlquilarExperienciaFragmentImpl();
         return fragment;
     }
 }

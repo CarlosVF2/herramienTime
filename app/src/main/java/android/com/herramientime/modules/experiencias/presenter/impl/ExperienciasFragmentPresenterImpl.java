@@ -113,6 +113,15 @@ public class ExperienciasFragmentPresenterImpl<FRAGMENT extends ExperienciasFrag
         startGetExperiencias();
     }
 
+    @Override
+    public void onClickActionSubirExperiencia() {
+        try {
+            navigationManager.navigateToAlquilerExperiencia();
+        } catch (LocalException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     //region OnClickItem
     @Override

@@ -6,10 +6,6 @@ import java.util.Objects;
 
 public class ExperienciaRest {
 
-    public ExperienciaRest(String id) {
-        this.id = id;
-    }
-
     @SerializedName("idUsuario")
     private String idUsuario;
 
@@ -33,6 +29,21 @@ public class ExperienciaRest {
 
     @SerializedName("moneda")
     private String moneda;
+
+    public ExperienciaRest(String id) {
+        this.id = id;
+    }
+
+    public ExperienciaRest() {
+        this.idUsuario = "";
+        this.id = "";
+        this.descripcion = "";
+        this.resumen = "";
+        this.urlImagen = "";
+        this.precioHora = "";
+        this.simboloMoneda = "";
+        this.moneda = "";
+    }
 
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;

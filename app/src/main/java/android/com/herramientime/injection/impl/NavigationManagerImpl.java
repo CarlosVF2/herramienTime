@@ -9,6 +9,7 @@ import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.injection.PresenterFactory;
 import android.com.herramientime.injection.ViewFactory;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.experiencias.view.impl.AlquilarExperienciaFragmentImpl;
 import android.com.herramientime.modules.experiencias.view.impl.ExperienciaDetalleFragmentImpl;
 import android.com.herramientime.modules.experiencias.view.impl.ExperienciasFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.AlquilarHerramientaFragmentImpl;
@@ -160,6 +161,19 @@ public class NavigationManagerImpl implements NavigationManager, Application.Act
             Bundle args = new Bundle();
             presenterFactory.setupAlquilerHerramientaFragmentInstance(args);
             AlquilarHerramientaFragmentImpl fragment = viewFactory.newAlquilerHerramientaFragmentInstance();
+            fragment.setArguments(args);
+            open(currentActivity.getSupportFragmentManager(), fragment, null);
+        } else {
+            throw new LocalException(context.getString(R.string.error_activity_not_prepared));
+        }
+    }
+
+    @Override
+    public void navigateToAlquilerExperiencia() throws LocalException {
+        if (currentActivity != null) {
+            Bundle args = new Bundle();
+            presenterFactory.setupAlquilerExperienciaFragmentInstance(args);
+            AlquilarExperienciaFragmentImpl fragment = viewFactory.newAlquilerExperienciaFragmentInstance();
             fragment.setArguments(args);
             open(currentActivity.getSupportFragmentManager(), fragment, null);
         } else {

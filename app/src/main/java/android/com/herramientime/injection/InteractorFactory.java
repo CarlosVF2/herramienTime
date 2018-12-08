@@ -2,6 +2,7 @@ package android.com.herramientime.injection;
 
 
 import android.com.herramientime.modules.domain.interactor.MainActivityInteractor;
+import android.com.herramientime.modules.experiencias.interactor.AlquilerExperienciaFragmentInteractor;
 import android.com.herramientime.modules.experiencias.interactor.ExperienciaDetalleFragmentInteractor;
 import android.com.herramientime.modules.experiencias.interactor.ExperienciaFragmentInteractor;
 import android.com.herramientime.modules.herramientas.interactor.AlquilerHerramientaFragmentInteractor;
@@ -31,5 +32,7 @@ public interface InteractorFactory {
 
     //Alquileres
     AlquilerHerramientaFragmentInteractor getAlquilerHerramientaFragmentInteractor();
+
+    AlquilerExperienciaFragmentInteractor getAlquilerExperienciaFragmentInteractor();
 }
 

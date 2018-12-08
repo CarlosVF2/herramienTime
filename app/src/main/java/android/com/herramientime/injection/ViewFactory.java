@@ -1,6 +1,7 @@
 package android.com.herramientime.injection;
 
 
+import android.com.herramientime.modules.experiencias.view.impl.AlquilarExperienciaFragmentImpl;
 import android.com.herramientime.modules.experiencias.view.impl.ExperienciaDetalleFragmentImpl;
 import android.com.herramientime.modules.experiencias.view.impl.ExperienciasFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.AlquilarHerramientaFragmentImpl;
@@ -31,4 +32,7 @@ public interface ViewFactory {
 
     //Alquiler
     AlquilarHerramientaFragmentImpl newAlquilerHerramientaFragmentInstance();
+
+    AlquilarExperienciaFragmentImpl newAlquilerExperienciaFragmentInstance();
+
 }

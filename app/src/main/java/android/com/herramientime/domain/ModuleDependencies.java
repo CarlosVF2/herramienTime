@@ -5,6 +5,7 @@ import android.com.herramientime.injection.Constants;
 import android.com.herramientime.injection.InteractorFactory;
 import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.modules.domain.injection.MainActivityModule;
+import android.com.herramientime.modules.experiencias.injection.AlquilerExperienciaFragmentModule;
 import android.com.herramientime.modules.experiencias.injection.ExperienciaDetalleFragmentModule;
 import android.com.herramientime.modules.experiencias.injection.ExperienciasFragmentModule;
 import android.com.herramientime.modules.herramientas.injection.AlquilerHerramientaFragmentModule;
@@ -27,6 +28,7 @@ public abstract class ModuleDependencies extends DependencyInjectionImpl {
     private ExperienciaDetalleFragmentModule experienciaDetalleFragmentModule;
     private ReservaFragmentModule reservaFragmentModule;
     private AlquilerHerramientaFragmentModule alquilerHerramientaFragmentModule;
+    private AlquilerExperienciaFragmentModule alquilerExperienciaFragmentModule;
 
     public ModuleDependencies(Application application) {
         super(application);
@@ -37,9 +39,14 @@ public abstract class ModuleDependencies extends DependencyInjectionImpl {
         setupExperienciaDetalleFragmentModule(getInteractorFactoryInstance());
         setupReservaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getApplicationContext().getResources());
         setupAlquilerHerramientaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getApplicationContext().getResources());
+        setupAlquilerExperienciaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getApplicationContext().getResources());
     }
 
     //region setup
+
+    private void setupAlquilerExperienciaFragmentModule(NavigationManager navigationManager, InteractorFactory interactorFactoryInstance, Resources resources) {
+        alquilerExperienciaFragmentModule = new AlquilerExperienciaFragmentModule(navigationManager, interactorFactoryInstance, resources);
+    }
 
     private void setupAlquilerHerramientaFragmentModule(NavigationManager navigationManager, InteractorFactory interactorFactoryInstance, Resources resources) {
         alquilerHerramientaFragmentModule = new AlquilerHerramientaFragmentModule(navigationManager, interactorFactoryInstance, resources);
@@ -99,6 +106,10 @@ public abstract class ModuleDependencies extends DependencyInjectionImpl {
 
     protected AlquilerHerramientaFragmentModule getAlquilerHerramientaFragmentModule() {
         return alquilerHerramientaFragmentModule;
+    }
+
+    protected AlquilerExperienciaFragmentModule getAlquilerExperienciaFragmentModule() {
+        return alquilerExperienciaFragmentModule;
     }
 
     //endregion GET

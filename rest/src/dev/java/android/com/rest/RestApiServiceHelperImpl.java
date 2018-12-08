@@ -97,6 +97,20 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
         databaseReference.setValue(users);
     }
 
+    @Override
+    public void postExperiencia(List<ExperienciaRest> experienciaRests) throws InternetException {
+        checkConnectivity();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("Experiencias");
+        Map<String, ExperienciaRest> users = new HashMap<>();
+        int i = 0;
+        for (ExperienciaRest experienciaRest : experienciaRests) {
+            users.put(String.valueOf(i), experienciaRest);
+            i++;
+        }
+        databaseReference.setValue(users);
+    }
+
     private void generateError(Response response) throws InternetException {
         StringBuilder messageErrorGateway = new StringBuilder();
         if (response != null) {

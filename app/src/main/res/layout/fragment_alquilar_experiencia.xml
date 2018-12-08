@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:id="@+id/textInputLayoutTitulo"
+            android:layout_alignParentLeft="true"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/textInputEditTextTitulo"
+                android:hint="Titulo"
+                android:textSize="16dp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:id="@+id/textInputLayoutDescripcion"
+            android:layout_below="@+id/textInputLayoutTitulo"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/textInputEditTextDescripcion"
+                android:hint="Descripcion"
+                android:textSize="16dp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="@dimen/dimen_width_precio"
+            android:id="@+id/textInputLayoutPrecio"
+            android:layout_below="@+id/textInputLayoutDescripcion"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:inputType="number|numberDecimal"
+                android:layout_height="match_parent"
+                android:id="@+id/textInputEditTextPrecio"
+                android:hint="Descripcion"
+                android:textSize="16dp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:layout_width="@dimen/dimen_width_precio"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textInputLayoutDescripcion"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/textInputLayoutPrecio" />
+
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

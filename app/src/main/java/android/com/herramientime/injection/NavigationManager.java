@@ -28,6 +28,8 @@ public interface NavigationManager {
     //Alquiler
     void navigateToAlquilerHerramienta() throws LocalException;
 
+    void navigateToAlquilerExperiencia() throws LocalException;
+
 
     //Gestionar ir hacia atrás con Fragment
     void navigateBack() throws LocalException;

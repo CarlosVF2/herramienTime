@@ -7,4 +7,11 @@
         android:title="@string/action_map"
         android:icon="@drawable/ic_map_white_24dp"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_subir_experiencia"
+        android:orderInCategory="2"
+        android:title="@string/action_subir_experiencia"
+        android:icon="@drawable/ic_file_upload_white_24dp"
+        app:showAsAction="always" />
 </menu>

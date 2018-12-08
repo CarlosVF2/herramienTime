@@ -3,6 +3,8 @@ package android.com.herramientime.domain;
 import android.app.Application;
 import android.com.herramientime.modules.domain.injection.MainActivityComponent;
 import android.com.herramientime.modules.domain.injection.MainActivityModule;
+import android.com.herramientime.modules.experiencias.injection.AlquilerExperienciaFragmentComponent;
+import android.com.herramientime.modules.experiencias.injection.AlquilerExperienciaFragmentModule;
 import android.com.herramientime.modules.experiencias.injection.ExperienciaDetalleFragmentComponent;
 import android.com.herramientime.modules.experiencias.injection.ExperienciaDetalleFragmentModule;
 import android.com.herramientime.modules.experiencias.injection.ExperienciasFragmentComponent;
@@ -31,6 +33,7 @@ public class ComponentDependencies extends ModuleDependencies {
     private ExperienciaDetalleFragmentComponent experienciaDetalleFragmentComponent;
     private ReservaFragmentComponent reservaFragmentComponent;
     private AlquilerHerramientaFragmentComponent alquilerHerramientaFragmentComponent;
+    private AlquilerExperienciaFragmentComponent alquilerExperienciaFragmentComponent;
 
     public ComponentDependencies(Application application) {
         super(application);
@@ -41,9 +44,14 @@ public class ComponentDependencies extends ModuleDependencies {
         setupExperienciaDetalleFragmentComponent(getExperienciaDetalleFragmentModule());
         setupReservaFragmentComponent(getReservaFragmentModule());
         setupAlquilerHerramientaFragmentComponent(getAlquilerHerramientaFragmentModule());
+        setupAlquilerExperienciaFragmentComponent(getAlquilerExperienciaFragmentModule());
     }
 
     //region Setup
+
+    private void setupAlquilerExperienciaFragmentComponent(AlquilerExperienciaFragmentModule alquilerExperienciaFragmentModule) {
+        alquilerExperienciaFragmentComponent = new AlquilerExperienciaFragmentComponent(alquilerExperienciaFragmentModule);
+    }
 
     private void setupAlquilerHerramientaFragmentComponent(AlquilerHerramientaFragmentModule alquilerHerramientaFragmentModule) {
         alquilerHerramientaFragmentComponent = new AlquilerHerramientaFragmentComponent(alquilerHerramientaFragmentModule);
@@ -110,6 +118,11 @@ public class ComponentDependencies extends ModuleDependencies {
     @Provides
     public AlquilerHerramientaFragmentComponent getAlquilerHerramientaFragmentComponent() {
         return alquilerHerramientaFragmentComponent;
+    }
+
+    @Provides
+    public AlquilerExperienciaFragmentComponent getAlquilerExperienciaFragmentComponent() {
+        return alquilerExperienciaFragmentComponent;
     }
 
     //endregion Get

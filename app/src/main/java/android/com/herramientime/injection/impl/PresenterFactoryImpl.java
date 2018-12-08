@@ -3,6 +3,7 @@ package android.com.herramientime.injection.impl;
 
 import android.com.herramientime.injection.PresenterFactory;
 import android.com.herramientime.modules.domain.presenter.impl.MainActivityPresenterImpl;
+import android.com.herramientime.modules.experiencias.presenter.impl.AlquilerExperienciaFragmentPresenterImpl;
 import android.com.herramientime.modules.experiencias.presenter.impl.ExperienciaDetalleFragmentPresenterImpl;
 import android.com.herramientime.modules.experiencias.presenter.impl.ExperienciasFragmentPresenterImpl;
 import android.com.herramientime.modules.herramientas.presenter.impl.AlquilerHerramientaFragmentPresenterImpl;
@@ -51,5 +52,10 @@ public class PresenterFactoryImpl implements PresenterFactory {
     @Override
     public void setupAlquilerHerramientaFragmentInstance(Bundle args) {
         AlquilerHerramientaFragmentPresenterImpl.newAlquilerHerramientaFragmentPresenterInstance(args);
+    }
+
+    @Override
+    public void setupAlquilerExperienciaFragmentInstance(Bundle args) {
+        AlquilerExperienciaFragmentPresenterImpl.newAlquilerExperienciaFragmentPresenterInstance(args);
     }
 }

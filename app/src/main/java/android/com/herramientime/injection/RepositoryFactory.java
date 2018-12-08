@@ -1,6 +1,7 @@
 package android.com.herramientime.injection;
 
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
+import android.com.herramientime.modules.experiencias.repository.AlquilerExperienciaFragmentRepository;
 import android.com.herramientime.modules.experiencias.repository.ExperienciaDetalleFragmentRepository;
 import android.com.herramientime.modules.experiencias.repository.ExperienciasFragmentRepository;
 import android.com.herramientime.modules.herramientas.repository.AlquilerHerramientaFragmentRepository;
@@ -30,4 +31,5 @@ public interface RepositoryFactory {
     //Alquileres
     AlquilerHerramientaFragmentRepository getAlquilerHerramientaFragmentRepository();
 
+    AlquilerExperienciaFragmentRepository getAlquilerExperienciaFragmentRepository();
 }

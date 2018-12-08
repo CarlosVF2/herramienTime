@@ -26,4 +26,6 @@ public interface PresenterFactory {
 
     //Alquiler
     void setupAlquilerHerramientaFragmentInstance(Bundle args);
+
+    void setupAlquilerExperienciaFragmentInstance(Bundle args);
 }

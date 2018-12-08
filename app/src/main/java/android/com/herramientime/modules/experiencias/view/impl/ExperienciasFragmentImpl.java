@@ -81,6 +81,9 @@ public class ExperienciasFragmentImpl
         switch (id) {
             case R.id.action_map:
                 return true;
+            case R.id.action_subir_experiencia:
+                getMvpPresenter().onClickActionSubirExperiencia();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

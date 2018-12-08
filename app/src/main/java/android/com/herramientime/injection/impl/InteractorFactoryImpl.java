@@ -5,8 +5,10 @@ import android.com.herramientime.injection.InteractorFactory;
 import android.com.herramientime.injection.RepositoryFactory;
 import android.com.herramientime.modules.domain.interactor.MainActivityInteractor;
 import android.com.herramientime.modules.domain.interactor.impl.MainActivityInteractorImpl;
+import android.com.herramientime.modules.experiencias.interactor.AlquilerExperienciaFragmentInteractor;
 import android.com.herramientime.modules.experiencias.interactor.ExperienciaDetalleFragmentInteractor;
 import android.com.herramientime.modules.experiencias.interactor.ExperienciaFragmentInteractor;
+import android.com.herramientime.modules.experiencias.interactor.impl.AlquilerExperienciaFragmentInteractorImpl;
 import android.com.herramientime.modules.experiencias.interactor.impl.ExperienciaDetalleFragmentInteractorImpl;
 import android.com.herramientime.modules.experiencias.interactor.impl.ExperienciaFragmentInteractorImpl;
 import android.com.herramientime.modules.herramientas.interactor.AlquilerHerramientaFragmentInteractor;
@@ -65,5 +67,10 @@ public class InteractorFactoryImpl implements InteractorFactory {
     @Override
     public AlquilerHerramientaFragmentInteractor getAlquilerHerramientaFragmentInteractor() {
         return new AlquilerHerramientaFragmentInteractorImpl(schedulerFactory.getUIScheduler(), repositoryFactory.getAlquilerHerramientaFragmentRepository());
+    }
+
+    @Override
+    public AlquilerExperienciaFragmentInteractor getAlquilerExperienciaFragmentInteractor() {
+        return new AlquilerExperienciaFragmentInteractorImpl(schedulerFactory.getUIScheduler(), repositoryFactory.getAlquilerExperienciaFragmentRepository());
     }
 }
