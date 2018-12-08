@@ -8,12 +8,13 @@ import android.com.herramientime.modules.herramientas.adapter.impl.HerramientasA
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.herramientime.modules.herramientas.presenter.HerramientasFragmentPresenter;
 import android.com.herramientime.modules.herramientas.view.HerramientasFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,7 +36,6 @@ public class HerramientasFragmentImpl
     private RecyclerView recyclerViewHerramienta;
     private GridLayoutManager mLayoutManager;
     private HerramientasAdapter herramientasAdapter;
-    private Toolbar toolbar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,13 +59,13 @@ public class HerramientasFragmentImpl
         swipeRefreshLayoutHerramienta = view.findViewById(R.id.swipeRefreshLayoutHerramienta);
         swipeRefreshLayoutHerramienta.setOnRefreshListener(this);
         recyclerViewHerramienta = view.findViewById(R.id.recyclerViewHerramienta);
-        mLayoutManager = new GridLayoutManager(getActivity(),2);
+        mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerViewHerramienta.setLayoutManager(mLayoutManager);
         setupAdapter();
     }
 
     private void setupAdapter() {
-        if(herramientasAdapter == null){
+        if (herramientasAdapter == null) {
             herramientasAdapter = new HerramientasAdapterImpl(getContext());
             recyclerViewHerramienta.setAdapter((RecyclerView.Adapter) herramientasAdapter);
         }
@@ -82,6 +82,9 @@ public class HerramientasFragmentImpl
         int id = item.getItemId();
         switch (id) {
             case R.id.action_map:
+                return true;
+            case R.id.action_subir_herramienta:
+                getMvpPresenter().onClickSubirHerramienta();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -102,7 +105,16 @@ public class HerramientasFragmentImpl
 
     @Override
     public void onLoadError(String error) {
-        recyclerViewHerramienta.setVisibility(View.GONE);
+        new AlertDialog.Builder(getContext())
+                .setTitle(getString(R.string.title_dialog_atencion))
+                .setMessage(error)
+                .setPositiveButton(getString(R.string.prompt_aceptar), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                    }
+                })
+                .create().show();
 
     }
 
@@ -110,7 +122,7 @@ public class HerramientasFragmentImpl
 
     @Override
     public void setData(List<Herramienta> herramientas, HerramientasVHListener listener) {
-        if(herramientasAdapter != null){
+        if (herramientasAdapter != null) {
             herramientasAdapter.setData(herramientas, listener);
         }
     }

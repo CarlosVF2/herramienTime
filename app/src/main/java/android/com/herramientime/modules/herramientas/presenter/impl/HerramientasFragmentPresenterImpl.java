@@ -106,6 +106,15 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
         startGetHerramientas();
     }
 
+    @Override
+    public void onClickSubirHerramienta() {
+        try {
+            navigationManager.navigateToAlquilerHerramienta();
+        } catch (LocalException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     //region OnClickItem
     @Override

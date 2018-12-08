@@ -137,7 +137,6 @@ public class MainActivityPresenterImpl<VIEW extends MainActivity> extends MvpAct
         if (view != null) {
             view.closeDrawer();
         }
-
     }
 
     @Override

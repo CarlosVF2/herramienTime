@@ -20,4 +20,7 @@
     <string name="action_confirmar">Confirmar</string>
     <string name="title_reserva">Reserva</string>
     <string name="action_reservar">Reservar</string>
+    <string name="title_alquiler_herramienta">Alquiler herramienta</string>
+    <string name="prompt_aceptar">Aceptar</string>
+    <string name="action_subir_herramienta">Alquilar Herramienta</string>
 </resources>

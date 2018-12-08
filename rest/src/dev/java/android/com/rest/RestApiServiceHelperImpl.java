@@ -4,6 +4,7 @@ import android.com.rest.entities.ExperienciaRest;
 import android.com.rest.entities.HerramientaRest;
 import android.com.rest.entities.InternetException;
 
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.BufferedReader;
@@ -11,7 +12,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -78,6 +81,20 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
         } catch (IOException ex) {
         }
         return new ArrayList<>();
+    }
+
+    @Override
+    public void postHerramienta(List<HerramientaRest> herramientaResponse) throws InternetException {
+        checkConnectivity();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("Herramientas");
+        Map<String, HerramientaRest> users = new HashMap<>();
+        int i = 0;
+        for (HerramientaRest herramientaRest : herramientaResponse) {
+            users.put(String.valueOf(i), herramientaRest);
+            i++;
+        }
+        databaseReference.setValue(users);
     }
 
     private void generateError(Response response) throws InternetException {

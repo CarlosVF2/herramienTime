@@ -48,6 +48,18 @@ public class HerramientaRest{
     }
 
     public HerramientaRest() {
+        descripcion = "";
+        simboloMoneda = "";
+        fechaInicio = "";
+        reservada = "";
+        idUsuario = "";
+        moneda = "";
+        resumen = "";
+        id = "";
+        nombreUsuario = "";
+        fechaFin = "";
+        urlImagen = "";
+        precio = "";
     }
 
 	public void setDescripcion(String descripcion){

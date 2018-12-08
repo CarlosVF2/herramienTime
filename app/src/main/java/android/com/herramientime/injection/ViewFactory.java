@@ -3,6 +3,7 @@ package android.com.herramientime.injection;
 
 import android.com.herramientime.modules.experiencias.view.impl.ExperienciaDetalleFragmentImpl;
 import android.com.herramientime.modules.experiencias.view.impl.ExperienciasFragmentImpl;
+import android.com.herramientime.modules.herramientas.view.impl.AlquilarHerramientaFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientaDetalleFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientasFragmentImpl;
 import android.com.herramientime.modules.reservar.view.impl.ReservaFragmentImpl;
@@ -27,4 +28,7 @@ public interface ViewFactory {
 
     //Reservas
     ReservaFragmentImpl newReservaFragmentInstance();
+
+    //Alquiler
+    AlquilarHerramientaFragmentImpl newAlquilerHerramientaFragmentInstance();
 }

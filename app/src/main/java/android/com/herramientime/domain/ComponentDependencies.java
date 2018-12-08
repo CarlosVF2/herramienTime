@@ -7,6 +7,8 @@ import android.com.herramientime.modules.experiencias.injection.ExperienciaDetal
 import android.com.herramientime.modules.experiencias.injection.ExperienciaDetalleFragmentModule;
 import android.com.herramientime.modules.experiencias.injection.ExperienciasFragmentComponent;
 import android.com.herramientime.modules.experiencias.injection.ExperienciasFragmentModule;
+import android.com.herramientime.modules.herramientas.injection.AlquilerHerramientaFragmentComponent;
+import android.com.herramientime.modules.herramientas.injection.AlquilerHerramientaFragmentModule;
 import android.com.herramientime.modules.herramientas.injection.HerramientaDetalleFragmentComponent;
 import android.com.herramientime.modules.herramientas.injection.HerramientaDetalleFragmentModule;
 import android.com.herramientime.modules.herramientas.injection.HerramientasFragmentComponent;
@@ -28,6 +30,7 @@ public class ComponentDependencies extends ModuleDependencies {
     private ExperienciasFragmentComponent experienciasFragmentComponent;
     private ExperienciaDetalleFragmentComponent experienciaDetalleFragmentComponent;
     private ReservaFragmentComponent reservaFragmentComponent;
+    private AlquilerHerramientaFragmentComponent alquilerHerramientaFragmentComponent;
 
     public ComponentDependencies(Application application) {
         super(application);
@@ -37,9 +40,14 @@ public class ComponentDependencies extends ModuleDependencies {
         setupExperienciasFragmentComponent(getExperienciasFragmentModule());
         setupExperienciaDetalleFragmentComponent(getExperienciaDetalleFragmentModule());
         setupReservaFragmentComponent(getReservaFragmentModule());
+        setupAlquilerHerramientaFragmentComponent(getAlquilerHerramientaFragmentModule());
     }
 
     //region Setup
+
+    private void setupAlquilerHerramientaFragmentComponent(AlquilerHerramientaFragmentModule alquilerHerramientaFragmentModule) {
+        alquilerHerramientaFragmentComponent = new AlquilerHerramientaFragmentComponent(alquilerHerramientaFragmentModule);
+    }
 
     private void setupReservaFragmentComponent(ReservaFragmentModule reservaFragmentModule) {
         reservaFragmentComponent = new ReservaFragmentComponent(reservaFragmentModule);
@@ -97,6 +105,11 @@ public class ComponentDependencies extends ModuleDependencies {
     @Provides
     public ReservaFragmentComponent getReservaFragmentComponent() {
         return reservaFragmentComponent;
+    }
+
+    @Provides
+    public AlquilerHerramientaFragmentComponent getAlquilerHerramientaFragmentComponent() {
+        return alquilerHerramientaFragmentComponent;
     }
 
     //endregion Get

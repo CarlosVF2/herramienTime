@@ -23,4 +23,7 @@ public interface PresenterFactory {
 
     //Reserva
     void setupReservaFragmentInstance(Bundle args, String idExperiencia, String idHerramienta);
+
+    //Alquiler
+    void setupAlquilerHerramientaFragmentInstance(Bundle args);
 }

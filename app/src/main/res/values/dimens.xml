@@ -10,4 +10,5 @@
     <dimen name="heigt_ppal_image">144dp</dimen>
     <dimen name="half_statusbar_height">15dp</dimen>
     <dimen name="dim_drawer_header_height">160dp</dimen>
+    <dimen name="dimen_width_precio">100dp</dimen>
 </resources>

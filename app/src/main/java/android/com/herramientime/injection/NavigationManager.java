@@ -23,8 +23,10 @@ public interface NavigationManager {
 
     //Reserva
     void navigateToReservaExperiencia(String idExperiencia, MvpFragment currentFragment, int requestCode) throws LocalException;
-
     void navigateToReservaHerramienta(String idHerramienta, MvpFragment currentFragment, int requestCode) throws LocalException;
+
+    //Alquiler
+    void navigateToAlquilerHerramienta() throws LocalException;
 
 
     //Gestionar ir hacia atrás con Fragment

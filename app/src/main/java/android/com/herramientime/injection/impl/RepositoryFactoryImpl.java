@@ -9,8 +9,10 @@ import android.com.herramientime.modules.experiencias.repository.ExperienciaDeta
 import android.com.herramientime.modules.experiencias.repository.ExperienciasFragmentRepository;
 import android.com.herramientime.modules.experiencias.repository.impl.ExperienciaDetalleFragmentRepositoryImpl;
 import android.com.herramientime.modules.experiencias.repository.impl.ExperienciasFragmentRepositoryImpl;
+import android.com.herramientime.modules.herramientas.repository.AlquilerHerramientaFragmentRepository;
 import android.com.herramientime.modules.herramientas.repository.HerramientaDetalleFragmentRepository;
 import android.com.herramientime.modules.herramientas.repository.HerramientasFragmentRepository;
+import android.com.herramientime.modules.herramientas.repository.impl.AlquilerHerramientaFragmentRepositoryImpl;
 import android.com.herramientime.modules.herramientas.repository.impl.HerramientaDetalleFragmentRepositoryImpl;
 import android.com.herramientime.modules.herramientas.repository.impl.HerramientasFragmentRepositoryImpl;
 import android.com.herramientime.modules.reservar.repository.ReservaFragmentRepository;
@@ -64,5 +66,10 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
     @Override
     public ReservaFragmentRepository getReservaFragmentRepository() {
         return new ReservaFragmentRepositoryImpl();
+    }
+
+    @Override
+    public AlquilerHerramientaFragmentRepository getAlquilerHerramientaFragmentRepository() {
+        return new AlquilerHerramientaFragmentRepositoryImpl(restApiServiceHelper, processors.getProcessorHerramienta());
     }
 }
