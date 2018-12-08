@@ -5,6 +5,7 @@ import android.com.herramientime.modules.experiencias.repository.ExperienciaDeta
 import android.com.herramientime.modules.experiencias.repository.ExperienciasFragmentRepository;
 import android.com.herramientime.modules.herramientas.repository.HerramientaDetalleFragmentRepository;
 import android.com.herramientime.modules.herramientas.repository.HerramientasFragmentRepository;
+import android.com.herramientime.modules.reservar.repository.ReservaFragmentRepository;
 
 /**
  * Created by carlos 06/11/2018.
@@ -20,6 +21,9 @@ public interface RepositoryFactory {
 
     //Experiencias
     ExperienciasFragmentRepository getExperienciasFragmentRepository();
-
     ExperienciaDetalleFragmentRepository getExperienciaDetalleFragmentRepository();
+
+    //Reservas
+    ReservaFragmentRepository getReservaFragmentRepository();
+
 }

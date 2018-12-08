@@ -13,7 +13,5 @@ import java.util.List;
 public interface ExperienciasFragment extends MvpFragment {
     void setData(List<Experiencia> experiencias, ExperienciasVHListener listener);
 
-    void setTitle(String title);
-
     void setRefresh(boolean visibility);
 }

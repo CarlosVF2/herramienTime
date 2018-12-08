@@ -9,6 +9,7 @@ import android.com.herramientime.modules.experiencias.injection.ExperienciaDetal
 import android.com.herramientime.modules.experiencias.injection.ExperienciasFragmentModule;
 import android.com.herramientime.modules.herramientas.injection.HerramientaDetalleFragmentModule;
 import android.com.herramientime.modules.herramientas.injection.HerramientasFragmentModule;
+import android.com.herramientime.modules.reservar.injection.ReservaFragmentModule;
 import android.content.res.Resources;
 
 
@@ -23,18 +24,24 @@ public abstract class ModuleDependencies extends DependencyInjectionImpl {
     private HerramientaDetalleFragmentModule herramientaDetalleFragmentModule;
     private ExperienciasFragmentModule experienciasFragmentModule;
     private ExperienciaDetalleFragmentModule experienciaDetalleFragmentModule;
+    private ReservaFragmentModule reservaFragmentModule;
 
     public ModuleDependencies(Application application) {
         super(application);
         setupMainActivityModule(getConstantsInstance(), getInteractorFactoryInstance(), getNavigationManager());
         setupHerramientasFragmentModule(getNavigationManager(), getInteractorFactoryInstance());
-        setupHerramientaDetalleFragmentModule(getInteractorFactoryInstance());
+        setupHerramientaDetalleFragmentModule(getInteractorFactoryInstance(), getNavigationManager());
         setupExperienciasFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getApplicationContext().getResources());
         setupExperienciaDetalleFragmentModule(getInteractorFactoryInstance());
+        setupReservaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getApplicationContext().getResources());
 
     }
 
     //region setup
+
+    private void setupReservaFragmentModule(NavigationManager navigationManager, InteractorFactory interactorFactoryInstance, Resources resources) {
+        reservaFragmentModule = new ReservaFragmentModule(navigationManager, interactorFactoryInstance, resources);
+    }
 
     private void setupExperienciaDetalleFragmentModule(InteractorFactory interactorFactoryInstance) {
         experienciaDetalleFragmentModule = new ExperienciaDetalleFragmentModule(interactorFactoryInstance);
@@ -52,8 +59,8 @@ public abstract class ModuleDependencies extends DependencyInjectionImpl {
         herramientasFragmentModule = new HerramientasFragmentModule(navigationManager, interactorFactory);
     }
 
-    private void setupHerramientaDetalleFragmentModule(InteractorFactory interactorFactory) {
-        herramientaDetalleFragmentModule = new HerramientaDetalleFragmentModule(interactorFactory);
+    private void setupHerramientaDetalleFragmentModule(InteractorFactory interactorFactory, NavigationManager navigationManager) {
+        herramientaDetalleFragmentModule = new HerramientaDetalleFragmentModule(interactorFactory, navigationManager);
     }
 
     //endregion setup
@@ -78,6 +85,10 @@ public abstract class ModuleDependencies extends DependencyInjectionImpl {
 
     protected ExperienciaDetalleFragmentModule getExperienciaDetalleFragmentModule() {
         return experienciaDetalleFragmentModule;
+    }
+
+    protected ReservaFragmentModule getReservaFragmentModule() {
+        return reservaFragmentModule;
     }
 
     //endregion GET

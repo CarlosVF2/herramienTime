@@ -87,11 +87,6 @@ public class HerramientasFragmentImpl
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void setTitle(String title) {
-        getActivity().setTitle(title);
-    }
-
     //region Core LifeCycle
 
     @Override

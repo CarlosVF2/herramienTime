@@ -3,13 +3,17 @@ package android.com.herramientime.modules.herramientas.presenter.impl;
 import android.com.herramientime.app.HerramienTimeApp;
 import android.com.herramientime.core.entities.ErrorCause;
 import android.com.herramientime.core.presenter.impl.MvpFragmentPresenterImpl;
+import android.com.herramientime.injection.NavigationManager;
+import android.com.herramientime.modules.domain.entities.LocalException;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.herramientime.modules.herramientas.entities.HerramientaDetalleFragmentPresenterStatus;
+import android.com.herramientime.modules.herramientas.injection.HerramientaDetalleFragmentComponent;
 import android.com.herramientime.modules.herramientas.interactor.HerramientaDetalleFragmentInteractor;
 import android.com.herramientime.modules.herramientas.presenter.HerramientaDetalleFragmentPresenter;
 import android.com.herramientime.modules.herramientas.view.HerramientaDetalleFragment;
 import android.os.Bundle;
 
+import com.seidor.core.di.annotations.Inject;
 import com.seidor.core.task.executor.future.OnCompleted;
 import com.seidor.core.task.executor.future.OnData;
 import com.seidor.core.task.executor.future.OnError;
@@ -25,6 +29,7 @@ public class HerramientaDetalleFragmentPresenterImpl<FRAGMENT extends Herramient
     private final String PARAM__ID_HERRAM = "PARAM__ID_HERRAM";
 
     private HerramientaDetalleFragmentInteractor interactor;
+    private NavigationManager navigationManager;
 
     private ResponseFuture<Herramienta> responseFutureGetHerramienta;
     private final HerramientaDetalleFragmentPresenterStatus presenterStatus = new HerramientaDetalleFragmentPresenterStatus();
@@ -46,10 +51,23 @@ public class HerramientaDetalleFragmentPresenterImpl<FRAGMENT extends Herramient
         }
     }
 
+
+    public HerramientaDetalleFragmentPresenterImpl() {
+    }
+
+    @Inject
+    public HerramientaDetalleFragmentPresenterImpl(HerramientaDetalleFragmentComponent herramientaDetalleFragmentComponent) {
+        this.navigationManager = herramientaDetalleFragmentComponent.getHerramientaDetalleModule().getNavigationManager();
+        this.interactor = herramientaDetalleFragmentComponent.getHerramientaDetalleModule().getHerramientaDetalleFragmentInteractor();
+    }
+
     @Override
     public void onViewBinded() {
         if (interactor == null) {
             interactor = HerramienTimeApp.getComponentDependencies().getHerramientaDetalleFragmentComponent().getHerramientaDetalleModule().getHerramientaDetalleFragmentInteractor();
+        }
+        if (navigationManager == null) {
+            navigationManager = HerramienTimeApp.getComponentDependencies().getHerramientaDetalleFragmentComponent().getHerramientaDetalleModule().getNavigationManager();
         }
         getMvpFragment().onInitLoading();
         startGetHerramienta();
@@ -81,6 +99,15 @@ public class HerramientaDetalleFragmentPresenterImpl<FRAGMENT extends Herramient
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onClickReservar() {
+        try {
+            navigationManager.navigateToReservaHerramienta(presenterStatus.getIdHerramienta(), null, -1);
+        } catch (LocalException e) {
+            e.printStackTrace();
+        }
     }
 
     //region ResponseFuture

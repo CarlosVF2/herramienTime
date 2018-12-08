@@ -19,6 +19,8 @@ public interface PresenterFactory {
 
     //Experiencias
     void setupExperienciasFragmentInstance(Bundle args);
-
     void setupExperienciaDetalleFragmentInstance(Bundle args, String idExperiencia);
+
+    //Reserva
+    void setupReservaFragmentInstance(Bundle args, String idExperiencia, String idHerramienta);
 }

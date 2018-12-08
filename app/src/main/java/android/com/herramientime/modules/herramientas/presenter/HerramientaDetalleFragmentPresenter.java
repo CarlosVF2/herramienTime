@@ -7,4 +7,5 @@ import android.com.herramientime.core.presenter.MvpFragmentPresenter;
  */
 
 public interface HerramientaDetalleFragmentPresenter extends MvpFragmentPresenter {
+    void onClickReservar();
 }

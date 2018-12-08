@@ -1,5 +1,6 @@
 package android.com.herramientime.injection;
 
+import android.com.herramientime.core.view.MvpFragment;
 import android.com.herramientime.injection.impl.NavigationManagerImpl;
 import android.com.herramientime.modules.domain.entities.LocalException;
 
@@ -18,8 +19,13 @@ public interface NavigationManager {
 
     //Experiencias
     void navigateToExperiencias() throws LocalException;
-
     void navigateToDetalleExperiencia(String idHerramienta) throws LocalException;
+
+    //Reserva
+    void navigateToReservaExperiencia(String idExperiencia, MvpFragment currentFragment, int requestCode) throws LocalException;
+
+    void navigateToReservaHerramienta(String idHerramienta, MvpFragment currentFragment, int requestCode) throws LocalException;
+
 
     //Gestionar ir hacia atrás con Fragment
     void navigateBack() throws LocalException;

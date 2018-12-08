@@ -8,4 +8,6 @@ public interface MvpFragment {
     void onLoaded();
 
     void onLoadError(String error);
+
+    void setTitle(String title);
 }

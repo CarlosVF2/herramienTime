@@ -13,6 +13,8 @@ import android.com.herramientime.modules.herramientas.repository.HerramientaDeta
 import android.com.herramientime.modules.herramientas.repository.HerramientasFragmentRepository;
 import android.com.herramientime.modules.herramientas.repository.impl.HerramientaDetalleFragmentRepositoryImpl;
 import android.com.herramientime.modules.herramientas.repository.impl.HerramientasFragmentRepositoryImpl;
+import android.com.herramientime.modules.reservar.repository.ReservaFragmentRepository;
+import android.com.herramientime.modules.reservar.repository.impl.ReservaFragmentRepositoryImpl;
 import android.com.rest.RestApiServiceHelper;
 import android.content.Context;
 
@@ -57,5 +59,10 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
     @Override
     public ExperienciaDetalleFragmentRepository getExperienciaDetalleFragmentRepository() {
         return new ExperienciaDetalleFragmentRepositoryImpl(processors.getProcessorExperiencia(), restApiServiceHelper, context.getResources());
+    }
+
+    @Override
+    public ReservaFragmentRepository getReservaFragmentRepository() {
+        return new ReservaFragmentRepositoryImpl();
     }
 }

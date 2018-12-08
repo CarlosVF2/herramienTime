@@ -5,6 +5,7 @@ import android.com.herramientime.modules.experiencias.view.impl.ExperienciaDetal
 import android.com.herramientime.modules.experiencias.view.impl.ExperienciasFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientaDetalleFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientasFragmentImpl;
+import android.com.herramientime.modules.reservar.view.impl.ReservaFragmentImpl;
 import android.content.Intent;
 
 /**
@@ -22,6 +23,8 @@ public interface ViewFactory {
 
     //Experiencias
     ExperienciasFragmentImpl newExperienciasFragmentInstance();
-
     ExperienciaDetalleFragmentImpl newExperienciaDetalleFragmentInstance();
+
+    //Reservas
+    ReservaFragmentImpl newReservaFragmentInstance();
 }

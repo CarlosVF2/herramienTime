@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.com.herramientime.R;
+import android.com.herramientime.core.view.MvpFragment;
 import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.injection.PresenterFactory;
 import android.com.herramientime.injection.ViewFactory;
@@ -12,6 +13,7 @@ import android.com.herramientime.modules.experiencias.view.impl.ExperienciaDetal
 import android.com.herramientime.modules.experiencias.view.impl.ExperienciasFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientaDetalleFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientasFragmentImpl;
+import android.com.herramientime.modules.reservar.view.impl.ReservaFragmentImpl;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -118,6 +120,36 @@ public class NavigationManagerImpl implements NavigationManager, Application.Act
     }
 
     //endregion Experiencias
+
+    //region reserva
+
+    @Override
+    public void navigateToReservaExperiencia(String idExperiencia, MvpFragment currentFragment, int requestCode) throws LocalException {
+        navigateToReserva(idExperiencia, "", currentFragment, requestCode);
+    }
+
+    @Override
+    public void navigateToReservaHerramienta(String idHerramienta, MvpFragment currentFragment, int requestCode) throws LocalException {
+        navigateToReserva("", idHerramienta, currentFragment, requestCode);
+    }
+
+    private void navigateToReserva(String idExperiencia, String idHerramienta, MvpFragment currentFragment, int requestCode) throws LocalException {
+        if (currentActivity != null) {
+            Bundle args = new Bundle();
+            presenterFactory.setupReservaFragmentInstance(args, idExperiencia, idHerramienta);
+            ReservaFragmentImpl fragment = viewFactory.newReservaFragmentInstance();
+            fragment.setArguments(args);
+            if (currentFragment instanceof MvpFragment) {
+                Fragment targetFragment = (Fragment) currentFragment;
+                if (openWithTargetFragment(fragment, targetFragment, requestCode)) return;
+            }
+            open(currentActivity.getSupportFragmentManager(), fragment, null);
+        } else {
+            throw new LocalException(context.getString(R.string.error_activity_not_prepared));
+        }
+    }
+
+    //endregion reserva
 
     //region NavigateBack
 

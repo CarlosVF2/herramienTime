@@ -52,6 +52,11 @@ public abstract class MvpFragmentImpl<PRESENTER extends MvpFragmentPresenter> ex
         this.mvpPresenter.setParams(this.getArguments() != null ? new Bundle(this.getArguments()) : new Bundle(new Bundle()));
     }
 
+    @Override
+    public void setTitle(String title) {
+        getActivity().setTitle(title);
+    }
+
     protected PRESENTER getMvpPresenter() {
         return mvpPresenter;
     }

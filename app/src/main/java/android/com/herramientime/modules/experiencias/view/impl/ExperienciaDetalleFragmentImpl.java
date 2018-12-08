@@ -7,6 +7,9 @@ import android.com.herramientime.modules.experiencias.view.ExperienciaDetalleFra
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -30,6 +33,12 @@ public class ExperienciaDetalleFragmentImpl
     private TextView textViewResumen;
     private LinearLayout linearLayoutContainer;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,6 +57,23 @@ public class ExperienciaDetalleFragmentImpl
         textViewDescripcion = view.findViewById(R.id.textViewDescripcion);
         textViewResumen = view.findViewById(R.id.textViewResumen);
         linearLayoutContainer = view.findViewById(R.id.linearLayoutContainer);
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_detalle_experiencia, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_reservar:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //region LifeCycleCore

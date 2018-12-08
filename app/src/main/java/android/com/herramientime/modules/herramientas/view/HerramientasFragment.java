@@ -13,7 +13,5 @@ import java.util.List;
 public interface HerramientasFragment extends MvpFragment {
     void setData(List<Herramienta> herramientas, HerramientasVHListener listener);
 
-    void setTitle(String title);
-
     void setRefresh(boolean visibility);
 }

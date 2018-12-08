@@ -17,4 +17,7 @@
     <string name="nav_group_ajustes">Ajustes</string>
     <string name="error_not_found_experiencia">No se ha encontrado la experiencia seleccionada</string>
     <string name="title_experiencias">Experiencias</string>
+    <string name="action_confirmar">Confirmar</string>
+    <string name="title_reserva">Reserva</string>
+    <string name="action_reservar">Reservar</string>
 </resources>

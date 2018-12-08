@@ -7,6 +7,7 @@ import android.com.herramientime.modules.experiencias.presenter.impl.Experiencia
 import android.com.herramientime.modules.experiencias.presenter.impl.ExperienciasFragmentPresenterImpl;
 import android.com.herramientime.modules.herramientas.presenter.impl.HerramientaDetalleFragmentPresenterImpl;
 import android.com.herramientime.modules.herramientas.presenter.impl.HerramientasFragmentPresenterImpl;
+import android.com.herramientime.modules.reservar.presenter.impl.ReservaFragmentPresenterImpl;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -39,5 +40,10 @@ public class PresenterFactoryImpl implements PresenterFactory {
     @Override
     public void setupExperienciaDetalleFragmentInstance(Bundle args, String idExperiencia) {
         ExperienciaDetalleFragmentPresenterImpl.newExperienciaDetalleFragmentPresenterInstance(args, idExperiencia);
+    }
+
+    @Override
+    public void setupReservaFragmentInstance(Bundle args, String idExperiencia, String idHerramienta) {
+        ReservaFragmentPresenterImpl.newReservaFragmentPresenterInstance(args, idExperiencia, idHerramienta);
     }
 }

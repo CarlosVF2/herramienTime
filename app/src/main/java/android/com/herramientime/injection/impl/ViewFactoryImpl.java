@@ -6,6 +6,7 @@ import android.com.herramientime.modules.experiencias.view.impl.ExperienciaDetal
 import android.com.herramientime.modules.experiencias.view.impl.ExperienciasFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientaDetalleFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientasFragmentImpl;
+import android.com.herramientime.modules.reservar.view.impl.ReservaFragmentImpl;
 import android.content.Context;
 import android.content.Intent;
 
@@ -48,6 +49,12 @@ public class ViewFactoryImpl implements ViewFactory {
     @Override
     public ExperienciaDetalleFragmentImpl newExperienciaDetalleFragmentInstance() {
         ExperienciaDetalleFragmentImpl fragment = new ExperienciaDetalleFragmentImpl();
+        return fragment;
+    }
+
+    @Override
+    public ReservaFragmentImpl newReservaFragmentInstance() {
+        ReservaFragmentImpl fragment = new ReservaFragmentImpl();
         return fragment;
     }
 }

@@ -13,6 +13,8 @@ import android.com.herramientime.modules.herramientas.interactor.HerramientaDeta
 import android.com.herramientime.modules.herramientas.interactor.HerramientasFragmentInteractor;
 import android.com.herramientime.modules.herramientas.interactor.impl.HerramientaDetalleFragmentInteractorImpl;
 import android.com.herramientime.modules.herramientas.interactor.impl.HerramientasFragmentInteractorImpl;
+import android.com.herramientime.modules.reservar.interactor.ReservaFragmentInteractor;
+import android.com.herramientime.modules.reservar.interactor.impl.ReservaFragmentInteractorImpl;
 
 import com.seidor.core.utils.injection.SchedulerFactory;
 
@@ -51,5 +53,10 @@ public class InteractorFactoryImpl implements InteractorFactory {
     @Override
     public ExperienciaDetalleFragmentInteractor getExperienciaDetalleFragmentInteractor() {
         return new ExperienciaDetalleFragmentInteractorImpl(schedulerFactory.getUIScheduler(), repositoryFactory.getExperienciaDetalleFragmentRepository());
+    }
+
+    @Override
+    public ReservaFragmentInteractor getReservaFragmentInteractor() {
+        return new ReservaFragmentInteractorImpl(schedulerFactory.getUIScheduler(), repositoryFactory.getReservaFragmentRepository());
     }
 }

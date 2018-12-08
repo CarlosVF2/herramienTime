@@ -11,6 +11,8 @@ import android.com.herramientime.modules.herramientas.injection.HerramientaDetal
 import android.com.herramientime.modules.herramientas.injection.HerramientaDetalleFragmentModule;
 import android.com.herramientime.modules.herramientas.injection.HerramientasFragmentComponent;
 import android.com.herramientime.modules.herramientas.injection.HerramientasFragmentModule;
+import android.com.herramientime.modules.reservar.injection.ReservaFragmentComponent;
+import android.com.herramientime.modules.reservar.injection.ReservaFragmentModule;
 
 import com.seidor.core.di.annotations.Provides;
 
@@ -25,6 +27,7 @@ public class ComponentDependencies extends ModuleDependencies {
     private HerramientaDetalleFragmentComponent herramientaDetalleFragmentComponent;
     private ExperienciasFragmentComponent experienciasFragmentComponent;
     private ExperienciaDetalleFragmentComponent experienciaDetalleFragmentComponent;
+    private ReservaFragmentComponent reservaFragmentComponent;
 
     public ComponentDependencies(Application application) {
         super(application);
@@ -33,9 +36,14 @@ public class ComponentDependencies extends ModuleDependencies {
         setupHerramientaDetalleFragmentComponent(getHerramientaDetalleFragmentModule());
         setupExperienciasFragmentComponent(getExperienciasFragmentModule());
         setupExperienciaDetalleFragmentComponent(getExperienciaDetalleFragmentModule());
+        setupReservaFragmentComponent(getReservaFragmentModule());
     }
 
     //region Setup
+
+    private void setupReservaFragmentComponent(ReservaFragmentModule reservaFragmentModule) {
+        reservaFragmentComponent = new ReservaFragmentComponent(reservaFragmentModule);
+    }
 
     private void setupExperienciaDetalleFragmentComponent(ExperienciaDetalleFragmentModule experienciaDetalleFragmentModule) {
         experienciaDetalleFragmentComponent = new ExperienciaDetalleFragmentComponent(experienciaDetalleFragmentModule);
@@ -84,6 +92,11 @@ public class ComponentDependencies extends ModuleDependencies {
     @Provides
     public ExperienciaDetalleFragmentComponent getExperienciaDetalleFragmentComponent() {
         return experienciaDetalleFragmentComponent;
+    }
+
+    @Provides
+    public ReservaFragmentComponent getReservaFragmentComponent() {
+        return reservaFragmentComponent;
     }
 
     //endregion Get
