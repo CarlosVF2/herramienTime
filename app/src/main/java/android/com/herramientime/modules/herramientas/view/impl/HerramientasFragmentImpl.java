@@ -8,11 +8,9 @@ import android.com.herramientime.modules.herramientas.adapter.impl.HerramientasA
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.herramientime.modules.herramientas.presenter.HerramientasFragmentPresenter;
 import android.com.herramientime.modules.herramientas.view.HerramientasFragment;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -105,16 +103,7 @@ public class HerramientasFragmentImpl
 
     @Override
     public void onLoadError(String error) {
-        new AlertDialog.Builder(getContext())
-                .setTitle(getString(R.string.title_dialog_atencion))
-                .setMessage(error)
-                .setPositiveButton(getString(R.string.prompt_aceptar), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-
-                    }
-                })
-                .create().show();
+        super.onLoadError(error);
 
     }
 

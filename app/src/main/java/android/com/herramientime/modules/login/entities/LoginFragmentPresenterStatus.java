@@ -6,7 +6,7 @@ import com.seidor.core.utils.wrapper.BundleWrapper;
 
 public class LoginFragmentPresenterStatus extends BasePresenterStatus {
 
-    private Exception error;
+
     private Login login = new Login();
 
     @Override
@@ -21,10 +21,6 @@ public class LoginFragmentPresenterStatus extends BasePresenterStatus {
 
     //region GET
 
-    public Exception getError() {
-        return error;
-    }
-
     public Login getLogin() {
         return login;
     }
@@ -32,10 +28,6 @@ public class LoginFragmentPresenterStatus extends BasePresenterStatus {
     //endregion GET
 
     //region SET
-
-    public void setError(Exception error) {
-        this.error = error;
-    }
 
     public void setLogin(Login login) {
         this.login = login;

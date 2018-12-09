@@ -70,6 +70,7 @@ public class LoginFragmentImpl
 
     @Override
     public void onLoadError(String error) {
+        super.onLoadError(error);
 
     }
 

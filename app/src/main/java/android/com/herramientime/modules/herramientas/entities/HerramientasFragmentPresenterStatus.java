@@ -8,7 +8,6 @@ import java.util.List;
 
 public class HerramientasFragmentPresenterStatus extends BasePresenterStatus {
 
-    private Exception error;
     private List<Herramienta> herramientas;
 
     @Override
@@ -23,10 +22,6 @@ public class HerramientasFragmentPresenterStatus extends BasePresenterStatus {
 
     //region GET
 
-    public Exception getError() {
-        return error;
-    }
-
     public List<Herramienta> getHerramientas() {
         return herramientas;
     }
@@ -34,10 +29,6 @@ public class HerramientasFragmentPresenterStatus extends BasePresenterStatus {
     //endregion GET
 
     //region SET
-
-    public void setError(Exception error) {
-        this.error = error;
-    }
 
     public void setHerramientas(List<Herramienta> herramientas) {
         this.herramientas = herramientas;

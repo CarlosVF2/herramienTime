@@ -6,7 +6,6 @@ import com.seidor.core.utils.wrapper.BundleWrapper;
 
 public class HerramientaDetalleFragmentPresenterStatus extends BasePresenterStatus {
 
-    private Exception error;
     private String idHerramienta;
     private Herramienta herramienta;
 
@@ -22,10 +21,6 @@ public class HerramientaDetalleFragmentPresenterStatus extends BasePresenterStat
 
     //region GET
 
-    public Exception getError() {
-        return error;
-    }
-
     public String getIdHerramienta() {
         return idHerramienta;
     }
@@ -37,10 +32,6 @@ public class HerramientaDetalleFragmentPresenterStatus extends BasePresenterStat
     //endregion GET
 
     //region SET
-
-    public void setError(Exception error) {
-        this.error = error;
-    }
 
     public void setIdHerramienta(String idHerramienta) {
         this.idHerramienta = idHerramienta;

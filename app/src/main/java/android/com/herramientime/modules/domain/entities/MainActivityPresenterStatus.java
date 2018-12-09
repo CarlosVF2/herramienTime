@@ -7,7 +7,6 @@ import com.seidor.core.utils.wrapper.BundleWrapper;
 
 public class MainActivityPresenterStatus extends BasePresenterStatus {
 
-    private Exception error;
     private Usuario usuario;
 
     @Override
@@ -22,20 +21,12 @@ public class MainActivityPresenterStatus extends BasePresenterStatus {
 
     //region GET
 
-    public Exception getError() {
-        return error;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
     //endregion GET
 
     //region SET
-
-    public void setError(Exception error) {
-        this.error = error;
-    }
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;

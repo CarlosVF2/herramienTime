@@ -73,6 +73,7 @@ public class ReservaFragmentImpl
 
     @Override
     public void onLoadError(String error) {
+        super.onLoadError(error);
 
     }
 

@@ -86,6 +86,7 @@ public class AlquilarHerramientaFragmentImpl
 
     @Override
     public void onLoadError(String error) {
+        super.onLoadError(error);
 
     }
 

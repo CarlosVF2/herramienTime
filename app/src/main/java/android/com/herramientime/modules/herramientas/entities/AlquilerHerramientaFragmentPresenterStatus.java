@@ -6,7 +6,6 @@ import com.seidor.core.utils.wrapper.BundleWrapper;
 
 public class AlquilerHerramientaFragmentPresenterStatus extends BasePresenterStatus {
 
-    private Exception error;
     private AlquilerHerramienta alquilerHerramienta = new AlquilerHerramienta();
 
     @Override
@@ -25,20 +24,12 @@ public class AlquilerHerramientaFragmentPresenterStatus extends BasePresenterSta
         return alquilerHerramienta;
     }
 
-    public Exception getError() {
-        return error;
-    }
-
     //endregion GET
 
     //region SET
 
     public void setAlquilerHerramienta(AlquilerHerramienta alquilerHerramienta) {
         this.alquilerHerramienta = alquilerHerramienta;
-    }
-
-    public void setError(Exception error) {
-        this.error = error;
     }
 
     //endregion SET

@@ -6,7 +6,6 @@ import com.seidor.core.utils.wrapper.BundleWrapper;
 
 public class ExperienciaDetalleFragmentPresenterStatus extends BasePresenterStatus {
 
-    private Exception error;
     private String idExperiencia;
     private Experiencia experiencia;
 
@@ -22,10 +21,6 @@ public class ExperienciaDetalleFragmentPresenterStatus extends BasePresenterStat
 
     //region GET
 
-    public Exception getError() {
-        return error;
-    }
-
     public String getIdExperiencia() {
         return idExperiencia;
     }
@@ -36,10 +31,6 @@ public class ExperienciaDetalleFragmentPresenterStatus extends BasePresenterStat
     //endregion GET
 
     //region SET
-
-    public void setError(Exception error) {
-        this.error = error;
-    }
 
     public void setIdExperiencia(String idExperiencia) {
         this.idExperiencia = idExperiencia;

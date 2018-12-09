@@ -86,7 +86,7 @@ public class AlquilarExperienciaFragmentImpl
 
     @Override
     public void onLoadError(String error) {
-
+        super.onLoadError(error);
     }
 
     //endregion Core LifeCycle

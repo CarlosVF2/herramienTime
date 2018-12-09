@@ -90,7 +90,7 @@ public class HerramientaDetalleFragmentImpl
 
     @Override
     public void onLoadError(String error) {
-        linearLayoutContainer.setVisibility(View.GONE);
+        super.onLoadError(error);
 
     }
 

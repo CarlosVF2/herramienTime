@@ -10,4 +10,8 @@ public interface MvpFragment {
     void onLoadError(String error);
 
     void setTitle(String title);
+
+    void showProgressDialogWithMessage(String message);
+
+    void hideProgressDialog();
 }

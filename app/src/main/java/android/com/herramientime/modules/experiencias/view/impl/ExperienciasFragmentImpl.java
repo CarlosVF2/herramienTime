@@ -103,7 +103,7 @@ public class ExperienciasFragmentImpl
 
     @Override
     public void onLoadError(String error) {
-        recyclerViewExperiencia.setVisibility(View.GONE);
+        super.onLoadError(error);
 
     }
 

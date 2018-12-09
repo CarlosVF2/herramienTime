@@ -8,7 +8,6 @@ import java.util.List;
 
 public class ExperienciasFragmentPresenterStatus extends BasePresenterStatus {
 
-    private Exception error;
     private List<Experiencia> experiencias;
 
     @Override
@@ -23,10 +22,6 @@ public class ExperienciasFragmentPresenterStatus extends BasePresenterStatus {
 
     //region GET
 
-    public Exception getError() {
-        return error;
-    }
-
     public List<Experiencia> getExperiencias() {
         return experiencias;
     }
@@ -34,10 +29,6 @@ public class ExperienciasFragmentPresenterStatus extends BasePresenterStatus {
     //endregion GET
 
     //region SET
-
-    public void setError(Exception error) {
-        this.error = error;
-    }
 
     public void setExperiencias(List<Experiencia> experiencias) {
         this.experiencias = experiencias;
