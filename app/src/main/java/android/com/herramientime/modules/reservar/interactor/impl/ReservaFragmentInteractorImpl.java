@@ -9,6 +9,7 @@ import com.seidor.core.task.executor.future.ResponseFuture;
 import com.seidor.core.task.executor.interactor.TaskInteractorImpl;
 import com.seidor.core.utils.scheduler.UiScheduler;
 
+import java.util.Date;
 import java.util.concurrent.Callable;
 
 public class ReservaFragmentInteractorImpl extends TaskInteractorImpl implements ReservaFragmentInteractor {
@@ -36,6 +37,16 @@ public class ReservaFragmentInteractorImpl extends TaskInteractorImpl implements
             @Override
             public Herramienta call() throws Exception {
                 return reservaFragmentRepository.getHerramientaById(idHerramienta);
+            }
+        });
+    }
+
+    @Override
+    public ResponseFuture<Boolean> save(final Experiencia experiencia, final Herramienta herramienta, final Date fechaInicial, final Date fechaFinal) {
+        return prepare(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                return reservaFragmentRepository.reservar(experiencia, herramienta, fechaInicial, fechaFinal);
             }
         });
     }

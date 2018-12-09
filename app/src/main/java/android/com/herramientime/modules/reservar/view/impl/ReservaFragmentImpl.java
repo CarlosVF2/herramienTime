@@ -69,6 +69,7 @@ public class ReservaFragmentImpl
         int id = item.getItemId();
         switch (id) {
             case R.id.action_confirmar:
+                getMvpPresenter().onClickConfirmar();
                 return true;
         }
         return super.onOptionsItemSelected(item);

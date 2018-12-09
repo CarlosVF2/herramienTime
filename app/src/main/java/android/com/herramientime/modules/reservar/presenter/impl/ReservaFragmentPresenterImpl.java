@@ -5,6 +5,7 @@ import android.com.herramientime.app.HerramienTimeApp;
 import android.com.herramientime.core.entities.ErrorCause;
 import android.com.herramientime.core.presenter.impl.MvpFragmentPresenterImpl;
 import android.com.herramientime.injection.NavigationManager;
+import android.com.herramientime.modules.domain.entities.LocalException;
 import android.com.herramientime.modules.experiencias.entities.Experiencia;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.herramientime.modules.reservar.entities.ReservaFragmentPresenterStatus;
@@ -42,6 +43,7 @@ public class ReservaFragmentPresenterImpl<FRAGMENT extends ReservaFragment> exte
     private ReservaFragmentPresenterStatus presenterStatus = new ReservaFragmentPresenterStatus();
     private ResponseFuture<Herramienta> responseFutureHerramienta;
     private ResponseFuture<Experiencia> responseFutureExperiencia;
+    private ResponseFuture<Boolean> responseFutureSave;
 
     public static void newReservaFragmentPresenterInstance(Bundle bundle, String idExperiencia, String idHerramienta) {
         ReservaFragmentPresenterImpl presenter = new ReservaFragmentPresenterImpl();
@@ -98,6 +100,9 @@ public class ReservaFragmentPresenterImpl<FRAGMENT extends ReservaFragment> exte
         }
         if (responseFutureExperiencia != null) {
             responseFutureExperiencia.cancel(true);
+        }
+        if (responseFutureSave != null) {
+            responseFutureSave.cancel(true);
         }
         super.onDestroy();
     }
@@ -185,6 +190,11 @@ public class ReservaFragmentPresenterImpl<FRAGMENT extends ReservaFragment> exte
         }
     }
 
+    @Override
+    public void onClickConfirmar() {
+        startResponseFutureSave();
+    }
+
     //region ResponseFuture
 
 
@@ -228,6 +238,34 @@ public class ReservaFragmentPresenterImpl<FRAGMENT extends ReservaFragment> exte
             @Override
             public void onError(Exception e) {
 
+            }
+        });
+    }
+
+    private void startResponseFutureSave() {
+        if (responseFutureSave != null) {
+            responseFutureSave.cancel(true);
+        }
+        responseFutureSave = reservaFragmentInteractor.save(presenterStatus.getExperiencia(), presenterStatus.getHerramienta(), presenterStatus.getFechaInicial(), presenterStatus.getFechaFinal()).onData(new OnData<Boolean>() {
+            @Override
+            public void onData(Boolean aBoolean) {
+                if (aBoolean) {
+                    try {
+                        navigationManager.navigateBack();
+                    } catch (LocalException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).onError(new OnError() {
+            @Override
+            public void onError(Exception e) {
+                presenterStatus.setError(e);
+            }
+        }).onCompleted(new OnCompleted() {
+            @Override
+            public void onCompleted() {
+                onDataLoaded();
             }
         });
     }

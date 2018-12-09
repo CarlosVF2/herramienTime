@@ -16,4 +16,6 @@ public interface ReservaFragmentPresenter extends MvpFragmentPresenter {
     void onFechaInicialSelected(Date time);
 
     void onFechaFinalSelected(Date time);
+
+    void onClickConfirmar();
 }

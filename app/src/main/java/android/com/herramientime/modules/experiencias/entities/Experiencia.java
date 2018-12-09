@@ -1,5 +1,7 @@
 package android.com.herramientime.modules.experiencias.entities;
 
+import java.util.Date;
+
 public class Experiencia {
 
     private String idUsuario;
@@ -10,8 +12,30 @@ public class Experiencia {
     private String precioHora;
     private String simboloMoneda;
     private String moneda;
+    private String reservada;
+    private boolean isReservada;
+    private String fechaInicialTexto;
+    private String fechaFinalTexto;
+    private Date fechaInicial;
+    private Date fechaFinal;
 
     //region GET
+
+    public String getReservada() {
+        return reservada;
+    }
+
+    public boolean isReservada() {
+        return isReservada;
+    }
+
+    public String getFechaInicialTexto() {
+        return fechaInicialTexto;
+    }
+
+    public String getFechaFinalTexto() {
+        return fechaFinalTexto;
+    }
 
     public String getIdUsuario() {
         return idUsuario;
@@ -45,10 +69,42 @@ public class Experiencia {
         return moneda;
     }
 
+    public Date getFechaInicial() {
+        return fechaInicial;
+    }
+
+    public Date getFechaFinal() {
+        return fechaFinal;
+    }
+
     //endregion GET
 
     //region SET
 
+
+    public void setFechaInicial(Date fechaInicial) {
+        this.fechaInicial = fechaInicial;
+    }
+
+    public void setFechaFinal(Date fechaFinal) {
+        this.fechaFinal = fechaFinal;
+    }
+
+    public void setReservada(String reservada) {
+        this.reservada = reservada;
+    }
+
+    public void setReservada(boolean reservada) {
+        isReservada = reservada;
+    }
+
+    public void setFechaInicialTexto(String fechaInicialTexto) {
+        this.fechaInicialTexto = fechaInicialTexto;
+    }
+
+    public void setFechaFinalTexto(String fechaFinalTexto) {
+        this.fechaFinalTexto = fechaFinalTexto;
+    }
 
     public void setPrecioHora(String precioHora) {
         this.precioHora = precioHora;

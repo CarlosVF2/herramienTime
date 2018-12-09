@@ -30,6 +30,15 @@ public class ExperienciaRest {
     @SerializedName("moneda")
     private String moneda;
 
+    @SerializedName("reservada")
+    private String reservada;
+
+    @SerializedName("fechaInicio")
+    private String fechaInicial;
+
+    @SerializedName("fechaFin")
+    private String fechaFinal;
+
     public ExperienciaRest(String id) {
         this.id = id;
     }
@@ -43,6 +52,9 @@ public class ExperienciaRest {
         this.precioHora = "";
         this.simboloMoneda = "";
         this.moneda = "";
+        this.reservada = "";
+        this.fechaInicial = "";
+        this.fechaFinal = "";
     }
 
     public void setIdUsuario(String idUsuario) {
@@ -107,6 +119,30 @@ public class ExperienciaRest {
 
     public void setMoneda(String moneda) {
         this.moneda = moneda;
+    }
+
+    public String getReservada() {
+        return reservada;
+    }
+
+    public void setReservada(String reservada) {
+        this.reservada = reservada;
+    }
+
+    public String getFechaInicial() {
+        return fechaInicial;
+    }
+
+    public void setFechaInicial(String fechaInicial) {
+        this.fechaInicial = fechaInicial;
+    }
+
+    public String getFechaFinal() {
+        return fechaFinal;
+    }
+
+    public void setFechaFinal(String fechaFinal) {
+        this.fechaFinal = fechaFinal;
     }
 
     @Override
