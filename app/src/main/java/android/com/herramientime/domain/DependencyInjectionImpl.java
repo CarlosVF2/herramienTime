@@ -49,7 +49,7 @@ public abstract class DependencyInjectionImpl extends DependencyInjection {
         setupPresenterFactoryDependency();
         setupProcessors();
         setupRestApiServiceHelper(application.getApplicationContext());
-        setupRepositoryFactoryDependency(application.getApplicationContext(), presenterFactory, getRestApiServiceHelper(), getProcessors());
+        setupRepositoryFactoryDependency(application.getApplicationContext(), getRestApiServiceHelper(), getProcessors());
         setupInteractorFactoryDependency(getRepositoryFactoryInstance(), getSchedulerFactoryInstance());
         setupViewFactoryDependency(application.getApplicationContext());
         setupNavigationManagerDependency(application, getViewFactoryInstance(), getPresenterFactory(), application.getApplicationContext());
@@ -68,7 +68,7 @@ public abstract class DependencyInjectionImpl extends DependencyInjection {
     }
 
     private void setupRestApiServiceHelper(Context context) {
-        restApiServiceHelper = new RestApiServiceHelperImpl(getRestApiBuilder(context));
+        restApiServiceHelper = new RestApiServiceHelperImpl(getRestApiBuilder(context), context);
     }
 
     private void setupConstantsDependency() {
@@ -83,8 +83,8 @@ public abstract class DependencyInjectionImpl extends DependencyInjection {
         interactorFactory = new InteractorFactoryImpl(repositoryFactory, schedulerFactory);
     }
 
-    private void setupRepositoryFactoryDependency(Context context, PresenterFactory presenterFactory, RestApiServiceHelper restApiServiceHelper, Processors processors) {
-        repositoryFactory = new RepositoryFactoryImpl(context, presenterFactory, restApiServiceHelper, processors);
+    private void setupRepositoryFactoryDependency(Context context, RestApiServiceHelper restApiServiceHelper, Processors processors) {
+        repositoryFactory = new RepositoryFactoryImpl(context, restApiServiceHelper, processors);
     }
 
     private void setupNavigationManagerDependency(Application application, ViewFactory viewFactory, PresenterFactory presenterFactory, Context context) {

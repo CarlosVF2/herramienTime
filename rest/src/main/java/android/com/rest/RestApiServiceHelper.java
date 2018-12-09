@@ -1,9 +1,11 @@
 package android.com.rest;
 
 
+import android.com.rest.entities.CategoriaRest;
 import android.com.rest.entities.ExperienciaRest;
 import android.com.rest.entities.HerramientaRest;
 import android.com.rest.entities.InternetException;
+import android.com.rest.entities.MonedaRest;
 import android.com.rest.entities.UsuariosRest;
 
 import java.util.List;
@@ -27,4 +29,8 @@ public interface RestApiServiceHelper {
     void postExperiencia(List<ExperienciaRest> experienciaRests) throws InternetException;
 
     void postUsuario(List<UsuariosRest> usuariosRests) throws InternetException;
+
+    List<CategoriaRest> getCategorias() throws InternetException;
+
+    List<MonedaRest> getMonedas() throws InternetException;
 }

@@ -1,9 +1,17 @@
 package android.com.rest;
 
+import android.annotation.SuppressLint;
+import android.com.rest.entities.CategoriaRest;
 import android.com.rest.entities.ExperienciaRest;
 import android.com.rest.entities.HerramientaRest;
 import android.com.rest.entities.InternetException;
+import android.com.rest.entities.MonedaRest;
 import android.com.rest.entities.UsuariosRest;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
+import android.os.Build;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,11 +33,11 @@ import retrofit2.Retrofit;
 public class RestApiServiceHelperImpl implements RestApiServiceHelper {
     private Retrofit.Builder retroFitBuilder;
     private RestApiService restApiService;
-    private FirebaseDatabase mFirebaseInstance;
+    private final Context context;
 
-    public RestApiServiceHelperImpl(Retrofit.Builder retroFitBuilder) {
+    public RestApiServiceHelperImpl(Retrofit.Builder retroFitBuilder, Context context) {
         this.retroFitBuilder = retroFitBuilder;
-        mFirebaseInstance = FirebaseDatabase.getInstance();
+        this.context = context;
     }
 
     private OkHttpClient getclientToken() {
@@ -41,6 +49,9 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
     private void checkConnectivity() throws InternetException {
         if (restApiService == null) {
             restApiService = retroFitBuilder.client(getclientToken()).build().create(RestApiService.class);
+        }
+        if (!isConnectingToInternet()) {
+            throw new InternetException("No esta conectado a internet");
         }
     }
 
@@ -146,6 +157,46 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
         databaseReference.setValue(users);
     }
 
+    @Override
+    public List<CategoriaRest> getCategorias() throws InternetException {
+        checkConnectivity();
+        try {
+            Response<List<CategoriaRest>> response = restApiService.getCategorias().execute();
+
+            if (response.isSuccessful()) {
+                if (response.body() != null) {
+                    return response.body();
+                } else {
+                    return new ArrayList<>();
+                }
+            } else {
+                return null;
+            }
+        } catch (IOException ex) {
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<MonedaRest> getMonedas() throws InternetException {
+        checkConnectivity();
+        try {
+            Response<List<MonedaRest>> response = restApiService.getMonedas().execute();
+
+            if (response.isSuccessful()) {
+                if (response.body() != null) {
+                    return response.body();
+                } else {
+                    return new ArrayList<>();
+                }
+            } else {
+                return null;
+            }
+        } catch (IOException ex) {
+        }
+        return new ArrayList<>();
+    }
+
     private void generateError(Response response) throws InternetException {
         StringBuilder messageErrorGateway = new StringBuilder();
         if (response != null) {
@@ -217,5 +268,38 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
             }
         }
         return sb.toString();
+    }
+
+    private boolean isConnectingToInternet() {
+        boolean status = false;
+        @SuppressLint("WrongConstant") ConnectivityManager connectivityManager = (ConnectivityManager) this.context.getSystemService("connectivity");
+        int var6;
+        if (Build.VERSION.SDK_INT >= 21) {
+            Network[] networks = connectivityManager.getAllNetworks();
+            Network[] var5 = networks;
+            var6 = networks.length;
+
+            for (int var7 = 0; var7 < var6; ++var7) {
+                Network mNetwork = var5[var7];
+                NetworkInfo networkInfo = connectivityManager.getNetworkInfo(mNetwork);
+                if (networkInfo.getState().equals(NetworkInfo.State.CONNECTED)) {
+                    status = true;
+                }
+            }
+        } else if (connectivityManager != null) {
+            NetworkInfo[] info = connectivityManager.getAllNetworkInfo();
+            if (info != null) {
+                NetworkInfo[] var10 = info;
+                int var11 = info.length;
+
+                for (var6 = 0; var6 < var11; ++var6) {
+                    NetworkInfo anInfo = var10[var6];
+                    if (anInfo != null && anInfo.isAvailable() && anInfo.isConnected()) {
+                        status = true;
+                    }
+                }
+            }
+        }
+        return status;
     }
 }

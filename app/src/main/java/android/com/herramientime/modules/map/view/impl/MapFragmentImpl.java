@@ -199,10 +199,6 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
     public void onLoaded() {
     }
 
-    @Override
-    public void onLoadError(String s) {
-    }
-
     private void checkNetwork() {
         LocationManager mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         boolean gps_enabled = false;

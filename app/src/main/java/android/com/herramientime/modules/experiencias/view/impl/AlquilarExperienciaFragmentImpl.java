@@ -15,6 +15,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import java.util.List;
 
 /**
  * Created by carlo on 06/11/2018.
@@ -22,11 +27,13 @@ import android.view.ViewGroup;
 
 public class AlquilarExperienciaFragmentImpl
         <PRESENTER extends AlquilerExperienciaFragmentPresenter> extends MvpFragmentImpl<PRESENTER>
-        implements AlquilarExperienciaFragment, TextWatcher {
+        implements AlquilarExperienciaFragment, TextWatcher, AdapterView.OnItemSelectedListener {
 
     private TextInputLayout textInputLayoutTitulo;
     private TextInputLayout textInputLayoutDescripcion;
     private TextInputLayout textInputLayoutPrecio;
+    private Spinner spinnerSimbolos;
+    private ArrayAdapter<String> adapterSpinnerSimbolos;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +57,8 @@ public class AlquilarExperienciaFragmentImpl
         textInputLayoutTitulo = view.findViewById(R.id.textInputLayoutTitulo);
         textInputLayoutDescripcion = view.findViewById(R.id.textInputLayoutDescripcion);
         textInputLayoutPrecio = view.findViewById(R.id.textInputLayoutPrecio);
+        spinnerSimbolos = view.findViewById(R.id.spinnerSimbolos);
+        spinnerSimbolos.setOnItemSelectedListener(this);
         textInputLayoutTitulo.getEditText().addTextChangedListener(this);
         textInputLayoutDescripcion.getEditText().addTextChangedListener(this);
         textInputLayoutPrecio.getEditText().addTextChangedListener(this);
@@ -72,6 +81,16 @@ public class AlquilarExperienciaFragmentImpl
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void setAdapterSpinnerMoneda(List<String> valuesAdapterMoneda) {
+        if (adapterSpinnerSimbolos == null) {
+            String[] valores = valuesAdapterMoneda.toArray(new String[valuesAdapterMoneda.size()]);
+            adapterSpinnerSimbolos = new ArrayAdapter<>(getContext(),
+                    android.R.layout.simple_spinner_item, valores);
+        }
+        spinnerSimbolos.setAdapter(adapterSpinnerSimbolos);
+    }
+
     //region Core LifeCycle
 
     @Override
@@ -82,11 +101,6 @@ public class AlquilarExperienciaFragmentImpl
     @Override
     public void onLoaded() {
 
-    }
-
-    @Override
-    public void onLoadError(String error) {
-        super.onLoadError(error);
     }
 
     //endregion Core LifeCycle
@@ -118,5 +132,25 @@ public class AlquilarExperienciaFragmentImpl
     }
 
     //endregion TextWatcher
+
+    //region OnItemSelectedListener
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        int id = adapterView.getId();
+        switch (id) {
+            case R.id.spinnerSimbolos:
+                getMvpPresenter().onItemSimbolosSelected(i);
+                break;
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    //endregion OnItemSelectedListener
 
 }

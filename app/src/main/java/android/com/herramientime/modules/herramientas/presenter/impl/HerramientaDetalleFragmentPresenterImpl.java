@@ -63,6 +63,7 @@ public class HerramientaDetalleFragmentPresenterImpl<FRAGMENT extends Herramient
 
     @Override
     public void onViewBinded() {
+        super.onViewBinded();
         if (interactor == null) {
             interactor = HerramienTimeApp.getComponentDependencies().getHerramientaDetalleFragmentComponent().getHerramientaDetalleModule().getHerramientaDetalleFragmentInteractor();
         }
@@ -77,6 +78,7 @@ public class HerramientaDetalleFragmentPresenterImpl<FRAGMENT extends Herramient
     @Override
     public void onDataLoaded() {
         if (isLoadingFinish()) {
+            super.onDataLoaded();
             FRAGMENT fragment = getMvpFragment();
             if (fragment != null) {
                 if (presenterStatus.getError() != null) {
@@ -88,6 +90,7 @@ public class HerramientaDetalleFragmentPresenterImpl<FRAGMENT extends Herramient
                 fragment.setDescripcion(presenterStatus.getHerramienta().getDescripcion());
                 fragment.setPrecio(presenterStatus.getHerramienta().getMoneda());
                 fragment.setResumen(presenterStatus.getHerramienta().getResumen());
+                fragment.setResumen(presenterStatus.getHerramienta().getCategoriaDescriptivo());
                 fragment.onLoaded();
             }
         }

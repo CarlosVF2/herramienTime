@@ -7,6 +7,11 @@ public class Categoria {
     private String descripcion;
     private String id;
 
+    public Categoria() {
+        descripcion = "";
+        id = "";
+    }
+
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }

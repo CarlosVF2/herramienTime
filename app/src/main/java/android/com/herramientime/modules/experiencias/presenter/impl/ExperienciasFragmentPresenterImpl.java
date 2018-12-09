@@ -55,6 +55,7 @@ public class ExperienciasFragmentPresenterImpl<FRAGMENT extends ExperienciasFrag
 
     @Override
     public void onViewBinded() {
+        super.onViewBinded();
         if (navigationManager == null) {
             navigationManager = HerramienTimeApp.getComponentDependencies().getNavigationManager();
         }
@@ -85,6 +86,7 @@ public class ExperienciasFragmentPresenterImpl<FRAGMENT extends ExperienciasFrag
     @Override
     public void onDataLoaded() {
         if (isLoadingFinish()) {
+            super.onDataLoaded();
             FRAGMENT fragment = getMvpFragment();
             if (fragment != null) {
                 fragment.setRefresh(false);
@@ -146,15 +148,15 @@ public class ExperienciasFragmentPresenterImpl<FRAGMENT extends ExperienciasFrag
             public void onData(List<Experiencia> experiencias) {
                 presenterStatus.setExperiencias(experiencias);
             }
-        }).onCompleted(new OnCompleted() {
-            @Override
-            public void onCompleted() {
-                onDataLoaded();
-            }
         }).onError(new OnError() {
             @Override
             public void onError(Exception e) {
                 presenterStatus.setError(e);
+            }
+        }).onCompleted(new OnCompleted() {
+            @Override
+            public void onCompleted() {
+                onDataLoaded();
             }
         });
     }

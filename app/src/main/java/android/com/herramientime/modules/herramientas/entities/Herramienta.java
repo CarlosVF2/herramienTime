@@ -20,6 +20,7 @@ public class Herramienta {
     private String precioText;
     private Double precio;
     private String categoria;
+    private String categoriaDescriptivo;
 
 
     //region GET
@@ -88,6 +89,10 @@ public class Herramienta {
         return categoria;
     }
 
+    public String getCategoriaDescriptivo() {
+        return categoriaDescriptivo;
+    }
+
     //endregion GET
 
     //region SET
@@ -154,6 +159,10 @@ public class Herramienta {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public void setCategoriaDescriptivo(String categoriaDescriptivo) {
+        this.categoriaDescriptivo = categoriaDescriptivo;
     }
 
     //endregion SET

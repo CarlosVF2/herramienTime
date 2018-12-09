@@ -48,6 +48,7 @@ public class ExperienciaDetalleFragmentPresenterImpl<FRAGMENT extends Experienci
 
     @Override
     public void onViewBinded() {
+        super.onViewBinded();
         if (interactor == null) {
             interactor = HerramienTimeApp.getComponentDependencies().getExperienciaDetalleFragmentComponent().getHerramientaDetalleModule().getExperienciaDetalleFragmentInteractor();
         }
@@ -59,6 +60,7 @@ public class ExperienciaDetalleFragmentPresenterImpl<FRAGMENT extends Experienci
     @Override
     public void onDataLoaded() {
         if (isLoadingFinish()) {
+            super.onDataLoaded();
             FRAGMENT fragment = getMvpFragment();
             if (fragment != null) {
                 if (presenterStatus.getError() != null) {

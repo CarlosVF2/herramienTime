@@ -1,7 +1,9 @@
 package android.com.rest;
 
+import android.com.rest.entities.CategoriaRest;
 import android.com.rest.entities.ExperienciaRest;
 import android.com.rest.entities.HerramientaRest;
+import android.com.rest.entities.MonedaRest;
 import android.com.rest.entities.UsuariosRest;
 
 import java.util.List;
@@ -24,4 +26,10 @@ public interface RestApiService {
 
     @GET("/Usuarios.json")
     Call<List<UsuariosRest>> getUsuarios();
+
+    @GET("/Categoria.json")
+    Call<List<CategoriaRest>> getCategorias();
+
+    @GET("/Moneda.json")
+    Call<List<MonedaRest>> getMonedas();
 }

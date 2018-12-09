@@ -18,5 +18,7 @@ public interface HerramientaDetalleFragment extends MvpFragment {
 
     void setResumen(String resumen);
 
+    void setCategoria(String categoria);
+
     //endregion SET text
 }

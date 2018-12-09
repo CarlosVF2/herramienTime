@@ -106,12 +106,6 @@ public class HerramientasFragmentImpl
 
     }
 
-    @Override
-    public void onLoadError(String error) {
-        super.onLoadError(error);
-
-    }
-
     //endregion Core LifeCycle
 
     @Override

@@ -1,5 +1,6 @@
 package android.com.herramientime.modules.experiencias.interactor.impl;
 
+import android.com.herramientime.modules.domain.entities.Moneda;
 import android.com.herramientime.modules.experiencias.entities.AlquilerExperiencia;
 import android.com.herramientime.modules.experiencias.entities.Experiencia;
 import android.com.herramientime.modules.experiencias.interactor.AlquilerExperienciaFragmentInteractor;
@@ -9,6 +10,7 @@ import com.seidor.core.task.executor.future.ResponseFuture;
 import com.seidor.core.task.executor.interactor.TaskInteractorImpl;
 import com.seidor.core.utils.scheduler.UiScheduler;
 
+import java.util.List;
 import java.util.concurrent.Callable;
 
 public class AlquilerExperienciaFragmentInteractorImpl extends TaskInteractorImpl implements AlquilerExperienciaFragmentInteractor {
@@ -26,6 +28,16 @@ public class AlquilerExperienciaFragmentInteractorImpl extends TaskInteractorImp
             @Override
             public Experiencia call() throws Exception {
                 return alquilerExperienciaFragmentRepository.saveExperiencia(alquilerExperiencia);
+            }
+        });
+    }
+
+    @Override
+    public ResponseFuture<List<Moneda>> getMonedas() {
+        return prepare(new Callable<List<Moneda>>() {
+            @Override
+            public List<Moneda> call() throws Exception {
+                return alquilerExperienciaFragmentRepository.getMonedas();
             }
         });
     }

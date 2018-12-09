@@ -30,16 +30,22 @@ public class LoginFragmentRepositoryImpl implements LoginFragmentRepository {
     }
 
     @Override
-    public Usuario iniciarSesion(Login login) throws InternetException {
-        checkFieldsFillIniciarSesion(login);
+    public Usuario getUserById(String id) throws InternetException {
         List<UsuariosRest> usuariosRests = restApiServiceHelper.getUsuarios();
-        UsuariosRest usuariosRest = new UsuariosRest(login.getUser());
+        UsuariosRest usuariosRest = new UsuariosRest(id);
         int index = usuariosRests.indexOf(usuariosRest);
         if (index > -1) {
-            createUserInSharedPreferences(usuariosRests.get(index));
             return processorUsuario.convertFrom(usuariosRests.get(index));
         }
         throw new InternetException(resources.getString(R.string.error_user_not_found));
+    }
+
+    @Override
+    public Usuario iniciarSesion(Login login) throws InternetException {
+        checkFieldsFillIniciarSesion(login);
+        Usuario usuario = getUserById(login.getUser());
+        createUserInSharedPreferences(usuario);
+        return usuario;
     }
 
     @Override
@@ -66,7 +72,7 @@ public class LoginFragmentRepositoryImpl implements LoginFragmentRepository {
         }
     }
 
-    private void createUserInSharedPreferences(UsuariosRest usuariosRest) {
+    private void createUserInSharedPreferences(Usuario usuariosRest) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 

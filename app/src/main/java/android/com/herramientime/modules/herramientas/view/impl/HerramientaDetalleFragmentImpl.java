@@ -30,6 +30,7 @@ public class HerramientaDetalleFragmentImpl
     private TextView textViewPrecio;
     private TextView textViewDescripcion;
     private TextView textViewResumen;
+    private TextView textViewCategoria;
     private LinearLayout linearLayoutContainer;
 
     @Override
@@ -55,6 +56,7 @@ public class HerramientaDetalleFragmentImpl
         textViewPrecio = view.findViewById(R.id.textViewPrecio);
         textViewDescripcion = view.findViewById(R.id.textViewDescripcion);
         textViewResumen = view.findViewById(R.id.textViewResumen);
+        textViewCategoria = view.findViewById(R.id.textViewCategoria);
         linearLayoutContainer = view.findViewById(R.id.linearLayoutContainer);
     }
 
@@ -87,12 +89,6 @@ public class HerramientaDetalleFragmentImpl
 
     }
 
-    @Override
-    public void onLoadError(String error) {
-        super.onLoadError(error);
-
-    }
-
     //endregion LifeCycleCore
 
     //region set Text
@@ -118,6 +114,11 @@ public class HerramientaDetalleFragmentImpl
     @Override
     public void setResumen(String resumen) {
         textViewResumen.setText(resumen);
+    }
+
+    @Override
+    public void setCategoria(String categoria) {
+        textViewResumen.setText(categoria);
     }
 
     //endregion set Text

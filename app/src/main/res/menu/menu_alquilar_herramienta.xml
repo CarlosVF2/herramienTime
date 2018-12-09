@@ -6,5 +6,12 @@
         android:orderInCategory="1"
         android:title="@string/action_confirmar"
         android:icon="@drawable/ic_done_white_24dp"
+        android:visible="false"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_make_photo"
+        android:orderInCategory="2"
+        android:title="@string/action_make_photo"
+        android:icon="@drawable/ic_add_a_photo_white_24dp"
         app:showAsAction="always" />
 </menu>

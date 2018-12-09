@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_margin="@dimen/dimen_margin_fragment"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -36,7 +37,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="@dimen/dimen_width_precio"
+            android:layout_width="60dp"
             android:id="@+id/textInputLayoutPrecio"
             android:layout_below="@+id/textInputLayoutDescripcion"
             android:layout_height="wrap_content">
@@ -45,12 +46,14 @@
                 android:layout_width="match_parent"
                 android:inputType="number|numberDecimal"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:id="@+id/textInputEditTextPrecio"
-                android:hint="Descripcion"
+                android:hint="@string/prompt_precio"
                 android:textSize="16dp" />
         </android.support.design.widget.TextInputLayout>
 
         <Spinner
+            android:id="@+id/spinnerSimbolos"
             android:layout_width="@dimen/dimen_width_precio"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textInputLayoutDescripcion"

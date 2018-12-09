@@ -59,6 +59,7 @@ public class MapFragmentPresenterImpl<FRAGMENT extends MapFragment>
 
     @Override
     public void onViewBinded() {
+        super.onViewBinded();
 
         onDataLoaded();
     }
@@ -72,6 +73,7 @@ public class MapFragmentPresenterImpl<FRAGMENT extends MapFragment>
     @Override
     public void onDataLoaded() {
         if (isLoadingFinish()) {
+            super.onDataLoaded();
             FRAGMENT fragment = getMvpFragment();
             if (fragment != null) {
                 fragment.onLoaded();

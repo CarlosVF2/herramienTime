@@ -51,6 +51,7 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
 
     @Override
     public void onViewBinded() {
+        super.onViewBinded();
         if(navigationManager == null){
             navigationManager = HerramienTimeApp.getComponentDependencies().getNavigationManager();
         }
@@ -78,6 +79,7 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
     @Override
     public void onDataLoaded() {
         if(isLoadingFinish()){
+            super.onDataLoaded();
             FRAGMENT fragment = getMvpFragment();
             if(fragment != null){
                 fragment.setRefresh(false);
@@ -148,15 +150,15 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
             public void onData(List<Herramienta> herramientas) {
                 presenterStatus.setHerramientas(herramientas);
             }
-        }).onCompleted(new OnCompleted() {
-            @Override
-            public void onCompleted() {
-                onDataLoaded();
-            }
         }).onError(new OnError() {
             @Override
             public void onError(Exception e) {
                 presenterStatus.setError(e);
+            }
+        }).onCompleted(new OnCompleted() {
+            @Override
+            public void onCompleted() {
+                onDataLoaded();
             }
         });
     }

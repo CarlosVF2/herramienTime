@@ -8,6 +8,11 @@ public class Moneda {
     private String simbolo;
     private String moneda;
 
+    public Moneda() {
+        simbolo = "";
+        moneda = "";
+    }
+
     public void setSimbolo(String simbolo) {
         this.simbolo = simbolo;
     }

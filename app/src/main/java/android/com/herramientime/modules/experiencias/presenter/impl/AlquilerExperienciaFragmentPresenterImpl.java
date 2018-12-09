@@ -6,6 +6,7 @@ import android.com.herramientime.core.entities.ErrorCause;
 import android.com.herramientime.core.presenter.impl.MvpFragmentPresenterImpl;
 import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.domain.entities.Moneda;
 import android.com.herramientime.modules.experiencias.entities.AlquilarExperienciaFragmentPresenterStatus;
 import android.com.herramientime.modules.experiencias.entities.Experiencia;
 import android.com.herramientime.modules.experiencias.injection.AlquilerExperienciaFragmentComponent;
@@ -16,9 +17,13 @@ import android.content.res.Resources;
 import android.os.Bundle;
 
 import com.seidor.core.di.annotations.Inject;
+import com.seidor.core.task.executor.future.OnCompleted;
 import com.seidor.core.task.executor.future.OnData;
 import com.seidor.core.task.executor.future.OnError;
 import com.seidor.core.task.executor.future.ResponseFuture;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by carlo on 06/11/2018.
@@ -33,6 +38,7 @@ public class AlquilerExperienciaFragmentPresenterImpl<FRAGMENT extends AlquilarE
     private AlquilarExperienciaFragmentPresenterStatus presenterStatus = new AlquilarExperienciaFragmentPresenterStatus();
     private ResponseFuture<Experiencia> responseFutureSaveExperiencia;
     private AlquilerExperienciaFragmentInteractor interactor;
+    private ResponseFuture<List<Moneda>> responseFutureMonedas;
 
     public static void newAlquilerExperienciaFragmentPresenterInstance(Bundle bundle) {
         AlquilerExperienciaFragmentPresenterImpl presenter = new AlquilerExperienciaFragmentPresenterImpl();
@@ -51,6 +57,7 @@ public class AlquilerExperienciaFragmentPresenterImpl<FRAGMENT extends AlquilarE
 
     @Override
     public void onViewBinded() {
+        super.onViewBinded();
         if (navigationManager == null) {
             navigationManager = HerramienTimeApp.getComponentDependencies().getNavigationManager();
         }
@@ -62,6 +69,7 @@ public class AlquilerExperienciaFragmentPresenterImpl<FRAGMENT extends AlquilarE
         }
         getMvpFragment().onInitLoading();
         getMvpFragment().setTitle(resources.getString(R.string.title_alquiler_experiencia));
+        startResponseGetMonedas();
     }
 
     @Override
@@ -77,6 +85,7 @@ public class AlquilerExperienciaFragmentPresenterImpl<FRAGMENT extends AlquilarE
     @Override
     public void onDataLoaded() {
         if (isLoadingFinish()) {
+            super.onDataLoaded();
             FRAGMENT fragment = getMvpFragment();
             if (fragment != null) {
                 if (presenterStatus.getError() != null) {
@@ -85,13 +94,25 @@ public class AlquilerExperienciaFragmentPresenterImpl<FRAGMENT extends AlquilarE
                     presenterStatus.setError(null);
                     return;
                 }
+                fragment.setAdapterSpinnerMoneda(getValuesAdapterMoneda());
                 fragment.onLoaded();
             }
         }
     }
 
+    private List<String> getValuesAdapterMoneda() {
+        List<String> values = new ArrayList<>();
+        for (Moneda moneda : presenterStatus.getMonedas()) {
+            values.add(moneda.getSimbolo());
+        }
+        return values;
+    }
+
     @Override
     public boolean isLoadingFinish() {
+        if (responseFutureMonedas != null) {
+            responseFutureMonedas.cancel(true);
+        }
         return true;
     }
 
@@ -118,9 +139,33 @@ public class AlquilerExperienciaFragmentPresenterImpl<FRAGMENT extends AlquilarE
     public void setPrecio(String precio) {
         presenterStatus.getAlquilerExperiencia().setPrecioTexto(precio);
     }
+
+    @Override
+    public void onItemSimbolosSelected(int i) {
+        presenterStatus.getAlquilerExperiencia().setMoneda(presenterStatus.getMonedas().get(i));
+    }
     //endregion set fields
 
     //region ResponseFuture
+
+
+    private void startResponseGetMonedas() {
+        if (responseFutureMonedas != null) {
+            responseFutureMonedas.cancel(true);
+        }
+        responseFutureMonedas = interactor.getMonedas().onData(new OnData<List<Moneda>>() {
+            @Override
+            public void onData(List<Moneda> monedas) {
+                presenterStatus.setMonedas(monedas);
+            }
+        }).onCompleted(new OnCompleted() {
+            @Override
+            public void onCompleted() {
+                onDataLoaded();
+            }
+        });
+    }
+
 
     private void startResponseFutureSaveHerramienta() {
         if (responseFutureSaveExperiencia != null) {

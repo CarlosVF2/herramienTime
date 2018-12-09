@@ -14,4 +14,10 @@ public interface AlquilerHerramientaFragmentPresenter extends MvpFragmentPresent
     void setPrecio(String precio);
 
     void onClickConfirmar();
+
+    void onClickMakePhoto();
+
+    void onItemSimbolosSelected(int i);
+
+    void onItemCateogiraSelected(int i);
 }

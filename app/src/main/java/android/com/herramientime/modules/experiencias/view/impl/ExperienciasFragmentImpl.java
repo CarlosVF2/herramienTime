@@ -105,12 +105,6 @@ public class ExperienciasFragmentImpl
 
     }
 
-    @Override
-    public void onLoadError(String error) {
-        super.onLoadError(error);
-
-    }
-
     //endregion Core LifeCycle
 
     @Override

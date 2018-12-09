@@ -14,4 +14,6 @@ public interface AlquilerExperienciaFragmentPresenter extends MvpFragmentPresent
     void setPrecio(String precio);
 
     void onClickConfirmar();
+
+    void onItemSimbolosSelected(int i);
 }

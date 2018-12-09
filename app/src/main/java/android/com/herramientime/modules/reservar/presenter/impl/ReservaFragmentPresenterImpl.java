@@ -63,6 +63,7 @@ public class ReservaFragmentPresenterImpl<FRAGMENT extends ReservaFragment> exte
 
     @Override
     public void onViewBinded() {
+        super.onViewBinded();
         if (navigationManager == null) {
             navigationManager = HerramienTimeApp.getComponentDependencies().getNavigationManager();
         }
@@ -89,6 +90,7 @@ public class ReservaFragmentPresenterImpl<FRAGMENT extends ReservaFragment> exte
     @Override
     public void onDataLoaded() {
         if (isLoadingFinish()) {
+            super.onDataLoaded();
             FRAGMENT fragment = getMvpFragment();
             if (fragment != null) {
                 if (presenterStatus.getError() != null) {

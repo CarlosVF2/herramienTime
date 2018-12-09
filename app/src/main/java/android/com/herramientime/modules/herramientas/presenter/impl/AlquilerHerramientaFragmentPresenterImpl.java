@@ -5,7 +5,9 @@ import android.com.herramientime.app.HerramienTimeApp;
 import android.com.herramientime.core.entities.ErrorCause;
 import android.com.herramientime.core.presenter.impl.MvpFragmentPresenterImpl;
 import android.com.herramientime.injection.NavigationManager;
+import android.com.herramientime.modules.domain.entities.Categoria;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.domain.entities.Moneda;
 import android.com.herramientime.modules.herramientas.entities.AlquilerHerramientaFragmentPresenterStatus;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.herramientime.modules.herramientas.injection.AlquilerHerramientaFragmentComponent;
@@ -13,12 +15,18 @@ import android.com.herramientime.modules.herramientas.interactor.AlquilerHerrami
 import android.com.herramientime.modules.herramientas.presenter.AlquilerHerramientaFragmentPresenter;
 import android.com.herramientime.modules.herramientas.view.AlquilarHerramientaFragment;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.seidor.core.di.annotations.Inject;
+import com.seidor.core.task.executor.future.OnCompleted;
 import com.seidor.core.task.executor.future.OnData;
 import com.seidor.core.task.executor.future.OnError;
 import com.seidor.core.task.executor.future.ResponseFuture;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by carlo on 06/11/2018.
@@ -32,6 +40,8 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
 
     private AlquilerHerramientaFragmentPresenterStatus presenterStatus = new AlquilerHerramientaFragmentPresenterStatus();
     private ResponseFuture<Herramienta> responseFutureSaveHerramienta;
+    private ResponseFuture<List<Categoria>> responseFutureCategorias;
+    private ResponseFuture<List<Moneda>> responseFutureMonedas;
     private AlquilerHerramientaFragmentInteractor interactor;
 
     public static void newAlquilerHerramientaFragmentPresenterInstance(Bundle bundle) {
@@ -51,6 +61,7 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
 
     @Override
     public void onViewBinded() {
+        super.onViewBinded();
         if (navigationManager == null) {
             navigationManager = HerramienTimeApp.getComponentDependencies().getNavigationManager();
         }
@@ -62,6 +73,8 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
         }
         getMvpFragment().onInitLoading();
         getMvpFragment().setTitle(resources.getString(R.string.title_alquiler_herramienta));
+        startResponseGetCategorias();
+        startResponseGetMonedas();
     }
 
     @Override
@@ -77,6 +90,7 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
     @Override
     public void onDataLoaded() {
         if (isLoadingFinish()) {
+            super.onDataLoaded();
             FRAGMENT fragment = getMvpFragment();
             if (fragment != null) {
                 if (presenterStatus.getError() != null) {
@@ -85,13 +99,40 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
                     presenterStatus.setError(null);
                     return;
                 }
+                fragment.setAdapterSpinnerMoneda(getValuesAdapterMoneda());
+                fragment.setAdapterSpinnerCategoria(getValuesAdapterCategoria());
+                fragment.hideProgressDialog();
                 fragment.onLoaded();
             }
         }
     }
 
+    private List<String> getValuesAdapterMoneda() {
+        List<String> values = new ArrayList<>();
+        for (Moneda moneda : presenterStatus.getMonedas()) {
+            values.add(moneda.getSimbolo());
+        }
+        return values;
+    }
+
+
+    private List<String> getValuesAdapterCategoria() {
+        List<String> values = new ArrayList<>();
+        for (Categoria moneda : presenterStatus.getCategorias()) {
+            values.add(moneda.getDescripcion());
+        }
+        return values;
+    }
+
     @Override
     public boolean isLoadingFinish() {
+        if (responseFutureCategorias == null || !responseFutureCategorias.isDone()) {
+            return false;
+        }
+        if (responseFutureMonedas == null || !responseFutureMonedas.isDone()) {
+            return false;
+        }
+
         return true;
     }
 
@@ -100,31 +141,109 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
         startResponseFutureSaveHerramienta();
     }
 
+    @Override
+    public void onClickMakePhoto() {
+        getMvpFragment().launchIntentPhoto();
+    }
+
 
     //region set fields
 
+    public void setImagePhoto(Bitmap imageBitmap, FRAGMENT fragment) {
+        if (fragment != null) {
+            presenterStatus.getAlquilerHerramienta().setPathPhoto(fragment.createPhoto("000000", imageBitmap));
+        }
+    }
 
     @Override
     public void setTitulo(String titulo) {
         presenterStatus.getAlquilerHerramienta().setTitulo(titulo);
+        checkAllFieldsFill();
     }
 
     @Override
     public void setDescripcion(String descripcion) {
         presenterStatus.getAlquilerHerramienta().setDescripcion(descripcion);
+        checkAllFieldsFill();
     }
 
     @Override
     public void setPrecio(String precio) {
         presenterStatus.getAlquilerHerramienta().setPrecioTexto(precio);
+        checkAllFieldsFill();
+    }
+
+    @Override
+    public void onItemSimbolosSelected(int i) {
+        presenterStatus.getAlquilerHerramienta().setMoneda(presenterStatus.getMonedas().get(i));
+    }
+
+    @Override
+    public void onItemCateogiraSelected(int i) {
+        presenterStatus.getAlquilerHerramienta().setCategoria(presenterStatus.getCategorias().get(i));
+    }
+
+    private void checkAllFieldsFill() {
+        FRAGMENT fragment = getMvpFragment();
+
+        if (fragment != null) {
+            if (!TextUtils.isEmpty(presenterStatus.getAlquilerHerramienta().getTitulo()) &&
+                    !TextUtils.isEmpty(presenterStatus.getAlquilerHerramienta().getDescripcion()) &&
+                    !TextUtils.isEmpty(presenterStatus.getAlquilerHerramienta().getPrecioTexto())) {
+                fragment.setVisibilityMenuItemConfirmar(true);
+            } else {
+                fragment.setVisibilityMenuItemConfirmar(false);
+            }
+        }
     }
     //endregion set fields
 
     //region ResponseFuture
 
+
+    private void startResponseGetMonedas() {
+        if (responseFutureMonedas != null) {
+            responseFutureMonedas.cancel(true);
+        }
+        responseFutureMonedas = interactor.getMonedas().onData(new OnData<List<Moneda>>() {
+            @Override
+            public void onData(List<Moneda> monedas) {
+                presenterStatus.setMonedas(monedas);
+            }
+        }).onCompleted(new OnCompleted() {
+            @Override
+            public void onCompleted() {
+                onDataLoaded();
+            }
+        });
+    }
+
+    private void startResponseGetCategorias() {
+        if (responseFutureCategorias != null) {
+            responseFutureCategorias.cancel(true);
+        }
+        responseFutureCategorias = interactor.getCategorias().onData(new OnData<List<Categoria>>() {
+            @Override
+            public void onData(List<Categoria> categorias) {
+                presenterStatus.setCategorias(categorias);
+            }
+        }).onCompleted(new OnCompleted() {
+            @Override
+            public void onCompleted() {
+                onDataLoaded();
+            }
+        });
+
+    }
+
     private void startResponseFutureSaveHerramienta() {
         if (responseFutureSaveHerramienta != null) {
             responseFutureSaveHerramienta.cancel(true);
+        }
+        FRAGMENT fragment = getMvpFragment();
+        if (fragment != null) {
+            fragment.showProgressDialogWithMessage("Dando de alta la herramienta");
+            setImagePhoto(fragment.getBitmapImage(), fragment);
         }
         responseFutureSaveHerramienta = interactor.saveHerramienta(presenterStatus.getAlquilerHerramienta()).onData(new OnData<Herramienta>() {
             @Override
@@ -142,6 +261,14 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
             public void onError(Exception e) {
                 presenterStatus.setError(e);
                 onDataLoaded();
+            }
+        }).onCompleted(new OnCompleted() {
+            @Override
+            public void onCompleted() {
+                FRAGMENT fragment1 = getMvpFragment();
+                if (fragment1 != null) {
+                    fragment1.hideProgressDialog();
+                }
             }
         });
     }

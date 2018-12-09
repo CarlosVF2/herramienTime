@@ -88,12 +88,6 @@ public class ExperienciaDetalleFragmentImpl
 
     }
 
-    @Override
-    public void onLoadError(String error) {
-        super.onLoadError(error);
-
-    }
-
     //endregion LifeCycleCore
 
     //region set Text

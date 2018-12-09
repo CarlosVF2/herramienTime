@@ -1,12 +1,13 @@
 package android.com.herramientime.modules.experiencias.entities;
 
+import android.com.herramientime.modules.domain.entities.Moneda;
+
 public class AlquilerExperiencia {
     private String descripcion;
     private String titulo;
     private String precioTexto;
     private Double precio;
-    private String simboloMoneda;
-    private String moneda;
+    private Moneda moneda = new Moneda();
 
     //region GET
 
@@ -26,11 +27,7 @@ public class AlquilerExperiencia {
         return precio;
     }
 
-    public String getSimboloMoneda() {
-        return simboloMoneda;
-    }
-
-    public String getMoneda() {
+    public Moneda getMoneda() {
         return moneda;
     }
 
@@ -54,14 +51,9 @@ public class AlquilerExperiencia {
         this.precio = precio;
     }
 
-    public void setSimboloMoneda(String simboloMoneda) {
-        this.simboloMoneda = simboloMoneda;
-    }
-
-    public void setMoneda(String moneda) {
+    public void setMoneda(Moneda moneda) {
         this.moneda = moneda;
     }
-
 
     //endregion SET
 }

@@ -52,6 +52,7 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
 
     @Override
     public void onViewBinded() {
+        super.onViewBinded();
         if (loginFragmentInteractor == null) {
             loginFragmentInteractor = HerramienTimeApp.getComponentDependencies().getLoginFragmentComponent().getLoginFragmentModule().getLoginFragmentInteractor();
         }
@@ -62,6 +63,7 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
             navigationManager = HerramienTimeApp.getComponentDependencies().getLoginFragmentComponent().getLoginFragmentModule().geNavigationManager();
         }
         getMvpFragment().onInitLoading();
+        onDataLoaded();
     }
 
     @Override
@@ -83,6 +85,7 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
     @Override
     public void onDataLoaded() {
         if (isLoadingFinish()) {
+            super.onDataLoaded();
             FRAGMENT fragment = getMvpFragment();
             if (fragment != null) {
                 fragment.setTitle("Login");

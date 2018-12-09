@@ -1,10 +1,13 @@
 package android.com.herramientime.injection.impl;
 
 import android.com.herramientime.domain.processor.Processors;
-import android.com.herramientime.injection.PresenterFactory;
 import android.com.herramientime.injection.RepositoryFactory;
+import android.com.herramientime.modules.domain.repository.CategoriasRepository;
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
+import android.com.herramientime.modules.domain.repository.MonedasRepository;
+import android.com.herramientime.modules.domain.repository.impl.CategoriasRepositoryImpl;
 import android.com.herramientime.modules.domain.repository.impl.MainActivityRepositoryImpl;
+import android.com.herramientime.modules.domain.repository.impl.MonedasRepositoryImpl;
 import android.com.herramientime.modules.experiencias.repository.AlquilerExperienciaFragmentRepository;
 import android.com.herramientime.modules.experiencias.repository.ExperienciaDetalleFragmentRepository;
 import android.com.herramientime.modules.experiencias.repository.ExperienciasFragmentRepository;
@@ -32,14 +35,12 @@ import android.content.Context;
 public class RepositoryFactoryImpl implements RepositoryFactory {
 
     private final Context context;
-    private final PresenterFactory presenterFactory;
     private final RestApiServiceHelper restApiServiceHelper;
     private final Processors processors;
 
 
-    public RepositoryFactoryImpl(Context context, PresenterFactory presenterFactory, RestApiServiceHelper restApiServiceHelper, Processors processors) {
+    public RepositoryFactoryImpl(Context context, RestApiServiceHelper restApiServiceHelper, Processors processors) {
         this.context = context;
-        this.presenterFactory = presenterFactory;
         this.restApiServiceHelper = restApiServiceHelper;
         this.processors = processors;
     }
@@ -76,12 +77,12 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
 
     @Override
     public AlquilerHerramientaFragmentRepository getAlquilerHerramientaFragmentRepository() {
-        return new AlquilerHerramientaFragmentRepositoryImpl(restApiServiceHelper, processors.getProcessorHerramienta());
+        return new AlquilerHerramientaFragmentRepositoryImpl(restApiServiceHelper, processors.getProcessorHerramienta(), geCategoriasRepository(), geMonedasRepository(), getMainActivityRepository());
     }
 
     @Override
     public AlquilerExperienciaFragmentRepository getAlquilerExperienciaFragmentRepository() {
-        return new AlquilerExperienciaFragmentRepositoryImpl(restApiServiceHelper, processors.getProcessorExperiencia());
+        return new AlquilerExperienciaFragmentRepositoryImpl(restApiServiceHelper, processors.getProcessorExperiencia(), geMonedasRepository(), getMainActivityRepository());
     }
 
     @Override
@@ -92,5 +93,15 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
     @Override
     public MapFragmentRepository getMapFragmentRepository() {
         return new MapFragmentRepositoryImpl();
+    }
+
+    @Override
+    public CategoriasRepository geCategoriasRepository() {
+        return new CategoriasRepositoryImpl(restApiServiceHelper, processors.getProcessorCategoria());
+    }
+
+    @Override
+    public MonedasRepository geMonedasRepository() {
+        return new MonedasRepositoryImpl(restApiServiceHelper, processors.geProcessorMoneda());
     }
 }

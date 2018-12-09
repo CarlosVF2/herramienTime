@@ -18,15 +18,25 @@ public abstract class MvpFragmentPresenterImpl<VIEW extends MvpFragment> impleme
     }
 
     @Override
-    public abstract void onViewBinded();
+    public void onViewBinded() {
+        getMvpFragment().showProgressDialogWithMessage("Cargando...");
+    }
 
     @Override
-    public void onViewUnbinded(){
+    public void onDataLoaded() {
+        VIEW view = getMvpFragment();
+        if (view != null) {
+            view.hideProgressDialog();
+        }
+    }
+
+    @Override
+    public void onViewUnbinded() {
         mvpFragment = null;
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         mvpFragment = null;
     }
 
@@ -43,7 +53,7 @@ public abstract class MvpFragmentPresenterImpl<VIEW extends MvpFragment> impleme
 
     }
 
-    public VIEW getMvpFragment(){
+    public VIEW getMvpFragment() {
         return mvpFragment;
     }
 }

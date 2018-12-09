@@ -1,15 +1,25 @@
 package android.com.herramientime.modules.herramientas.entities;
 
+import android.com.herramientime.modules.domain.entities.Categoria;
+import android.com.herramientime.modules.domain.entities.Moneda;
+
 public class AlquilerHerramienta {
 
     private String descripcion;
     private String titulo;
     private String precioTexto;
     private Double precio;
-    private String simboloMoneda;
-    private String moneda;
+    private String pathPhoto;
+    private Moneda moneda = new Moneda();
+    private Categoria categoria = new Categoria();
+
 
     //region GET
+
+
+    public String getPathPhoto() {
+        return pathPhoto;
+    }
 
     public String getDescripcion() {
         return descripcion;
@@ -27,17 +37,22 @@ public class AlquilerHerramienta {
         return precio;
     }
 
-    public String getSimboloMoneda() {
-        return simboloMoneda;
+    public Moneda getMoneda() {
+        return moneda;
     }
 
-    public String getMoneda() {
-        return moneda;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
     //endregion GET
 
     //region SET
+
+
+    public void setPathPhoto(String pathPhoto) {
+        this.pathPhoto = pathPhoto;
+    }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
@@ -55,14 +70,13 @@ public class AlquilerHerramienta {
         this.precio = precio;
     }
 
-    public void setSimboloMoneda(String simboloMoneda) {
-        this.simboloMoneda = simboloMoneda;
-    }
-
-    public void setMoneda(String moneda) {
+    public void setMoneda(Moneda moneda) {
         this.moneda = moneda;
     }
 
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
     //endregion SET
 }
