@@ -214,7 +214,6 @@ public class MainActivityImpl
         if (navigationView != null) {
             mDrawerToggle.syncState();
             navigationView.setNavigationItemSelectedListener(this);
-            mDrawerToggle.syncState();
             Fragment f = getSupportFragmentManager().findFragmentById(R.id.mainFragment);
             if (f instanceof HerramientasFragment || f instanceof HerramientaDetalleFragment) {
                 MenuItem m = navigationView.getMenu().findItem(R.id.nav_herramientas);

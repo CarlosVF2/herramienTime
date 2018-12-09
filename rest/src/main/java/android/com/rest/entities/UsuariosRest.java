@@ -33,8 +33,23 @@ public class UsuariosRest {
     @SerializedName("nombre")
     private String nombre;
 
+    @SerializedName("password")
+    private String password;
+
     public UsuariosRest(String id) {
         this.id = id;
+    }
+
+    public UsuariosRest() {
+        apellidos = "";
+        idMensaje = "";
+        calificacion = "";
+        coordenadaY = "";
+        coordenadaX = "";
+        direccion = "";
+        id = "";
+        poblacion = "";
+        nombre = "";
     }
 
     public void setApellidos(String apellidos) {
@@ -107,6 +122,14 @@ public class UsuariosRest {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

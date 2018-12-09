@@ -9,4 +9,6 @@ import com.seidor.core.task.executor.future.ResponseFuture;
 public interface LoginFragmentInteractor {
 
     ResponseFuture<Usuario> iniciarSesion(Login login);
+
+    ResponseFuture<Usuario> registrar(Login login);
 }

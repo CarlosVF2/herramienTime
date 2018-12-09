@@ -35,4 +35,8 @@
     <string name="error_fill_user">Tiene que rellenar el usuario</string>
     <string name="errpr_fill_password">Tiene que rellenar el password</string>
     <string name="message_loading">Cargando...</string>
+    <string name="error_fill_name">Tiene que rellenar el nombre</string>
+    <string name="errpr_fill_surname">Tiene que rellenar los apellidos</string>
+    <string name="error_minimum_6_characts">Tiene que rellenar con un apellido con mínimo 6 caracteres</string>
+    <string name="error_user_exists">El usuario introducido ya existe</string>
 </resources>

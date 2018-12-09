@@ -13,6 +13,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 
 import com.seidor.core.di.annotations.Inject;
+import com.seidor.core.task.executor.future.OnCompleted;
 import com.seidor.core.task.executor.future.OnData;
 import com.seidor.core.task.executor.future.OnError;
 import com.seidor.core.task.executor.future.ResponseFuture;
@@ -29,6 +30,7 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
 
     private LoginFragmentPresenterStatus presenterStatus = new LoginFragmentPresenterStatus();
     private ResponseFuture<Usuario> responseFutureUsuario;
+    private ResponseFuture<Usuario> responseFutureRegistrarUsuario;
 
     public static void newLoginFragmentPresenterInstance(Bundle bundle) {
         LoginFragmentPresenterImpl presenter = new LoginFragmentPresenterImpl();
@@ -62,6 +64,12 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
 
     @Override
     public void onDestroy() {
+        if (responseFutureRegistrarUsuario != null) {
+            responseFutureRegistrarUsuario.cancel(true);
+        }
+        if (responseFutureUsuario != null) {
+            responseFutureUsuario.cancel(true);
+        }
         super.onDestroy();
     }
 
@@ -70,6 +78,7 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
         if (isLoadingFinish()) {
             FRAGMENT fragment = getMvpFragment();
             if (fragment != null) {
+                fragment.setTitle("Login");
                 if (presenterStatus.getError() != null) {
                     //Si no se habia representado el error (porque no habia vista viva en ese momento) se representa una vez que sea ejecutable.
                     fragment.onLoadError(ErrorCause.getCause(presenterStatus.getError()));
@@ -93,7 +102,17 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
 
     @Override
     public void onClickRegistrarse() {
-
+        if (!presenterStatus.isRegistrar()) {
+            presenterStatus.setRegistrar(true);
+            FRAGMENT fragment = getMvpFragment();
+            if (fragment != null) {
+                fragment.setNombreVisibility(true);
+                fragment.setApellidosVisibility(true);
+                fragment.setButtonIniciarSesionVisibility(false);
+            }
+        } else {
+            startResponseRegistrar();
+        }
     }
 
     //region set fields
@@ -120,8 +139,14 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
     //endregion  set fields
 
     //region ResponseFuture
-
     private void startResponseIniciarSesion() {
+        if (responseFutureUsuario != null) {
+            responseFutureUsuario.cancel(true);
+        }
+        FRAGMENT fragment = getMvpFragment();
+        if (fragment != null) {
+            fragment.showProgressDialogWithMessage("Iniciando sesion...");
+        }
         responseFutureUsuario = loginFragmentInteractor.iniciarSesion(presenterStatus.getLogin()).onData(new OnData<Usuario>() {
             @Override
             public void onData(Usuario usuario) {
@@ -134,6 +159,47 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
             public void onError(Exception e) {
                 presenterStatus.setError(e);
                 onDataLoaded();
+            }
+        }).onCompleted(new OnCompleted() {
+            @Override
+            public void onCompleted() {
+                FRAGMENT fragment = getMvpFragment();
+                if (fragment != null) {
+                    fragment.hideProgressDialog();
+                }
+            }
+        });
+
+    }
+
+    private void startResponseRegistrar() {
+        if (responseFutureRegistrarUsuario != null) {
+            responseFutureRegistrarUsuario.cancel(true);
+        }
+        FRAGMENT fragment = getMvpFragment();
+        if (fragment != null) {
+            fragment.showProgressDialogWithMessage("Registrando usuario...");
+        }
+        responseFutureRegistrarUsuario = loginFragmentInteractor.registrar(presenterStatus.getLogin()).onData(new OnData<Usuario>() {
+            @Override
+            public void onData(Usuario usuario) {
+                if (usuario != null) {
+
+                }
+            }
+        }).onError(new OnError() {
+            @Override
+            public void onError(Exception e) {
+                presenterStatus.setError(e);
+                onDataLoaded();
+            }
+        }).onCompleted(new OnCompleted() {
+            @Override
+            public void onCompleted() {
+                FRAGMENT fragment = getMvpFragment();
+                if (fragment != null) {
+                    fragment.hideProgressDialog();
+                }
             }
         });
 

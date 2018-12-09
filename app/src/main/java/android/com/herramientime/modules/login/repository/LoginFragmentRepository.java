@@ -7,4 +7,6 @@ import android.com.rest.entities.InternetException;
 public interface LoginFragmentRepository {
 
     Usuario iniciarSesion(Login login) throws InternetException;
+
+    Usuario registrar(Login login) throws InternetException;
 }

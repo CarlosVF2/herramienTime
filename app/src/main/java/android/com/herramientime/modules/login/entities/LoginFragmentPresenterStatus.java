@@ -8,6 +8,7 @@ public class LoginFragmentPresenterStatus extends BasePresenterStatus {
 
 
     private Login login = new Login();
+    private boolean registrar;
 
     @Override
     public void saveInstance(BundleWrapper saveInstance) {
@@ -25,12 +26,20 @@ public class LoginFragmentPresenterStatus extends BasePresenterStatus {
         return login;
     }
 
+    public boolean isRegistrar() {
+        return registrar;
+    }
+
     //endregion GET
 
     //region SET
 
     public void setLogin(Login login) {
         this.login = login;
+    }
+
+    public void setRegistrar(boolean registrar) {
+        this.registrar = registrar;
     }
 
     //endregion SET

@@ -27,6 +27,7 @@ public class ProcessorUsuario {
         usuario.setId(from.getId());
         usuario.setNombre(from.getNombre());
         usuario.setIdMensaje(from.getIdMensaje());
+        usuario.setPassword(from.getPassword());
         return usuario;
     }
 

@@ -7,4 +7,9 @@ import android.com.herramientime.core.view.MvpFragment;
  */
 
 public interface LoginFragment extends MvpFragment {
+    void setNombreVisibility(boolean visibility);
+
+    void setApellidosVisibility(boolean visibility);
+
+    void setButtonIniciarSesionVisibility(boolean visibility);
 }

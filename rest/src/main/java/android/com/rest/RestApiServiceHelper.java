@@ -25,4 +25,6 @@ public interface RestApiServiceHelper {
     void postHerramienta(List<HerramientaRest> herramientaResponse) throws InternetException;
 
     void postExperiencia(List<ExperienciaRest> experienciaRests) throws InternetException;
+
+    void postUsuario(List<UsuariosRest> usuariosRests) throws InternetException;
 }

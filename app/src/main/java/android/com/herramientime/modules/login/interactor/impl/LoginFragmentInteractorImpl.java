@@ -29,4 +29,14 @@ public class LoginFragmentInteractorImpl extends TaskInteractorImpl implements L
             }
         });
     }
+
+    @Override
+    public ResponseFuture<Usuario> registrar(final Login login) {
+        return prepare(new Callable<Usuario>() {
+            @Override
+            public Usuario call() throws Exception {
+                return loginFragmentRepository.registrar(login);
+            }
+        });
+    }
 }

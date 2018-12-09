@@ -76,6 +76,21 @@ public class LoginFragmentImpl
 
     //endregion Core LifeCycle
 
+    @Override
+    public void setNombreVisibility(boolean visibility) {
+        textInputLayoutNombre.setVisibility(visibility ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setApellidosVisibility(boolean visibility) {
+        textInputLayoutApellidos.setVisibility(visibility ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setButtonIniciarSesionVisibility(boolean visibility) {
+        buttonIniciarSesion.setVisibility(visibility ? View.VISIBLE : View.GONE);
+    }
+
     //region TextWatcher
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

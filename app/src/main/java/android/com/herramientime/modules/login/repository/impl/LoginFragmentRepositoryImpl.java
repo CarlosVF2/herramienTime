@@ -31,7 +31,7 @@ public class LoginFragmentRepositoryImpl implements LoginFragmentRepository {
 
     @Override
     public Usuario iniciarSesion(Login login) throws InternetException {
-        checkFieldsFill(login);
+        checkFieldsFillIniciarSesion(login);
         List<UsuariosRest> usuariosRests = restApiServiceHelper.getUsuarios();
         UsuariosRest usuariosRest = new UsuariosRest(login.getUser());
         int index = usuariosRests.indexOf(usuariosRest);
@@ -40,6 +40,30 @@ public class LoginFragmentRepositoryImpl implements LoginFragmentRepository {
             return processorUsuario.convertFrom(usuariosRests.get(index));
         }
         throw new InternetException(resources.getString(R.string.error_user_not_found));
+    }
+
+    @Override
+    public Usuario registrar(Login login) throws InternetException {
+        checkFieldsFillRegistrar(login);
+        List<UsuariosRest> usuariosRests = restApiServiceHelper.getUsuarios();
+        checkIfExistsUser(usuariosRests, login.getUser());
+        UsuariosRest usuariosRest = new UsuariosRest();
+        usuariosRest.setApellidos(login.getApellido());
+        usuariosRest.setNombre(login.getNombre());
+        usuariosRest.setId(login.getUser());
+        usuariosRest.setPassword(login.getPassword());
+        usuariosRests.add(usuariosRest);
+        restApiServiceHelper.postUsuario(usuariosRests);
+        iniciarSesion(login);
+        return processorUsuario.convertFrom(usuariosRest);
+    }
+
+    private void checkIfExistsUser(List<UsuariosRest> usuariosRests, String user) throws InternetException {
+        for (UsuariosRest usuariosRest : usuariosRests) {
+            if (usuariosRest.getId().contentEquals(user)) {
+                throw new InternetException(resources.getString(R.string.error_user_exists));
+            }
+        }
     }
 
     private void createUserInSharedPreferences(UsuariosRest usuariosRest) {
@@ -51,7 +75,19 @@ public class LoginFragmentRepositoryImpl implements LoginFragmentRepository {
         editor.commit();
     }
 
-    private void checkFieldsFill(Login login) throws InternetException {
+    private void checkFieldsFillRegistrar(Login login) throws InternetException {
+        checkFieldsFillIniciarSesion(login);
+        if (TextUtils.isEmpty(login.getNombre())) {
+            throw new InternetException(resources.getString(R.string.error_fill_name));
+        } else if (TextUtils.isEmpty(login.getApellido())) {
+            throw new InternetException(resources.getString(R.string.errpr_fill_surname));
+        } else if (login.getApellido().length() < 6) {
+            throw new InternetException(resources.getString(R.string.error_minimum_6_characts));
+        }
+
+    }
+
+    private void checkFieldsFillIniciarSesion(Login login) throws InternetException {
         if (TextUtils.isEmpty(login.getUser())) {
             throw new InternetException(resources.getString(R.string.error_fill_user));
         } else if (TextUtils.isEmpty(login.getPassword())) {

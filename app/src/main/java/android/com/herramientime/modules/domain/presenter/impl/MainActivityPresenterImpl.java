@@ -105,6 +105,7 @@ public class MainActivityPresenterImpl<VIEW extends MainActivity> extends MvpAct
                     presenterStatus.setError(null);
                     return;
                 }
+                view.refreshMenu();
                 if (presenterStatus.getUsuario() != null) {
                     view.setIDUsuarioText(presenterStatus.getUsuario().getId());
                     view.setNombreUsuarioText(presenterStatus.getUsuario().getNombre());
