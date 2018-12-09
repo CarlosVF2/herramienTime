@@ -3,13 +3,17 @@ package android.com.herramientime.modules.experiencias.presenter.impl;
 import android.com.herramientime.app.HerramienTimeApp;
 import android.com.herramientime.core.entities.ErrorCause;
 import android.com.herramientime.core.presenter.impl.MvpFragmentPresenterImpl;
+import android.com.herramientime.injection.NavigationManager;
+import android.com.herramientime.modules.domain.entities.LocalException;
 import android.com.herramientime.modules.experiencias.entities.Experiencia;
 import android.com.herramientime.modules.experiencias.entities.ExperienciaDetalleFragmentPresenterStatus;
+import android.com.herramientime.modules.experiencias.injection.ExperienciaDetalleFragmentComponent;
 import android.com.herramientime.modules.experiencias.interactor.ExperienciaDetalleFragmentInteractor;
 import android.com.herramientime.modules.experiencias.presenter.ExperienciaDetalleFragmentPresenter;
 import android.com.herramientime.modules.experiencias.view.ExperienciaDetalleFragment;
 import android.os.Bundle;
 
+import com.seidor.core.di.annotations.Inject;
 import com.seidor.core.task.executor.future.OnCompleted;
 import com.seidor.core.task.executor.future.OnData;
 import com.seidor.core.task.executor.future.OnError;
@@ -25,6 +29,7 @@ public class ExperienciaDetalleFragmentPresenterImpl<FRAGMENT extends Experienci
     private final String PARAM__ID_EXPERIENC = "PARAM__ID_EXPERIENC";
 
     private ExperienciaDetalleFragmentInteractor interactor;
+    private NavigationManager navigationManager;
 
     private ResponseFuture<Experiencia> responseFutureGetExperiencia;
     private final ExperienciaDetalleFragmentPresenterStatus presenterStatus = new ExperienciaDetalleFragmentPresenterStatus();
@@ -46,15 +51,27 @@ public class ExperienciaDetalleFragmentPresenterImpl<FRAGMENT extends Experienci
         }
     }
 
+    public ExperienciaDetalleFragmentPresenterImpl() {
+    }
+
+    @Inject
+    public ExperienciaDetalleFragmentPresenterImpl(ExperienciaDetalleFragmentComponent alquilerExperienciaFragmentComponent) {
+        this.navigationManager = alquilerExperienciaFragmentComponent.getHerramientaDetalleModule().getNavigationManager();
+        this.interactor = alquilerExperienciaFragmentComponent.getHerramientaDetalleModule().getExperienciaDetalleFragmentInteractor();
+    }
+
     @Override
     public void onViewBinded() {
         super.onViewBinded();
         if (interactor == null) {
             interactor = HerramienTimeApp.getComponentDependencies().getExperienciaDetalleFragmentComponent().getHerramientaDetalleModule().getExperienciaDetalleFragmentInteractor();
         }
+        if (navigationManager == null) {
+            navigationManager = HerramienTimeApp.getComponentDependencies().getExperienciaDetalleFragmentComponent().getHerramientaDetalleModule().getNavigationManager();
+        }
+        getMvpFragment().setTitle("Detalle experiencia");
         getMvpFragment().onInitLoading();
         startGetExperiencia();
-
     }
 
     @Override
@@ -83,6 +100,15 @@ public class ExperienciaDetalleFragmentPresenterImpl<FRAGMENT extends Experienci
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onClickReservar() {
+        try {
+            navigationManager.navigateToReservaExperiencia(presenterStatus.getIdExperiencia(), null, -1);
+        } catch (LocalException e) {
+            e.printStackTrace();
+        }
     }
 
     //region ResponseFuture

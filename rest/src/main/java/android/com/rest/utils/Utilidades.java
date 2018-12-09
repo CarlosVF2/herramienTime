@@ -18,4 +18,9 @@ public class Utilidades {
         return date;
     }
 
+    public static String getStringFormatddMMyyyyGuiones(Date date) {
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");//yyyyMMddHHmmss
+        return df.format(date);
+    }
+
 }

@@ -1,12 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_margin="@dimen/dimen_margin_fragment"
     android:layout_height="match_parent">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="reserva!!" />
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:id="@+id/textInputLayoutHerramienta"
+            android:layout_alignParentTop="true"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:enabled="false"
+                android:layout_height="match_parent"
+                android:hint="Herramienta" />
+        </android.support.design.widget.TextInputLayout>
+
+        <View
+            android:layout_width="0.1dp"
+            android:layout_below="@+id/textInputLayoutHerramienta"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:id="@+id/dividerCentral" />
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:id="@+id/textInputLayoutFechaInicial"
+            android:layout_below="@+id/textInputLayoutHerramienta"
+            android:layout_toLeftOf="@+id/dividerCentral"
+            android:layout_alignParentLeft="true"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="true"
+                android:layout_height="match_parent"
+                android:id="@+id/textInputEditTextFechaInicial"
+                android:hint="@string/prompt_fecha_inicial" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:id="@+id/textInputLayoutFechaFinal"
+            android:layout_below="@+id/textInputLayoutHerramienta"
+            android:layout_toRightOf="@+id/dividerCentral"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="true"
+                android:id="@+id/textInputEditTextFechaFinal"
+                android:hint="@string/prompt_fecha_final" />
+        </android.support.design.widget.TextInputLayout>
+
+
+    </RelativeLayout>
+
+</ScrollView>

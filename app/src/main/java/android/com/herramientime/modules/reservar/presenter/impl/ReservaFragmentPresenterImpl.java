@@ -5,15 +5,25 @@ import android.com.herramientime.app.HerramienTimeApp;
 import android.com.herramientime.core.entities.ErrorCause;
 import android.com.herramientime.core.presenter.impl.MvpFragmentPresenterImpl;
 import android.com.herramientime.injection.NavigationManager;
+import android.com.herramientime.modules.experiencias.entities.Experiencia;
+import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.herramientime.modules.reservar.entities.ReservaFragmentPresenterStatus;
 import android.com.herramientime.modules.reservar.injection.ReservaFragmentComponent;
 import android.com.herramientime.modules.reservar.interactor.ReservaFragmentInteractor;
 import android.com.herramientime.modules.reservar.presenter.ReservaFragmentPresenter;
 import android.com.herramientime.modules.reservar.view.ReservaFragment;
+import android.com.rest.utils.Utilidades;
 import android.content.res.Resources;
 import android.os.Bundle;
 
 import com.seidor.core.di.annotations.Inject;
+import com.seidor.core.task.executor.future.OnCompleted;
+import com.seidor.core.task.executor.future.OnData;
+import com.seidor.core.task.executor.future.OnError;
+import com.seidor.core.task.executor.future.ResponseFuture;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by carlo on 06/11/2018.
@@ -30,6 +40,8 @@ public class ReservaFragmentPresenterImpl<FRAGMENT extends ReservaFragment> exte
     private ReservaFragmentInteractor reservaFragmentInteractor;
 
     private ReservaFragmentPresenterStatus presenterStatus = new ReservaFragmentPresenterStatus();
+    private ResponseFuture<Herramienta> responseFutureHerramienta;
+    private ResponseFuture<Experiencia> responseFutureExperiencia;
 
     public static void newReservaFragmentPresenterInstance(Bundle bundle, String idExperiencia, String idHerramienta) {
         ReservaFragmentPresenterImpl presenter = new ReservaFragmentPresenterImpl();
@@ -75,15 +87,18 @@ public class ReservaFragmentPresenterImpl<FRAGMENT extends ReservaFragment> exte
         }
         getMvpFragment().onInitLoading();
         getMvpFragment().setTitle(resources.getString(R.string.title_reserva));
-    }
-
-    @Override
-    public void onViewUnbinded() {
-        super.onViewUnbinded();
+        startResponseGetHerramienta();
+        startResponseGetExperiencia();
     }
 
     @Override
     public void onDestroy() {
+        if (responseFutureHerramienta != null) {
+            responseFutureHerramienta.cancel(true);
+        }
+        if (responseFutureExperiencia != null) {
+            responseFutureExperiencia.cancel(true);
+        }
         super.onDestroy();
     }
 
@@ -99,6 +114,15 @@ public class ReservaFragmentPresenterImpl<FRAGMENT extends ReservaFragment> exte
                     presenterStatus.setError(null);
                     return;
                 }
+                if (presenterStatus.getHerramienta() != null) {
+                    fragment.setDescripcionText(presenterStatus.getHerramienta().getDescripcion());
+                    fragment.setHintText("Herramienta");
+                } else if (presenterStatus.getExperiencia() != null) {
+                    fragment.setDescripcionText(presenterStatus.getExperiencia().getDescripcion());
+                    fragment.setHintText("Experiencia");
+                } else {
+                    fragment.onLoadError("No se ha podido recuperar ningun valor para la reserva");
+                }
                 fragment.onLoaded();
             }
         }
@@ -106,9 +130,107 @@ public class ReservaFragmentPresenterImpl<FRAGMENT extends ReservaFragment> exte
 
     @Override
     public boolean isLoadingFinish() {
+        if (responseFutureExperiencia == null || !responseFutureExperiencia.isDone()) {
+            return false;
+        }
+        if (responseFutureHerramienta == null || !responseFutureHerramienta.isDone()) {
+            return false;
+        }
         return true;
     }
 
+    @Override
+    public void onClickFechaInicial() {
+        Date basicInitDate = presenterStatus.getFechaInicial();
+        Date fechaElegida;
+        if (basicInitDate != null) {
+            fechaElegida = basicInitDate;
+        } else {
+            fechaElegida = Calendar.getInstance().getTime();
+        }
+        Calendar instance = Calendar.getInstance();
+        instance.setTime(fechaElegida);
+        getMvpFragment().showDatePickerFechaInicial(instance);
+    }
+
+    @Override
+    public void onClickFechaFinal() {
+        Date basicFinishDate = presenterStatus.getFechaFinal();
+        Date fechaElegida;
+        if (basicFinishDate != null) {
+            fechaElegida = basicFinishDate;
+        } else {
+            fechaElegida = Calendar.getInstance().getTime();
+        }
+        Calendar instance = Calendar.getInstance();
+        instance.setTime(fechaElegida);
+        getMvpFragment().showDatePickerFechaFinal(instance);
+    }
+
+    @Override
+    public void onFechaInicialSelected(Date time) {
+        presenterStatus.setFechaInicial(time);
+        FRAGMENT fragment = getMvpFragment();
+        if (fragment != null) {
+            fragment.setFechaInicial((time == null ? "" : Utilidades.getStringFormatddMMyyyyGuiones(time)));
+        }
+    }
+
+    @Override
+    public void onFechaFinalSelected(Date time) {
+        presenterStatus.setFechaFinal(time);
+        FRAGMENT fragment = getMvpFragment();
+        if (fragment != null) {
+            fragment.setFechaFinal((time == null ? "" : Utilidades.getStringFormatddMMyyyyGuiones(time)));
+        }
+    }
+
     //region ResponseFuture
+
+
+    private void startResponseGetExperiencia() {
+        if (responseFutureExperiencia != null) {
+            responseFutureExperiencia.cancel(true);
+        }
+        responseFutureExperiencia = reservaFragmentInteractor.getExperienciaById(presenterStatus.getIdExperiencia()).onData(new OnData<Experiencia>() {
+            @Override
+            public void onData(Experiencia experiencia) {
+                presenterStatus.setExperiencia(experiencia);
+            }
+        }).onCompleted(new OnCompleted() {
+            @Override
+            public void onCompleted() {
+                onDataLoaded();
+            }
+        }).onError(new OnError() {
+            @Override
+            public void onError(Exception e) {
+                presenterStatus.setError(e);
+            }
+        });
+    }
+
+    private void startResponseGetHerramienta() {
+        if (responseFutureHerramienta != null) {
+            responseFutureHerramienta.cancel(true);
+        }
+        responseFutureHerramienta = reservaFragmentInteractor.getHerramientaById(presenterStatus.getIdHerramienta()).onData(new OnData<Herramienta>() {
+            @Override
+            public void onData(Herramienta herramienta) {
+                presenterStatus.setHerramienta(herramienta);
+            }
+        }).onCompleted(new OnCompleted() {
+            @Override
+            public void onCompleted() {
+                onDataLoaded();
+            }
+        }).onError(new OnError() {
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
+    }
+
     //endregion ResponseFuture
 }

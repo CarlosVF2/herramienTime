@@ -72,7 +72,7 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
 
     @Override
     public ReservaFragmentRepository getReservaFragmentRepository() {
-        return new ReservaFragmentRepositoryImpl();
+        return new ReservaFragmentRepositoryImpl(restApiServiceHelper, processors.getProcessorHerramienta(), processors.getProcessorExperiencia());
     }
 
     @Override

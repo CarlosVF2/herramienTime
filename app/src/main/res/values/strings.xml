@@ -45,4 +45,7 @@
     <string name="prompt_precio">Precio</string>
     <string name="action_make_photo">Hacer foto</string>
     <string name="prompt_title_foto">Foto:</string>
+    <string name="prompt_fecha_inicial">Fecha Inicial</string>
+    <string name="borrar">Borrar</string>
+    <string name="prompt_fecha_final">Fecha final</string>
 </resources>

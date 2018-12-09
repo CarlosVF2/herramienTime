@@ -70,6 +70,7 @@ public class ExperienciaDetalleFragmentImpl
         int id = item.getItemId();
         switch (id) {
             case R.id.action_reservar:
+                getMvpPresenter().onClickReservar();
                 return true;
         }
         return super.onOptionsItemSelected(item);

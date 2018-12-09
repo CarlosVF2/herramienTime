@@ -40,7 +40,7 @@ public abstract class ModuleDependencies extends DependencyInjectionImpl {
         setupHerramientasFragmentModule(getNavigationManager(), getInteractorFactoryInstance());
         setupHerramientaDetalleFragmentModule(getInteractorFactoryInstance(), getNavigationManager());
         setupExperienciasFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getApplicationContext().getResources());
-        setupExperienciaDetalleFragmentModule(getInteractorFactoryInstance());
+        setupExperienciaDetalleFragmentModule(getInteractorFactoryInstance(), getNavigationManager());
         setupReservaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getApplicationContext().getResources());
         setupAlquilerHerramientaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getApplicationContext().getResources());
         setupAlquilerExperienciaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getApplicationContext().getResources());
@@ -70,8 +70,8 @@ public abstract class ModuleDependencies extends DependencyInjectionImpl {
         reservaFragmentModule = new ReservaFragmentModule(navigationManager, interactorFactoryInstance, resources);
     }
 
-    private void setupExperienciaDetalleFragmentModule(InteractorFactory interactorFactoryInstance) {
-        experienciaDetalleFragmentModule = new ExperienciaDetalleFragmentModule(interactorFactoryInstance);
+    private void setupExperienciaDetalleFragmentModule(InteractorFactory interactorFactoryInstance, NavigationManager navigationManager) {
+        experienciaDetalleFragmentModule = new ExperienciaDetalleFragmentModule(interactorFactoryInstance, navigationManager);
     }
 
     private void setupExperienciasFragmentModule(NavigationManager navigationManager, InteractorFactory interactorFactoryInstance, Resources resources) {
