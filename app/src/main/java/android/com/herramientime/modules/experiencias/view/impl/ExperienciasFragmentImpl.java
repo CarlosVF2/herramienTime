@@ -34,6 +34,7 @@ public class ExperienciasFragmentImpl
     private RecyclerView recyclerViewExperiencia;
     private GridLayoutManager mLayoutManager;
     private ExperienciasAdapter experienciasAdapter;
+    private View view;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,7 +45,10 @@ public class ExperienciasFragmentImpl
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_experiencias, container, false);
+        if (view == null) {
+            view = inflater.inflate(R.layout.fragment_experiencias, container, false);
+        }
+        return view;
     }
 
     @Override

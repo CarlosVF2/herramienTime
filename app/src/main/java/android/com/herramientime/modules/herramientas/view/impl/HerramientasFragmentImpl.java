@@ -34,6 +34,7 @@ public class HerramientasFragmentImpl
     private RecyclerView recyclerViewHerramienta;
     private GridLayoutManager mLayoutManager;
     private HerramientasAdapter herramientasAdapter;
+    private View view;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,7 +45,10 @@ public class HerramientasFragmentImpl
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_herramientas, container, false);
+        if (view == null) {
+            view = inflater.inflate(R.layout.fragment_herramientas, container, false);
+        }
+        return view;
     }
 
     @Override
