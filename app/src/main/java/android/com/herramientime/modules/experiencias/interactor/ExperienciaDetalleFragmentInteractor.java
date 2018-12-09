@@ -7,4 +7,6 @@ import com.seidor.core.task.executor.future.ResponseFuture;
 public interface ExperienciaDetalleFragmentInteractor {
 
     ResponseFuture<Experiencia> getExperienciaById(String idExperiencia);
+
+    ResponseFuture<Boolean> checkReservar();
 }

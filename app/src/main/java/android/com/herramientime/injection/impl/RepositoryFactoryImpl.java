@@ -28,6 +28,7 @@ import android.com.herramientime.modules.reservar.repository.ReservaFragmentRepo
 import android.com.herramientime.modules.reservar.repository.impl.ReservaFragmentRepositoryImpl;
 import android.com.rest.RestApiServiceHelper;
 import android.content.Context;
+import android.content.res.Resources;
 
 /**
  * Created by carlos 06/11/2018.
@@ -37,12 +38,14 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
     private final Context context;
     private final RestApiServiceHelper restApiServiceHelper;
     private final Processors processors;
+    private final Resources resources;
 
 
-    public RepositoryFactoryImpl(Context context, RestApiServiceHelper restApiServiceHelper, Processors processors) {
+    public RepositoryFactoryImpl(Context context, RestApiServiceHelper restApiServiceHelper, Processors processors, Resources resources) {
         this.context = context;
         this.restApiServiceHelper = restApiServiceHelper;
         this.processors = processors;
+        this.resources = resources;
     }
 
     @Override
@@ -52,22 +55,22 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
 
     @Override
     public HerramientasFragmentRepository getHerramientasFragmentRepository() {
-        return new HerramientasFragmentRepositoryImpl(processors.getProcessorHerramienta(), restApiServiceHelper);
+        return new HerramientasFragmentRepositoryImpl(processors.getProcessorHerramienta(), restApiServiceHelper, resources, getMainActivityRepository());
     }
 
     @Override
     public HerramientaDetalleFragmentRepository getHerramientaDetalleFragmentRepository() {
-        return new HerramientaDetalleFragmentRepositoryImpl(processors.getProcessorHerramienta(), restApiServiceHelper, context.getResources());
+        return new HerramientaDetalleFragmentRepositoryImpl(processors.getProcessorHerramienta(), restApiServiceHelper, context.getResources(), getMainActivityRepository());
     }
 
     @Override
     public ExperienciasFragmentRepository getExperienciasFragmentRepository() {
-        return new ExperienciasFragmentRepositoryImpl(processors.getProcessorExperiencia(), restApiServiceHelper);
+        return new ExperienciasFragmentRepositoryImpl(processors.getProcessorExperiencia(), restApiServiceHelper, resources, getMainActivityRepository());
     }
 
     @Override
     public ExperienciaDetalleFragmentRepository getExperienciaDetalleFragmentRepository() {
-        return new ExperienciaDetalleFragmentRepositoryImpl(processors.getProcessorExperiencia(), restApiServiceHelper, context.getResources());
+        return new ExperienciaDetalleFragmentRepositoryImpl(processors.getProcessorExperiencia(), restApiServiceHelper, context.getResources(), getMainActivityRepository());
     }
 
     @Override

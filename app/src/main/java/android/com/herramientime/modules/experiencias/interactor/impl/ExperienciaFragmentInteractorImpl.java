@@ -29,4 +29,14 @@ public class ExperienciaFragmentInteractorImpl extends TaskInteractorImpl implem
             }
         });
     }
+
+    @Override
+    public ResponseFuture<Boolean> checkUpload() {
+        return prepare(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                return experienciasFragmentRepository.checkUpload();
+            }
+        });
+    }
 }

@@ -33,6 +33,7 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
     private HerramientasFragmentInteractor herramientasFragmentInteractor;
 
     private ResponseFuture<List<Herramienta>> responseFutureHerramientas;
+    private ResponseFuture<Boolean> responseFutureCheckUpload;
     private final HerramientasFragmentPresenterStatus presenterStatus = new HerramientasFragmentPresenterStatus();
 
     public static void newHerramientasFragmentPresenterInstance(Bundle bundle) {
@@ -110,11 +111,7 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
 
     @Override
     public void onClickSubirHerramienta() {
-        try {
-            navigationManager.navigateToAlquilerHerramienta();
-        } catch (LocalException e) {
-            e.printStackTrace();
-        }
+        startCheckUpload();
     }
 
     @Override
@@ -141,6 +138,35 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
     //endregion OnClickItem
 
     //region ResponseFuture
+
+    private void startCheckUpload() {
+        if (responseFutureCheckUpload != null) {
+            responseFutureCheckUpload.cancel(true);
+        }
+        responseFutureCheckUpload = herramientasFragmentInteractor.checkUpload().onData(new OnData<Boolean>() {
+            @Override
+            public void onData(Boolean aBoolean) {
+                if (aBoolean) {
+                    try {
+                        navigationManager.navigateToAlquilerHerramienta();
+                    } catch (LocalException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).onError(new OnError() {
+            @Override
+            public void onError(Exception e) {
+                presenterStatus.setError(e);
+            }
+        }).onCompleted(new OnCompleted() {
+            @Override
+            public void onCompleted() {
+                onDataLoaded();
+            }
+        });
+    }
+
     private void startGetHerramientas(){
         if (responseFutureHerramientas != null) {
             responseFutureHerramientas.cancel(true);

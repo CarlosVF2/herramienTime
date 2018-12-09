@@ -18,6 +18,7 @@ import android.com.herramientime.injection.impl.ViewFactoryImpl;
 import android.com.rest.RestApiServiceHelper;
 import android.com.rest.RestApiServiceHelperImpl;
 import android.content.Context;
+import android.content.res.Resources;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -49,7 +50,7 @@ public abstract class DependencyInjectionImpl extends DependencyInjection {
         setupPresenterFactoryDependency();
         setupProcessors();
         setupRestApiServiceHelper(application.getApplicationContext());
-        setupRepositoryFactoryDependency(application.getApplicationContext(), getRestApiServiceHelper(), getProcessors());
+        setupRepositoryFactoryDependency(application.getApplicationContext(), getRestApiServiceHelper(), getProcessors(), getResources());
         setupInteractorFactoryDependency(getRepositoryFactoryInstance(), getSchedulerFactoryInstance());
         setupViewFactoryDependency(application.getApplicationContext());
         setupNavigationManagerDependency(application, getViewFactoryInstance(), getPresenterFactory(), application.getApplicationContext());
@@ -83,8 +84,8 @@ public abstract class DependencyInjectionImpl extends DependencyInjection {
         interactorFactory = new InteractorFactoryImpl(repositoryFactory, schedulerFactory);
     }
 
-    private void setupRepositoryFactoryDependency(Context context, RestApiServiceHelper restApiServiceHelper, Processors processors) {
-        repositoryFactory = new RepositoryFactoryImpl(context, restApiServiceHelper, processors);
+    private void setupRepositoryFactoryDependency(Context context, RestApiServiceHelper restApiServiceHelper, Processors processors, Resources resources) {
+        repositoryFactory = new RepositoryFactoryImpl(context, restApiServiceHelper, processors, resources);
     }
 
     private void setupNavigationManagerDependency(Application application, ViewFactory viewFactory, PresenterFactory presenterFactory, Context context) {

@@ -7,4 +7,6 @@ import android.com.rest.entities.InternetException;
 public interface HerramientaDetalleFragmentRepository {
 
     Herramienta getHerramientaById(String idHerramienta) throws LocalException, InternetException;
+
+    Boolean checkReservar() throws LocalException, InternetException;
 }

@@ -48,4 +48,7 @@
     <string name="prompt_fecha_inicial">Fecha Inicial</string>
     <string name="borrar">Borrar</string>
     <string name="prompt_fecha_final">Fecha final</string>
+    <string name="prompt_error_first_log_reserve">Primero tiene que iniciar sesión para reservar</string>
+    <string name="error_need_log_upload_herramienta">Primero tiene que iniciar sesión antes de subir una herramienta</string>
+    <string name="error_need_log_upload_experience">Primero tiene que iniciar sesion antes de subir una experiencia</string>
 </resources>

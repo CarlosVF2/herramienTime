@@ -7,4 +7,7 @@ import android.com.rest.entities.InternetException;
 public interface ExperienciaDetalleFragmentRepository {
 
     Experiencia getExperienciaById(String idExperiencia) throws LocalException, InternetException;
+
+    Boolean checkReservar() throws LocalException, InternetException;
+
 }

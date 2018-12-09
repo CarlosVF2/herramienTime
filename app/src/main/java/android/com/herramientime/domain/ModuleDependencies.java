@@ -39,13 +39,13 @@ public abstract class ModuleDependencies extends DependencyInjectionImpl {
         setupMainActivityModule(getConstantsInstance(), getInteractorFactoryInstance(), getNavigationManager());
         setupHerramientasFragmentModule(getNavigationManager(), getInteractorFactoryInstance());
         setupHerramientaDetalleFragmentModule(getInteractorFactoryInstance(), getNavigationManager());
-        setupExperienciasFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getApplicationContext().getResources());
+        setupExperienciasFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getResources());
         setupExperienciaDetalleFragmentModule(getInteractorFactoryInstance(), getNavigationManager());
-        setupReservaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getApplicationContext().getResources());
-        setupAlquilerHerramientaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getApplicationContext().getResources());
-        setupAlquilerExperienciaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getApplicationContext().getResources());
-        setupLoginFragmentModule(getInteractorFactoryInstance(), getApplicationContext().getResources(), getNavigationManager());
-        setupMapFragmentModule(getInteractorFactoryInstance(), getNavigationManager(), getApplicationContext().getResources());
+        setupReservaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getResources());
+        setupAlquilerHerramientaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getResources());
+        setupAlquilerExperienciaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getResources());
+        setupLoginFragmentModule(getInteractorFactoryInstance(), getResources(), getNavigationManager());
+        setupMapFragmentModule(getInteractorFactoryInstance(), getNavigationManager(), getResources());
     }
 
     //region setup

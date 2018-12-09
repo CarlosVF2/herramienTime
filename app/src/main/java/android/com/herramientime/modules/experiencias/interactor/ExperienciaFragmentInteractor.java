@@ -10,4 +10,5 @@ public interface ExperienciaFragmentInteractor {
 
     ResponseFuture<List<Experiencia>> getExperiencias();
 
+    ResponseFuture<Boolean> checkUpload();
 }

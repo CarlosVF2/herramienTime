@@ -32,6 +32,7 @@ public class HerramientaDetalleFragmentPresenterImpl<FRAGMENT extends Herramient
     private NavigationManager navigationManager;
 
     private ResponseFuture<Herramienta> responseFutureGetHerramienta;
+    private ResponseFuture<Boolean> responseFutureCheckReservar;
     private final HerramientaDetalleFragmentPresenterStatus presenterStatus = new HerramientaDetalleFragmentPresenterStatus();
 
     public static void newHerramientaDetalleFragmentPresenterInstance(Bundle bundle, String id) {
@@ -106,14 +107,39 @@ public class HerramientaDetalleFragmentPresenterImpl<FRAGMENT extends Herramient
 
     @Override
     public void onClickReservar() {
-        try {
-            navigationManager.navigateToReservaHerramienta(presenterStatus.getIdHerramienta(), null, -1);
-        } catch (LocalException e) {
-            e.printStackTrace();
-        }
+        startCheckReservar();
     }
 
+
     //region ResponseFuture
+    private void startCheckReservar() {
+        if (responseFutureCheckReservar != null) {
+            responseFutureCheckReservar.cancel(true);
+        }
+        responseFutureCheckReservar = interactor.checkReservar().onData(new OnData<Boolean>() {
+            @Override
+            public void onData(Boolean aBoolean) {
+                if (aBoolean) {
+                    try {
+                        navigationManager.navigateToReservaHerramienta(presenterStatus.getIdHerramienta(), null, -1);
+                    } catch (LocalException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).onError(new OnError() {
+            @Override
+            public void onError(Exception e) {
+                presenterStatus.setError(e);
+            }
+        }).onCompleted(new OnCompleted() {
+            @Override
+            public void onCompleted() {
+                onDataLoaded();
+            }
+        });
+    }
+
     private void startGetHerramienta() {
         if (responseFutureGetHerramienta != null) {
             responseFutureGetHerramienta.cancel(true);

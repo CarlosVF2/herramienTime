@@ -3,8 +3,10 @@ package android.com.herramientime.modules.herramientas.repository.impl;
 import android.com.herramientime.R;
 import android.com.herramientime.domain.processor.ProcessorHerramienta;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.domain.repository.MainActivityRepository;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.herramientime.modules.herramientas.repository.HerramientaDetalleFragmentRepository;
+import android.com.herramientime.modules.usuarios.entities.Usuario;
 import android.com.rest.RestApiServiceHelper;
 import android.com.rest.entities.HerramientaRest;
 import android.com.rest.entities.InternetException;
@@ -17,11 +19,13 @@ public class HerramientaDetalleFragmentRepositoryImpl implements HerramientaDeta
     private final RestApiServiceHelper restApiServiceHelper;
     private final ProcessorHerramienta processorHerramienta;
     private final Resources resources;
+    private final MainActivityRepository mainActivityRepository;
 
-    public HerramientaDetalleFragmentRepositoryImpl(ProcessorHerramienta processorHerramienta, RestApiServiceHelper restApiServiceHelper, Resources resources) {
+    public HerramientaDetalleFragmentRepositoryImpl(ProcessorHerramienta processorHerramienta, RestApiServiceHelper restApiServiceHelper, Resources resources, MainActivityRepository mainActivityRepository) {
         this.restApiServiceHelper = restApiServiceHelper;
         this.processorHerramienta = processorHerramienta;
         this.resources = resources;
+        this.mainActivityRepository = mainActivityRepository;
     }
 
     @Override
@@ -34,5 +38,14 @@ public class HerramientaDetalleFragmentRepositoryImpl implements HerramientaDeta
         } else {
             throw new LocalException(resources.getString(R.string.prompt_not_found_herramienta));
         }
+    }
+
+    @Override
+    public Boolean checkReservar() throws LocalException, InternetException {
+        Usuario userLogged = mainActivityRepository.getLoggedUser();
+        if (userLogged == null) {
+            throw new LocalException(resources.getString(R.string.prompt_error_first_log_reserve));
+        }
+        return true;
     }
 }

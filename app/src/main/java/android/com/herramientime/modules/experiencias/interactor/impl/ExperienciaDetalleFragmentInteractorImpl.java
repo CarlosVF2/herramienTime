@@ -28,4 +28,14 @@ public class ExperienciaDetalleFragmentInteractorImpl extends TaskInteractorImpl
             }
         });
     }
+
+    @Override
+    public ResponseFuture<Boolean> checkReservar() {
+        return prepare(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                return experienciaDetalleFragmentRepository.checkReservar();
+            }
+        });
+    }
 }

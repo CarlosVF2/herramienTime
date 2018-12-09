@@ -10,4 +10,5 @@ public interface HerramientasFragmentInteractor {
 
     ResponseFuture<List<Herramienta>> getHerramientas();
 
+    ResponseFuture<Boolean> checkUpload();
 }

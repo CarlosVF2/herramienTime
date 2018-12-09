@@ -36,6 +36,7 @@ public class ExperienciasFragmentPresenterImpl<FRAGMENT extends ExperienciasFrag
     private Resources resources;
 
     private ResponseFuture<List<Experiencia>> responseFutureExperiencias;
+    private ResponseFuture<Boolean> responseFutureCheckUpload;
     private final ExperienciasFragmentPresenterStatus presenterStatus = new ExperienciasFragmentPresenterStatus();
 
     public static void newExperienciasFragmentPresenterInstance(Bundle bundle) {
@@ -117,11 +118,7 @@ public class ExperienciasFragmentPresenterImpl<FRAGMENT extends ExperienciasFrag
 
     @Override
     public void onClickActionSubirExperiencia() {
-        try {
-            navigationManager.navigateToAlquilerExperiencia();
-        } catch (LocalException e) {
-            e.printStackTrace();
-        }
+        startCheckUpload();
     }
 
 
@@ -139,6 +136,34 @@ public class ExperienciasFragmentPresenterImpl<FRAGMENT extends ExperienciasFrag
     //endregion OnClickItem
 
     //region ResponseFuture
+    private void startCheckUpload() {
+        if (responseFutureCheckUpload != null) {
+            responseFutureCheckUpload.cancel(true);
+        }
+        responseFutureCheckUpload = experienciaFragmentInteractor.checkUpload().onData(new OnData<Boolean>() {
+            @Override
+            public void onData(Boolean aBoolean) {
+                if (aBoolean) {
+                    try {
+                        navigationManager.navigateToAlquilerExperiencia();
+                    } catch (LocalException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).onError(new OnError() {
+            @Override
+            public void onError(Exception e) {
+                presenterStatus.setError(e);
+            }
+        }).onCompleted(new OnCompleted() {
+            @Override
+            public void onCompleted() {
+                onDataLoaded();
+            }
+        });
+    }
+
     private void startGetExperiencias() {
         if (responseFutureExperiencias != null) {
             responseFutureExperiencias.cancel(true);

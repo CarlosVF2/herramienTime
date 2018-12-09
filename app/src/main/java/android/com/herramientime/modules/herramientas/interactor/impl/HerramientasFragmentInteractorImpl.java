@@ -29,4 +29,14 @@ public class HerramientasFragmentInteractorImpl extends TaskInteractorImpl imple
             }
         });
     }
+
+    @Override
+    public ResponseFuture<Boolean> checkUpload() {
+        return prepare(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                return herramientasFragmentRepository.checkUpload();
+            }
+        });
+    }
 }

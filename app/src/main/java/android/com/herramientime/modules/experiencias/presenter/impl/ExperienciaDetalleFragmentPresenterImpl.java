@@ -32,6 +32,7 @@ public class ExperienciaDetalleFragmentPresenterImpl<FRAGMENT extends Experienci
     private NavigationManager navigationManager;
 
     private ResponseFuture<Experiencia> responseFutureGetExperiencia;
+    private ResponseFuture<Boolean> responseFutureCheckReservar;
     private final ExperienciaDetalleFragmentPresenterStatus presenterStatus = new ExperienciaDetalleFragmentPresenterStatus();
 
     public static void newExperienciaDetalleFragmentPresenterInstance(Bundle bundle, String id) {
@@ -104,14 +105,39 @@ public class ExperienciaDetalleFragmentPresenterImpl<FRAGMENT extends Experienci
 
     @Override
     public void onClickReservar() {
-        try {
-            navigationManager.navigateToReservaExperiencia(presenterStatus.getIdExperiencia(), null, -1);
-        } catch (LocalException e) {
-            e.printStackTrace();
-        }
+        startCheckReservar();
     }
 
     //region ResponseFuture
+
+    private void startCheckReservar() {
+        if (responseFutureCheckReservar != null) {
+            responseFutureCheckReservar.cancel(true);
+        }
+        responseFutureCheckReservar = interactor.checkReservar().onData(new OnData<Boolean>() {
+            @Override
+            public void onData(Boolean aBoolean) {
+                if (aBoolean) {
+                    try {
+                        navigationManager.navigateToReservaExperiencia(presenterStatus.getIdExperiencia(), null, -1);
+                    } catch (LocalException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).onError(new OnError() {
+            @Override
+            public void onError(Exception e) {
+                presenterStatus.setError(e);
+            }
+        }).onCompleted(new OnCompleted() {
+            @Override
+            public void onCompleted() {
+                onDataLoaded();
+            }
+        });
+    }
+
     private void startGetExperiencia() {
         if (responseFutureGetExperiencia != null) {
             responseFutureGetExperiencia.cancel(true);
