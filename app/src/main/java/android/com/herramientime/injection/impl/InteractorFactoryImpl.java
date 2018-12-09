@@ -19,6 +19,8 @@ import android.com.herramientime.modules.herramientas.interactor.impl.Herramient
 import android.com.herramientime.modules.herramientas.interactor.impl.HerramientasFragmentInteractorImpl;
 import android.com.herramientime.modules.login.interactor.LoginFragmentInteractor;
 import android.com.herramientime.modules.login.interactor.impl.LoginFragmentInteractorImpl;
+import android.com.herramientime.modules.map.interactor.MapFragmentInteractor;
+import android.com.herramientime.modules.map.interactor.impl.MapFragmentInteractorImpl;
 import android.com.herramientime.modules.reservar.interactor.ReservaFragmentInteractor;
 import android.com.herramientime.modules.reservar.interactor.impl.ReservaFragmentInteractorImpl;
 
@@ -79,5 +81,10 @@ public class InteractorFactoryImpl implements InteractorFactory {
     @Override
     public LoginFragmentInteractor getLoginFragmentInteractor() {
         return new LoginFragmentInteractorImpl(schedulerFactory.getUIScheduler(), repositoryFactory.getLoginFragmentRepository());
+    }
+
+    @Override
+    public MapFragmentInteractor getMapFragmentInteractor() {
+        return new MapFragmentInteractorImpl(schedulerFactory.getUIScheduler(), repositoryFactory.getMapFragmentRepository());
     }
 }

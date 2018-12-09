@@ -17,6 +17,8 @@ import android.com.herramientime.modules.herramientas.injection.HerramientasFrag
 import android.com.herramientime.modules.herramientas.injection.HerramientasFragmentModule;
 import android.com.herramientime.modules.login.injection.LoginFragmentComponent;
 import android.com.herramientime.modules.login.injection.LoginFragmentModule;
+import android.com.herramientime.modules.map.injection.MapFragmentComponent;
+import android.com.herramientime.modules.map.injection.MapFragmentModule;
 import android.com.herramientime.modules.reservar.injection.ReservaFragmentComponent;
 import android.com.herramientime.modules.reservar.injection.ReservaFragmentModule;
 
@@ -37,6 +39,7 @@ public class ComponentDependencies extends ModuleDependencies {
     private AlquilerHerramientaFragmentComponent alquilerHerramientaFragmentComponent;
     private AlquilerExperienciaFragmentComponent alquilerExperienciaFragmentComponent;
     private LoginFragmentComponent loginFragmentComponent;
+    private MapFragmentComponent mapFragmentComponent;
 
     public ComponentDependencies(Application application) {
         super(application);
@@ -49,9 +52,14 @@ public class ComponentDependencies extends ModuleDependencies {
         setupAlquilerHerramientaFragmentComponent(getAlquilerHerramientaFragmentModule());
         setupAlquilerExperienciaFragmentComponent(getAlquilerExperienciaFragmentModule());
         setupLoginFragmentComponent(getLoginFragmentModule());
+        setupMapFragmentComponent(getMapFragmentModule());
     }
 
     //region Setup
+
+    private void setupMapFragmentComponent(MapFragmentModule mapFragmentModule) {
+        mapFragmentComponent = new MapFragmentComponent(mapFragmentModule);
+    }
 
     private void setupLoginFragmentComponent(LoginFragmentModule loginFragmentModule) {
         loginFragmentComponent = new LoginFragmentComponent(loginFragmentModule);
@@ -136,6 +144,11 @@ public class ComponentDependencies extends ModuleDependencies {
     @Provides
     public LoginFragmentComponent getLoginFragmentComponent() {
         return loginFragmentComponent;
+    }
+
+    @Provides
+    public MapFragmentComponent getMapFragmentComponent() {
+        return mapFragmentComponent;
     }
 
     //endregion Get

@@ -3,6 +3,8 @@ package android.com.herramientime.modules.login.presenter.impl;
 import android.com.herramientime.app.HerramienTimeApp;
 import android.com.herramientime.core.entities.ErrorCause;
 import android.com.herramientime.core.presenter.impl.MvpFragmentPresenterImpl;
+import android.com.herramientime.injection.NavigationManager;
+import android.com.herramientime.modules.domain.entities.LocalException;
 import android.com.herramientime.modules.login.entities.LoginFragmentPresenterStatus;
 import android.com.herramientime.modules.login.injection.LoginFragmentComponent;
 import android.com.herramientime.modules.login.interactor.LoginFragmentInteractor;
@@ -27,6 +29,7 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
 
     private LoginFragmentInteractor loginFragmentInteractor;
     private Resources resources;
+    private NavigationManager navigationManager;
 
     private LoginFragmentPresenterStatus presenterStatus = new LoginFragmentPresenterStatus();
     private ResponseFuture<Usuario> responseFutureUsuario;
@@ -44,6 +47,7 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
     public LoginFragmentPresenterImpl(LoginFragmentComponent loginFragmentComponent) {
         this.loginFragmentInteractor = loginFragmentComponent.getLoginFragmentModule().getLoginFragmentInteractor();
         this.resources = loginFragmentComponent.getLoginFragmentModule().getResources();
+        this.navigationManager = loginFragmentComponent.getLoginFragmentModule().geNavigationManager();
     }
 
     @Override
@@ -53,6 +57,9 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
         }
         if (resources == null) {
             resources = HerramienTimeApp.getComponentDependencies().getLoginFragmentComponent().getLoginFragmentModule().getResources();
+        }
+        if (navigationManager == null) {
+            navigationManager = HerramienTimeApp.getComponentDependencies().getLoginFragmentComponent().getLoginFragmentModule().geNavigationManager();
         }
         getMvpFragment().onInitLoading();
     }
@@ -151,7 +158,11 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
             @Override
             public void onData(Usuario usuario) {
                 if (usuario != null) {
-
+                    try {
+                        navigationManager.navigateBack();
+                    } catch (LocalException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }).onError(new OnError() {
@@ -184,7 +195,11 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
             @Override
             public void onData(Usuario usuario) {
                 if (usuario != null) {
-
+                    try {
+                        navigationManager.navigateBack();
+                    } catch (LocalException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }).onError(new OnError() {

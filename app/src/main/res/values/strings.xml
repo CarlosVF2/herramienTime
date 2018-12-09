@@ -39,4 +39,5 @@
     <string name="errpr_fill_surname">Tiene que rellenar los apellidos</string>
     <string name="error_minimum_6_characts">Tiene que rellenar con un apellido con mínimo 6 caracteres</string>
     <string name="error_user_exists">El usuario introducido ya existe</string>
+    <string name="rationale_locat">Es necesario el permiso para mostrar su ubicación</string>
 </resources>

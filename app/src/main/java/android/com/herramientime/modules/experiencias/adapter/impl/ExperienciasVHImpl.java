@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 public class ExperienciasVHImpl<DATA extends Experiencia> extends RecyclerView.ViewHolder implements ExperienciasVH<DATA>, View.OnClickListener {
 
@@ -48,8 +47,6 @@ public class ExperienciasVHImpl<DATA extends Experiencia> extends RecyclerView.V
     public void setImagenExperiencia(String urlImagen) {
         Glide.with(context)
                 .load(urlImagen)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
                 .into(imageViewExperiencia);
     }
 

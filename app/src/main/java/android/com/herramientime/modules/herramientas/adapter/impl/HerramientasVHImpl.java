@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 public class HerramientasVHImpl<DATA extends Herramienta> extends RecyclerView.ViewHolder implements HerramientasVH<DATA>, View.OnClickListener {
 
@@ -53,10 +52,9 @@ public class HerramientasVHImpl<DATA extends Herramienta> extends RecyclerView.V
 
     @Override
     public void setImagenHerramienta(String urlImagen) {
+
         Glide.with(context)
                 .load(urlImagen)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
                 .into(imageViewHerramienta);
     }
 

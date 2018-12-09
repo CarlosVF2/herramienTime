@@ -8,6 +8,7 @@ import android.com.herramientime.modules.herramientas.repository.AlquilerHerrami
 import android.com.herramientime.modules.herramientas.repository.HerramientaDetalleFragmentRepository;
 import android.com.herramientime.modules.herramientas.repository.HerramientasFragmentRepository;
 import android.com.herramientime.modules.login.repository.LoginFragmentRepository;
+import android.com.herramientime.modules.map.repository.MapFragmentRepository;
 import android.com.herramientime.modules.reservar.repository.ReservaFragmentRepository;
 
 /**
@@ -35,4 +36,7 @@ public interface RepositoryFactory {
 
     //Login
     LoginFragmentRepository getLoginFragmentRepository();
+
+    //Map
+    MapFragmentRepository getMapFragmentRepository();
 }

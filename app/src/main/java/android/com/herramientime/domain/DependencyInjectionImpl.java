@@ -53,10 +53,15 @@ public abstract class DependencyInjectionImpl extends DependencyInjection {
         setupInteractorFactoryDependency(getRepositoryFactoryInstance(), getSchedulerFactoryInstance());
         setupViewFactoryDependency(application.getApplicationContext());
         setupNavigationManagerDependency(application, getViewFactoryInstance(), getPresenterFactory(), application.getApplicationContext());
+        setupGlideModule(getApplicationContext());
     }
 
 
     // region setup
+
+    private void setupGlideModule(Context context) {
+
+    }
 
     private void setupProcessors() {
         processors = new Processors();

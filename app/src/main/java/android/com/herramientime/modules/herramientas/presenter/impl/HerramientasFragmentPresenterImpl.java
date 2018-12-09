@@ -115,6 +115,15 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
         }
     }
 
+    @Override
+    public void onClickMap() {
+        try {
+            navigationManager.navigateToMap();
+        } catch (LocalException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     //region OnClickItem
     @Override

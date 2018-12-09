@@ -84,6 +84,7 @@ public class HerramientasFragmentImpl
         int id = item.getItemId();
         switch (id) {
             case R.id.action_map:
+                getMvpPresenter().onClickMap();
                 return true;
             case R.id.action_subir_herramienta:
                 getMvpPresenter().onClickSubirHerramienta();

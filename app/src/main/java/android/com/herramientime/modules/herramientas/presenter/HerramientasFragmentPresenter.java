@@ -11,4 +11,5 @@ public interface HerramientasFragmentPresenter extends MvpFragmentPresenter {
 
     void onClickSubirHerramienta();
 
+    void onClickMap();
 }

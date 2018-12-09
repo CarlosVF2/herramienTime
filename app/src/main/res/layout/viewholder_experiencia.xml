@@ -22,7 +22,7 @@
             android:id="@+id/imageViewExperiencia"
             android:layout_width="@dimen/dimen_image_herramienta"
             android:layout_height="@dimen/dimen_image_herramienta"
-            android:layout_below="@+id/textViewNombreHerramienta"
+            android:layout_below="@+id/textViewNombreExperiencia"
             android:layout_centerInParent="true"
             android:src="@drawable/ic_menu_camera" />
 

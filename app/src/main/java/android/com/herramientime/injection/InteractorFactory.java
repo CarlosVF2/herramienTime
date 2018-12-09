@@ -9,6 +9,7 @@ import android.com.herramientime.modules.herramientas.interactor.AlquilerHerrami
 import android.com.herramientime.modules.herramientas.interactor.HerramientaDetalleFragmentInteractor;
 import android.com.herramientime.modules.herramientas.interactor.HerramientasFragmentInteractor;
 import android.com.herramientime.modules.login.interactor.LoginFragmentInteractor;
+import android.com.herramientime.modules.map.interactor.MapFragmentInteractor;
 import android.com.herramientime.modules.reservar.interactor.ReservaFragmentInteractor;
 
 /**
@@ -37,5 +38,9 @@ public interface InteractorFactory {
 
     //Login
     LoginFragmentInteractor getLoginFragmentInteractor();
+
+    //Mapa
+    MapFragmentInteractor getMapFragmentInteractor();
+
 }
 

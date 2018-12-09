@@ -12,6 +12,7 @@ import android.com.herramientime.modules.herramientas.injection.AlquilerHerramie
 import android.com.herramientime.modules.herramientas.injection.HerramientaDetalleFragmentModule;
 import android.com.herramientime.modules.herramientas.injection.HerramientasFragmentModule;
 import android.com.herramientime.modules.login.injection.LoginFragmentModule;
+import android.com.herramientime.modules.map.injection.MapFragmentModule;
 import android.com.herramientime.modules.reservar.injection.ReservaFragmentModule;
 import android.content.res.Resources;
 
@@ -31,6 +32,7 @@ public abstract class ModuleDependencies extends DependencyInjectionImpl {
     private AlquilerHerramientaFragmentModule alquilerHerramientaFragmentModule;
     private AlquilerExperienciaFragmentModule alquilerExperienciaFragmentModule;
     private LoginFragmentModule loginFragmentModule;
+    private MapFragmentModule mapFragmentModule;
 
     public ModuleDependencies(Application application) {
         super(application);
@@ -42,13 +44,18 @@ public abstract class ModuleDependencies extends DependencyInjectionImpl {
         setupReservaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getApplicationContext().getResources());
         setupAlquilerHerramientaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getApplicationContext().getResources());
         setupAlquilerExperienciaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getApplicationContext().getResources());
-        setupLoginFragmentModule(getInteractorFactoryInstance(), getApplicationContext().getResources());
+        setupLoginFragmentModule(getInteractorFactoryInstance(), getApplicationContext().getResources(), getNavigationManager());
+        setupMapFragmentModule(getInteractorFactoryInstance(), getNavigationManager(), getApplicationContext().getResources());
     }
 
     //region setup
 
-    private void setupLoginFragmentModule(InteractorFactory interactorFactoryInstance, Resources resources) {
-        loginFragmentModule = new LoginFragmentModule(interactorFactoryInstance, resources);
+    private void setupMapFragmentModule(InteractorFactory interactorFactoryInstance, NavigationManager navigationManager, Resources resources) {
+        mapFragmentModule = new MapFragmentModule(interactorFactoryInstance, navigationManager, resources);
+    }
+
+    private void setupLoginFragmentModule(InteractorFactory interactorFactoryInstance, Resources resources, NavigationManager navigationManager) {
+        loginFragmentModule = new LoginFragmentModule(interactorFactoryInstance, resources, navigationManager);
     }
 
     private void setupAlquilerExperienciaFragmentModule(NavigationManager navigationManager, InteractorFactory interactorFactoryInstance, Resources resources) {
@@ -121,6 +128,10 @@ public abstract class ModuleDependencies extends DependencyInjectionImpl {
 
     protected LoginFragmentModule getLoginFragmentModule() {
         return loginFragmentModule;
+    }
+
+    protected MapFragmentModule getMapFragmentModule() {
+        return mapFragmentModule;
     }
 
     //endregion GET

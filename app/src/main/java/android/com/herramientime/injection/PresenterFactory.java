@@ -30,4 +30,7 @@ public interface PresenterFactory {
 
     //Login
     void setupLoginFragmentInstance(Bundle args);
+
+    //Map
+    void setupMapFragmentInstance(Bundle args);
 }

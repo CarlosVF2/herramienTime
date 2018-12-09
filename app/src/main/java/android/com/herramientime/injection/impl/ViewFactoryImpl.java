@@ -9,6 +9,7 @@ import android.com.herramientime.modules.herramientas.view.impl.AlquilarHerramie
 import android.com.herramientime.modules.herramientas.view.impl.HerramientaDetalleFragmentImpl;
 import android.com.herramientime.modules.herramientas.view.impl.HerramientasFragmentImpl;
 import android.com.herramientime.modules.login.view.impl.LoginFragmentImpl;
+import android.com.herramientime.modules.map.view.impl.MapFragmentImpl;
 import android.com.herramientime.modules.reservar.view.impl.ReservaFragmentImpl;
 import android.content.Context;
 import android.content.Intent;
@@ -76,6 +77,12 @@ public class ViewFactoryImpl implements ViewFactory {
     @Override
     public LoginFragmentImpl newLoginFragmentInstance() {
         LoginFragmentImpl fragment = new LoginFragmentImpl();
+        return fragment;
+    }
+
+    @Override
+    public MapFragmentImpl newMapFragmentInstance() {
+        MapFragmentImpl fragment = new MapFragmentImpl();
         return fragment;
     }
 }

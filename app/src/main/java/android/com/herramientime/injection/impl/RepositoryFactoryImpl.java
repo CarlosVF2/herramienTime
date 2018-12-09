@@ -19,6 +19,8 @@ import android.com.herramientime.modules.herramientas.repository.impl.Herramient
 import android.com.herramientime.modules.herramientas.repository.impl.HerramientasFragmentRepositoryImpl;
 import android.com.herramientime.modules.login.repository.LoginFragmentRepository;
 import android.com.herramientime.modules.login.repository.impl.LoginFragmentRepositoryImpl;
+import android.com.herramientime.modules.map.repository.MapFragmentRepository;
+import android.com.herramientime.modules.map.repository.impl.MapFragmentRepositoryImpl;
 import android.com.herramientime.modules.reservar.repository.ReservaFragmentRepository;
 import android.com.herramientime.modules.reservar.repository.impl.ReservaFragmentRepositoryImpl;
 import android.com.rest.RestApiServiceHelper;
@@ -85,5 +87,10 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
     @Override
     public LoginFragmentRepository getLoginFragmentRepository() {
         return new LoginFragmentRepositoryImpl(restApiServiceHelper, processors.getProcessorUsuario(), context.getResources(), context);
+    }
+
+    @Override
+    public MapFragmentRepository getMapFragmentRepository() {
+        return new MapFragmentRepositoryImpl();
     }
 }
