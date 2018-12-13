@@ -65,7 +65,7 @@ public class LoginFragmentImpl
 
     @Override
     public void onLoaded() {
-
+        hideProgressDialog();
     }
 
     //endregion Core LifeCycle

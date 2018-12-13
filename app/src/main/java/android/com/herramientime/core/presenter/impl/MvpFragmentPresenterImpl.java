@@ -24,10 +24,10 @@ public abstract class MvpFragmentPresenterImpl<VIEW extends MvpFragment> impleme
 
     @Override
     public void onDataLoaded() {
-        VIEW view = getMvpFragment();
-        if (view != null) {
-            view.hideProgressDialog();
-        }
+        //VIEW view = getMvpFragment();
+        //if (view != null) {
+        //    view.hideProgressDialog();
+        //}
     }
 
     @Override

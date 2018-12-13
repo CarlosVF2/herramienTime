@@ -42,6 +42,7 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
     private ResponseFuture<Herramienta> responseFutureSaveHerramienta;
     private ResponseFuture<List<Categoria>> responseFutureCategorias;
     private ResponseFuture<List<Moneda>> responseFutureMonedas;
+    private ResponseFuture<String> responseUri;
     private AlquilerHerramientaFragmentInteractor interactor;
 
     public static void newAlquilerHerramientaFragmentPresenterInstance(Bundle bundle) {
@@ -143,7 +144,33 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
 
     @Override
     public void onClickMakePhoto() {
-        getMvpFragment().launchIntentPhoto();
+        startResponseTakePhoto();
+    }
+
+    private void startResponseTakePhoto() {
+        if (responseUri != null) {
+            responseUri.cancel(true);
+        }
+        responseUri = interactor.getPathPhoto().onData(new OnData<String>() {
+            @Override
+            public void onData(String s) {
+                if (!TextUtils.isEmpty(s)) {
+                    presenterStatus.getAlquilerHerramienta().setPathPhoto(s);
+                }
+                FRAGMENT fragment = getMvpFragment();
+                if (fragment != null) {
+                    fragment.launchIntentPhoto();
+                }
+            }
+        }).onError(new OnError() {
+            @Override
+            public void onError(Exception e) {
+                FRAGMENT fragment = getMvpFragment();
+                if (fragment != null) {
+                    fragment.onLoadError(ErrorCause.getCause(e));
+                }
+            }
+        });
     }
 
 
@@ -181,6 +208,16 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
     @Override
     public void onItemCateogiraSelected(int i) {
         presenterStatus.getAlquilerHerramienta().setCategoria(presenterStatus.getCategorias().get(i));
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        presenterStatus.restoreInstance(savedInstanceState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        presenterStatus.saveInstance(outState);
     }
 
     private void checkAllFieldsFill() {

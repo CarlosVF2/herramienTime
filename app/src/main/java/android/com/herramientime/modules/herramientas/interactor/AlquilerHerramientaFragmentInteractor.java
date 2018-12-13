@@ -16,4 +16,6 @@ public interface AlquilerHerramientaFragmentInteractor {
     ResponseFuture<List<Categoria>> getCategorias();
 
     ResponseFuture<List<Moneda>> getMonedas();
+
+    ResponseFuture<String> getPathPhoto();
 }

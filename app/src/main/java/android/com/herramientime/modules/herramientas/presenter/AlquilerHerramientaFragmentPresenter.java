@@ -1,6 +1,7 @@
 package android.com.herramientime.modules.herramientas.presenter;
 
 import android.com.herramientime.core.presenter.MvpFragmentPresenter;
+import android.os.Bundle;
 
 /**
  * Created by carlo on 06/11/2018.
@@ -20,4 +21,8 @@ public interface AlquilerHerramientaFragmentPresenter extends MvpFragmentPresent
     void onItemSimbolosSelected(int i);
 
     void onItemCateogiraSelected(int i);
+
+    void onViewStateRestored(Bundle savedInstanceState);
+
+    void onSaveInstanceState(Bundle outState);
 }

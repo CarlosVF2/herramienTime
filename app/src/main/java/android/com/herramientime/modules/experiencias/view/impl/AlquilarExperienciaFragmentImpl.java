@@ -100,7 +100,7 @@ public class AlquilarExperienciaFragmentImpl
 
     @Override
     public void onLoaded() {
-
+        hideProgressDialog();
     }
 
     //endregion Core LifeCycle

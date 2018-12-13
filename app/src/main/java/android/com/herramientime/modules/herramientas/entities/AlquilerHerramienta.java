@@ -3,7 +3,9 @@ package android.com.herramientime.modules.herramientas.entities;
 import android.com.herramientime.modules.domain.entities.Categoria;
 import android.com.herramientime.modules.domain.entities.Moneda;
 
-public class AlquilerHerramienta {
+import java.io.Serializable;
+
+public class AlquilerHerramienta implements Serializable {
 
     private String descripcion;
     private String titulo;

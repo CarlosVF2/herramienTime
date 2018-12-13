@@ -7,6 +7,7 @@ import android.com.herramientime.modules.herramientas.entities.AlquilerHerramien
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.rest.entities.InternetException;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface AlquilerHerramientaFragmentRepository {
@@ -16,4 +17,6 @@ public interface AlquilerHerramientaFragmentRepository {
     List<Categoria> getCategorias() throws InternetException;
 
     List<Moneda> getMonedas() throws InternetException;
+
+    String getPathUriPhoto() throws IOException, LocalException;
 }

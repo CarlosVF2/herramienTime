@@ -23,11 +23,9 @@ import android.com.herramientime.modules.reservar.injection.ReservaFragmentCompo
 import android.com.herramientime.modules.reservar.injection.ReservaFragmentModule;
 
 import com.seidor.core.di.annotations.Provides;
-
 /**
  * Created by carlo 06/11/2018
  */
-
 public class ComponentDependencies extends ModuleDependencies {
 
     private MainActivityComponent mainActivityComponent;

@@ -84,7 +84,7 @@ public class ReservaFragmentImpl
 
     @Override
     public void onLoaded() {
-
+        hideProgressDialog();
     }
 
     //endregion Core LifeCycle

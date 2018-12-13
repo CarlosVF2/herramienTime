@@ -197,6 +197,7 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
 
     @Override
     public void onLoaded() {
+        hideProgressDialog();
     }
 
     private void checkNetwork() {

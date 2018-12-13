@@ -1,9 +1,10 @@
 package android.com.herramientime.modules.domain.entities;
 
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Moneda {
+public class Moneda implements Serializable {
 
     private String simbolo;
     private String moneda;

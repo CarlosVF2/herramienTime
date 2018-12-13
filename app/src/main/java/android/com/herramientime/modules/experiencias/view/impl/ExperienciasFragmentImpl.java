@@ -102,7 +102,7 @@ public class ExperienciasFragmentImpl
     @Override
     public void onLoaded() {
         recyclerViewExperiencia.setVisibility(View.VISIBLE);
-
+        hideProgressDialog();
     }
 
     //endregion Core LifeCycle

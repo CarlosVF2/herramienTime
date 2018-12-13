@@ -38,6 +38,6 @@ public class MainActivityRepositoryImpl implements MainActivityRepository {
                 return processorUsuario.convertFrom(usuariosRests.get(index));
             }
         }
-        return null;
+        throw new LocalException("No se ha encontrado el usuario");
     }
 }

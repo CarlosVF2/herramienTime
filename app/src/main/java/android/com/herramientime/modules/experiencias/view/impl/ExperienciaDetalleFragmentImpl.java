@@ -85,8 +85,7 @@ public class ExperienciaDetalleFragmentImpl
 
     @Override
     public void onLoaded() {
-        linearLayoutContainer.setVisibility(View.VISIBLE);
-
+        hideProgressDialog();
     }
 
     //endregion LifeCycleCore

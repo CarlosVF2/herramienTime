@@ -103,7 +103,7 @@ public class HerramientasFragmentImpl
     @Override
     public void onLoaded() {
         recyclerViewHerramienta.setVisibility(View.VISIBLE);
-
+        hideProgressDialog();
     }
 
     //endregion Core LifeCycle

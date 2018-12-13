@@ -14,8 +14,12 @@ import android.com.herramientime.modules.usuarios.entities.Usuario;
 import android.com.rest.RestApiServiceHelper;
 import android.com.rest.entities.HerramientaRest;
 import android.com.rest.entities.InternetException;
+import android.com.rest.utils.Utilidades;
+import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -24,6 +28,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class AlquilerHerramientaFragmentRepositoryImpl implements AlquilerHerramientaFragmentRepository {
@@ -33,13 +39,15 @@ public class AlquilerHerramientaFragmentRepositoryImpl implements AlquilerHerram
     private final CategoriasRepository categoriasRepository;
     private final MonedasRepository monedasRepository;
     private final MainActivityRepository mainActivityRepository;
+    private final Context context;
 
-    public AlquilerHerramientaFragmentRepositoryImpl(RestApiServiceHelper restApiServiceHelper, ProcessorHerramienta processorHerramienta, CategoriasRepository categoriasRepository, MonedasRepository monedasRepository, MainActivityRepository mainActivityRepository) {
+    public AlquilerHerramientaFragmentRepositoryImpl(RestApiServiceHelper restApiServiceHelper, ProcessorHerramienta processorHerramienta, CategoriasRepository categoriasRepository, MonedasRepository monedasRepository, MainActivityRepository mainActivityRepository, Context context) {
         this.restApiServiceHelper = restApiServiceHelper;
         this.processorHerramienta = processorHerramienta;
         this.categoriasRepository = categoriasRepository;
         this.monedasRepository = monedasRepository;
         this.mainActivityRepository = mainActivityRepository;
+        this.context = context;
     }
 
     @Override
@@ -90,6 +98,19 @@ public class AlquilerHerramientaFragmentRepositoryImpl implements AlquilerHerram
     @Override
     public List<Moneda> getMonedas() throws InternetException {
         return monedasRepository.getMonedas();
+    }
+
+    @Override
+    public String getPathUriPhoto() throws IOException, LocalException {
+        Usuario usuario = mainActivityRepository.getLoggedUser();
+        File photoFile = Utilidades.takePhoto(context, usuario.getId());
+        Uri uri = Uri.fromFile(photoFile);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            //android 7 Ó superior
+            String fileProvider = context.getPackageName() + ".fileprovider";
+            uri = FileProvider.getUriForFile(context, fileProvider, photoFile);
+        }
+        return uri.toString();
     }
 
     private String getLastId(String id) {

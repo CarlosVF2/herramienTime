@@ -2,8 +2,7 @@ package android.com.herramientime.modules.experiencias.entities;
 
 import android.com.herramientime.core.entities.BasePresenterStatus;
 import android.com.herramientime.modules.domain.entities.Moneda;
-
-import com.seidor.core.utils.wrapper.BundleWrapper;
+import android.os.Bundle;
 
 import java.util.List;
 
@@ -13,12 +12,12 @@ public class AlquilarExperienciaFragmentPresenterStatus extends BasePresenterSta
     private List<Moneda> monedas;
 
     @Override
-    public void saveInstance(BundleWrapper saveInstance) {
+    public void saveInstance(Bundle saveInstance) {
 
     }
 
     @Override
-    public void restoreInstance(BundleWrapper restoreInstance) {
+    public void restoreInstance(Bundle restoreInstance) {
 
     }
 

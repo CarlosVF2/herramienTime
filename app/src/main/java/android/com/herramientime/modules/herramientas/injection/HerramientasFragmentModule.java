@@ -15,7 +15,7 @@ public class HerramientasFragmentModule {
 
     public HerramientasFragmentModule( NavigationManager navigationManager, InteractorFactory interactorFactory) {
         this.navigationManager = navigationManager;
-        this.herramientasFragmentInteractor = interactorFactory.getHerramientasFragmentInteractor();
+        this.herramientasFragmentInteractor = null;
     }
 
     public HerramientasFragmentInteractor getHerramientasFragmentInteractor() {

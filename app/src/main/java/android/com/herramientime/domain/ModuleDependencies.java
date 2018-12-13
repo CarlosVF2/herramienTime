@@ -21,7 +21,7 @@ import android.content.res.Resources;
  * Created by carlo on 06/11/2018.
  */
 
-public abstract class ModuleDependencies extends DependencyInjectionImpl {
+public class ModuleDependencies extends DependencyInjectionImpl {
 
     private MainActivityModule mainActivityModule;
     private HerramientasFragmentModule herramientasFragmentModule;

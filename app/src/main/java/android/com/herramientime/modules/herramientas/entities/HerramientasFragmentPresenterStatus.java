@@ -1,8 +1,7 @@
 package android.com.herramientime.modules.herramientas.entities;
 
 import android.com.herramientime.core.entities.BasePresenterStatus;
-
-import com.seidor.core.utils.wrapper.BundleWrapper;
+import android.os.Bundle;
 
 import java.util.List;
 
@@ -11,12 +10,12 @@ public class HerramientasFragmentPresenterStatus extends BasePresenterStatus {
     private List<Herramienta> herramientas;
 
     @Override
-    public void saveInstance(BundleWrapper saveInstance) {
+    public void saveInstance(Bundle saveInstance) {
 
     }
 
     @Override
-    public void restoreInstance(BundleWrapper restoreInstance) {
+    public void restoreInstance(Bundle restoreInstance) {
 
     }
 

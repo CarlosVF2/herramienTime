@@ -80,7 +80,7 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
 
     @Override
     public AlquilerHerramientaFragmentRepository getAlquilerHerramientaFragmentRepository() {
-        return new AlquilerHerramientaFragmentRepositoryImpl(restApiServiceHelper, processors.getProcessorHerramienta(), geCategoriasRepository(), geMonedasRepository(), getMainActivityRepository());
+        return new AlquilerHerramientaFragmentRepositoryImpl(restApiServiceHelper, processors.getProcessorHerramienta(), geCategoriasRepository(), geMonedasRepository(), getMainActivityRepository(), context);
     }
 
     @Override

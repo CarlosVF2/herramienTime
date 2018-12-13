@@ -3,8 +3,7 @@ package android.com.herramientime.modules.reservar.entities;
 import android.com.herramientime.core.entities.BasePresenterStatus;
 import android.com.herramientime.modules.experiencias.entities.Experiencia;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
-
-import com.seidor.core.utils.wrapper.BundleWrapper;
+import android.os.Bundle;
 
 import java.util.Date;
 
@@ -18,12 +17,12 @@ public class ReservaFragmentPresenterStatus extends BasePresenterStatus {
     private Herramienta herramienta;
 
     @Override
-    public void saveInstance(BundleWrapper saveInstance) {
+    public void saveInstance(Bundle saveInstance) {
 
     }
 
     @Override
-    public void restoreInstance(BundleWrapper restoreInstance) {
+    public void restoreInstance(Bundle restoreInstance) {
 
     }
 

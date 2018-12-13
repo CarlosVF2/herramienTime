@@ -2,20 +2,19 @@ package android.com.herramientime.modules.domain.entities;
 
 import android.com.herramientime.core.entities.BasePresenterStatus;
 import android.com.herramientime.modules.usuarios.entities.Usuario;
-
-import com.seidor.core.utils.wrapper.BundleWrapper;
+import android.os.Bundle;
 
 public class MainActivityPresenterStatus extends BasePresenterStatus {
 
     private Usuario usuario;
 
     @Override
-    public void saveInstance(BundleWrapper saveInstance) {
+    public void saveInstance(Bundle saveInstance) {
 
     }
 
     @Override
-    public void restoreInstance(BundleWrapper restoreInstance) {
+    public void restoreInstance(Bundle restoreInstance) {
 
     }
 

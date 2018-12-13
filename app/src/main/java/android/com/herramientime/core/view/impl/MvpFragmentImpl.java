@@ -32,7 +32,7 @@ public abstract class MvpFragmentImpl<PRESENTER extends MvpFragmentPresenter> ex
 
     @Override
     public void onPause() {
-        getMvpPresenter().onViewUnbinded();
+        //getMvpPresenter().onViewUnbinded();
         super.onPause();
     }
 

@@ -3,26 +3,29 @@ package android.com.herramientime.modules.herramientas.entities;
 import android.com.herramientime.core.entities.BasePresenterStatus;
 import android.com.herramientime.modules.domain.entities.Categoria;
 import android.com.herramientime.modules.domain.entities.Moneda;
-
-import com.seidor.core.utils.wrapper.BundleWrapper;
+import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AlquilerHerramientaFragmentPresenterStatus extends BasePresenterStatus {
 
+    private final String PARAM__ALQUILER = "PARAM__ALQUILER";
+
     private AlquilerHerramienta alquilerHerramienta = new AlquilerHerramienta();
     private List<Moneda> monedas = new ArrayList<>();
     private List<Categoria> categorias = new ArrayList<>();
 
     @Override
-    public void saveInstance(BundleWrapper saveInstance) {
-
+    public void saveInstance(Bundle saveInstance) {
+        saveInstance.putSerializable(PARAM__ALQUILER, alquilerHerramienta);
     }
 
     @Override
-    public void restoreInstance(BundleWrapper restoreInstance) {
-
+    public void restoreInstance(Bundle restoreInstance) {
+        if (restoreInstance != null) {
+            alquilerHerramienta = restoreInstance.containsKey(PARAM__ALQUILER) ? (AlquilerHerramienta) restoreInstance.getSerializable(PARAM__ALQUILER) : alquilerHerramienta;
+        }
     }
 
     //region GET

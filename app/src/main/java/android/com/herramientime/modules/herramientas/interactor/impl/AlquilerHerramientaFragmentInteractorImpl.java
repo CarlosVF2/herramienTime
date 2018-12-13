@@ -52,4 +52,14 @@ public class AlquilerHerramientaFragmentInteractorImpl extends TaskInteractorImp
             }
         });
     }
+
+    @Override
+    public ResponseFuture<String> getPathPhoto() {
+        return prepare(new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                return alquilerHerramientaFragmentRepository.getPathUriPhoto();
+            }
+        });
+    }
 }

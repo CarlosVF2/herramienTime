@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
@@ -52,6 +53,11 @@ public class AlquilarHerramientaFragmentImpl
         setHasOptionsMenu(true);
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,6 +68,24 @@ public class AlquilarHerramientaFragmentImpl
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initComponentes(view);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        PRESENTER presenter = getMvpPresenter();
+        if (presenter != null) {
+            presenter.onViewStateRestored(savedInstanceState);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        PRESENTER presenter = getMvpPresenter();
+        if (presenter != null) {
+            presenter.onSaveInstanceState(outState);
+        }
     }
 
     private void initComponentes(View view) {
@@ -109,7 +133,7 @@ public class AlquilarHerramientaFragmentImpl
 
     @Override
     public void onLoaded() {
-
+        hideProgressDialog();
     }
 
     //endregion Core LifeCycle
