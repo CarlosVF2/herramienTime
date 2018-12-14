@@ -52,4 +52,9 @@
     <string name="error_need_log_upload_herramienta">Primero tiene que iniciar sesión antes de subir una herramienta</string>
     <string name="error_need_log_upload_experience">Primero tiene que iniciar sesion antes de subir una experiencia</string>
     <string name="action_filter">Filtrar</string>
+    <string name="filter_description">Descripcion</string>
+    <string name="filter_precio_inicial">Precio inicial</string>
+    <string name="filter_button_aplicar">Aplicar</string>
+    <string name="filter_button_reiniciar">Deshacer</string>
+    <string name="filter_precio_final">Precio final</string>
 </resources>

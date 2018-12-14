@@ -21,4 +21,12 @@ public class Processors {
     public ProcessorMoneda geProcessorMoneda() {
         return new ProcessorMoneda();
     }
+
+    public ProcessorFiltroHerramienta getFiltroHerramientas() {
+        return new ProcessorFiltroHerramienta();
+    }
+
+    public ProcessorFiltroExperiencia getFiltroExperiencia() {
+        return new ProcessorFiltroExperiencia();
+    }
 }

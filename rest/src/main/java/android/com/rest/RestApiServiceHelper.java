@@ -3,6 +3,8 @@ package android.com.rest;
 
 import android.com.rest.entities.CategoriaRest;
 import android.com.rest.entities.ExperienciaRest;
+import android.com.rest.entities.FiltrosExperienciaRest;
+import android.com.rest.entities.FiltrosHerramientasRest;
 import android.com.rest.entities.HerramientaRest;
 import android.com.rest.entities.InternetException;
 import android.com.rest.entities.MonedaRest;
@@ -20,7 +22,11 @@ public interface RestApiServiceHelper {
 
     List<HerramientaRest> getHerramientas() throws InternetException;
 
+    List<HerramientaRest> getHerramientas(FiltrosHerramientasRest filtrosHerramientasRest) throws InternetException;
+
     List<ExperienciaRest> getExperiencias() throws InternetException;
+
+    List<ExperienciaRest> getExperiencias(FiltrosExperienciaRest filtrosExperienciaRest) throws InternetException;
 
     List<UsuariosRest> getUsuarios() throws InternetException;
 

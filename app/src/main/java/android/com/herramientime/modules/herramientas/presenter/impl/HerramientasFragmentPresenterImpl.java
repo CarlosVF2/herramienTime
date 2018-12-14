@@ -6,6 +6,7 @@ import android.com.herramientime.core.presenter.impl.MvpFragmentPresenterImpl;
 import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.modules.domain.entities.LocalException;
 import android.com.herramientime.modules.herramientas.adapter.HerramientasVHListener;
+import android.com.herramientime.modules.herramientas.entities.FiltrosHerramientas;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.herramientime.modules.herramientas.entities.HerramientasFragmentPresenterStatus;
 import android.com.herramientime.modules.herramientas.injection.HerramientasFragmentComponent;
@@ -133,6 +134,28 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
         }
     }
 
+    @Override
+    public void onClickRestaurarFilter() {
+        FRAGMENT fragment = getMvpFragment();
+        if (fragment != null) {
+            fragment.restoreFilters();
+        }
+        presenterStatus.setFiltrosHerramientas(new FiltrosHerramientas());
+        startGetHerramientas();
+    }
+
+    @Override
+    public void onClickAplicarFilter() {
+        //recuperamos los textos de la vista
+        FRAGMENT fragment = getMvpFragment();
+        if (fragment != null) {
+            presenterStatus.getFiltrosHerramientas().setDescripcion(fragment.getDescriptionText());
+            presenterStatus.getFiltrosHerramientas().setPrecioInicial(fragment.getPrecioInicialText());
+            presenterStatus.getFiltrosHerramientas().setPrecioFinal(fragment.getPrecioFinalText());
+        }
+        startGetHerramientas();
+    }
+
 
     //region OnClickItem
     @Override
@@ -181,7 +204,7 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
         if (responseFutureHerramientas != null) {
             responseFutureHerramientas.cancel(true);
         }
-        responseFutureHerramientas = herramientasFragmentInteractor.getHerramientas().onData(new OnData<List<Herramienta>>() {
+        responseFutureHerramientas = herramientasFragmentInteractor.getHerramientas(presenterStatus.getFiltrosHerramientas()).onData(new OnData<List<Herramienta>>() {
             @Override
             public void onData(List<Herramienta> herramientas) {
                 presenterStatus.setHerramientas(herramientas);

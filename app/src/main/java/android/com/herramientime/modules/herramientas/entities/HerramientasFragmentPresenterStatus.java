@@ -8,6 +8,7 @@ import java.util.List;
 public class HerramientasFragmentPresenterStatus extends BasePresenterStatus {
 
     private List<Herramienta> herramientas;
+    private FiltrosHerramientas filtrosHerramientas = new FiltrosHerramientas();
 
     @Override
     public void saveInstance(Bundle saveInstance) {
@@ -21,6 +22,11 @@ public class HerramientasFragmentPresenterStatus extends BasePresenterStatus {
 
     //region GET
 
+
+    public FiltrosHerramientas getFiltrosHerramientas() {
+        return filtrosHerramientas;
+    }
+
     public List<Herramienta> getHerramientas() {
         return herramientas;
     }
@@ -28,6 +34,11 @@ public class HerramientasFragmentPresenterStatus extends BasePresenterStatus {
     //endregion GET
 
     //region SET
+
+
+    public void setFiltrosHerramientas(FiltrosHerramientas filtrosHerramientas) {
+        this.filtrosHerramientas = filtrosHerramientas;
+    }
 
     public void setHerramientas(List<Herramienta> herramientas) {
         this.herramientas = herramientas;

@@ -14,4 +14,8 @@ public interface HerramientasFragmentPresenter extends MvpFragmentPresenter {
     void onClickMap();
 
     void onClickFilter();
+
+    void onClickRestaurarFilter();
+
+    void onClickAplicarFilter();
 }

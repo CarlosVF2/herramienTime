@@ -1,5 +1,6 @@
 package android.com.herramientime.modules.herramientas.interactor.impl;
 
+import android.com.herramientime.modules.herramientas.entities.FiltrosHerramientas;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.herramientime.modules.herramientas.interactor.HerramientasFragmentInteractor;
 import android.com.herramientime.modules.herramientas.repository.HerramientasFragmentRepository;
@@ -21,11 +22,11 @@ public class HerramientasFragmentInteractorImpl extends TaskInteractorImpl imple
     }
 
     @Override
-    public ResponseFuture<List<Herramienta>> getHerramientas() {
+    public ResponseFuture<List<Herramienta>> getHerramientas(final FiltrosHerramientas filtrosHerramientas) {
         return prepare(new Callable<List<Herramienta>>() {
             @Override
             public List<Herramienta> call() throws Exception {
-                return herramientasFragmentRepository.getHerramientas();
+                return herramientasFragmentRepository.getHerramientas(filtrosHerramientas);
             }
         });
     }

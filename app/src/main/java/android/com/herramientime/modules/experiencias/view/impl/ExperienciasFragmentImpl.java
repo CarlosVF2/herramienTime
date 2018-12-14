@@ -12,6 +12,7 @@ import android.com.rest.utils.Utilidades;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -23,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.List;
 
@@ -32,7 +34,8 @@ import java.util.List;
 
 public class ExperienciasFragmentImpl
         <PRESENTER extends ExperienciasFragmentPresenter> extends MvpFragmentImpl<PRESENTER>
-        implements ExperienciasFragment, SwipeRefreshLayout.OnRefreshListener, DrawerLayout.DrawerListener {
+        implements ExperienciasFragment, SwipeRefreshLayout.OnRefreshListener, DrawerLayout.DrawerListener, View.OnClickListener {
+
 
     private SwipeRefreshLayout swipeRefreshLayoutExperiencia;
     private View viewContainer;
@@ -40,6 +43,12 @@ public class ExperienciasFragmentImpl
     private GridLayoutManager mLayoutManager;
     private ExperienciasAdapter experienciasAdapter;
     private DrawerLayout mDrawer;
+    //Controles perteneciente a los filtros
+    private TextInputLayout textInputLayoutDescripcion;
+    private TextInputLayout textInputLayoutPrecioInicial;
+    private TextInputLayout textInputLayoutPrecioFinal;
+    private Button buttonAplicar;
+    private Button buttonRestaurar;
 
     //region Lifecycle Android
     @Override
@@ -70,6 +79,13 @@ public class ExperienciasFragmentImpl
         mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerViewExperiencia.setLayoutManager(mLayoutManager);
         recyclerViewExperiencia.setAdapter((RecyclerView.Adapter) experienciasAdapter);
+        textInputLayoutDescripcion = view.findViewById(R.id.textInputLayoutDescripcion);
+        textInputLayoutPrecioInicial = view.findViewById(R.id.textInputLayoutPrecioInicial);
+        textInputLayoutPrecioFinal = view.findViewById(R.id.textInputLayoutPrecioFinal);
+        buttonAplicar = view.findViewById(R.id.buttonAplicar);
+        buttonAplicar.setOnClickListener(this);
+        buttonRestaurar = view.findViewById(R.id.buttonRestaurar);
+        buttonRestaurar.setOnClickListener(this);
     }
 
     @Override
@@ -154,6 +170,28 @@ public class ExperienciasFragmentImpl
         swipeRefreshLayoutExperiencia.setRefreshing(visibility);
     }
 
+    @Override
+    public String getDescriptionText() {
+        return textInputLayoutDescripcion.getEditText().getText().toString();
+    }
+
+    @Override
+    public String getPrecioInicialText() {
+        return textInputLayoutPrecioInicial.getEditText().getText().toString();
+    }
+
+    @Override
+    public String getPrecioFinalText() {
+        return textInputLayoutPrecioFinal.getEditText().getText().toString();
+    }
+
+    @Override
+    public void restoreFilters() {
+        textInputLayoutDescripcion.getEditText().setText("");
+        textInputLayoutPrecioInicial.getEditText().setText("");
+        textInputLayoutPrecioFinal.getEditText().setText("");
+    }
+
     private void hideKeyboard() {
         Utilidades.hideKeyBoard(getContext(), viewContainer);
     }
@@ -186,5 +224,21 @@ public class ExperienciasFragmentImpl
 
     }
     //endreigon DrawerListener
+
+    //region OnClickListener
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.buttonAplicar:
+                getMvpPresenter().onClickAplicarFilter();
+                break;
+            case R.id.buttonRestaurar:
+                getMvpPresenter().onClickRestaurarFilter();
+                break;
+        }
+
+    }
+    //endregion OnClickListener
 
 }

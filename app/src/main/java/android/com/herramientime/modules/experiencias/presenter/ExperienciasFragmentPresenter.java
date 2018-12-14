@@ -12,4 +12,8 @@ public interface ExperienciasFragmentPresenter extends MvpFragmentPresenter {
     void onClickActionSubirExperiencia();
 
     void onClickFilter();
+
+    void onClickAplicarFilter();
+
+    void onClickRestaurarFilter();
 }

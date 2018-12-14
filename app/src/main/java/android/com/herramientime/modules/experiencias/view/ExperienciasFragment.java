@@ -15,4 +15,14 @@ public interface ExperienciasFragment extends MvpFragment {
 
     void toggleDrawer();
     void setRefresh(boolean visibility);
+
+    String getDescriptionText();
+
+    String getPrecioInicialText();
+
+    String getPrecioFinalText();
+
+    void restoreFilters();
+
+
 }

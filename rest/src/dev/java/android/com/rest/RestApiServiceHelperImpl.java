@@ -3,6 +3,8 @@ package android.com.rest;
 import android.annotation.SuppressLint;
 import android.com.rest.entities.CategoriaRest;
 import android.com.rest.entities.ExperienciaRest;
+import android.com.rest.entities.FiltrosExperienciaRest;
+import android.com.rest.entities.FiltrosHerramientasRest;
 import android.com.rest.entities.HerramientaRest;
 import android.com.rest.entities.InternetException;
 import android.com.rest.entities.MonedaRest;
@@ -12,6 +14,7 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.text.TextUtils;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -57,13 +60,41 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
 
     @Override
     public List<HerramientaRest> getHerramientas() throws InternetException {
+        return getHerramientas(null);
+    }
+
+    @Override
+    public List<HerramientaRest> getHerramientas(FiltrosHerramientasRest filtrosHerramientasRest) throws InternetException {
         checkConnectivity();
         try {
             Response<List<HerramientaRest>> response = restApiService.getHerramientas().execute();
 
             if (response.isSuccessful()) {
                 if (response.body() != null) {
-                    return response.body();
+                    //Miramos si hay algun filtro relleno
+                    boolean isSomeFilter = filtrosHerramientasRest != null &&
+                            (!TextUtils.isEmpty(filtrosHerramientasRest.getDescripcion()) ||
+                                    !TextUtils.isEmpty(filtrosHerramientasRest.getPrecioFinal()) ||
+                                    !TextUtils.isEmpty(filtrosHerramientasRest.getPrecioInicial()));
+                    if (!isSomeFilter) {
+                        return response.body();
+                    } else {
+                        //Filtramos el listado
+                        List<HerramientaRest> rests = new ArrayList<>();
+                        for (HerramientaRest herramientaRest : response.body()) {
+                            if (containsString(herramientaRest.getDescripcion(), filtrosHerramientasRest.getDescripcion())) {
+                                rests.add(herramientaRest);
+                            }
+                            if (TextUtils.isEmpty(filtrosHerramientasRest.getPrecioFinal()) && isPriceMayor(herramientaRest.getPrecio(), filtrosHerramientasRest.getPrecioInicial())) {
+                                rests.add(herramientaRest);
+                            } else if (TextUtils.isEmpty(filtrosHerramientasRest.getPrecioInicial()) && isPriceMayor(herramientaRest.getPrecio(), filtrosHerramientasRest.getPrecioFinal())) {
+                                rests.add(herramientaRest);
+                            } else if (isPriceMayor(herramientaRest.getPrecio(), filtrosHerramientasRest.getPrecioInicial()) && isPriceMayor(herramientaRest.getPrecio(), filtrosHerramientasRest.getPrecioFinal())) {
+                                rests.add(herramientaRest);
+                            }
+                        }
+                        return rests;
+                    }
                 } else {
                     return new ArrayList<>();
                 }
@@ -77,13 +108,41 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
 
     @Override
     public List<ExperienciaRest> getExperiencias() throws InternetException {
+        return getExperiencias(null);
+    }
+
+    @Override
+    public List<ExperienciaRest> getExperiencias(FiltrosExperienciaRest filtrosExperienciaRest) throws InternetException {
         checkConnectivity();
         try {
             Response<List<ExperienciaRest>> response = restApiService.getExperiencias().execute();
 
             if (response.isSuccessful()) {
                 if (response.body() != null) {
-                    return response.body();
+                    //Miramos si hay algun filtro relleno
+                    boolean isSomeFilter = filtrosExperienciaRest != null &&
+                            (!TextUtils.isEmpty(filtrosExperienciaRest.getDescripcion()) ||
+                                    !TextUtils.isEmpty(filtrosExperienciaRest.getPrecioFinal()) ||
+                                    !TextUtils.isEmpty(filtrosExperienciaRest.getPrecioInicial()));
+                    if (!isSomeFilter) {
+                        return response.body();
+                    } else {
+                        //Filtramos el listado
+                        List<ExperienciaRest> rests = new ArrayList<>();
+                        for (ExperienciaRest experienciaRest : response.body()) {
+                            if (containsString(experienciaRest.getDescripcion(), filtrosExperienciaRest.getDescripcion())) {
+                                rests.add(experienciaRest);
+                            }
+                            if (TextUtils.isEmpty(filtrosExperienciaRest.getPrecioFinal()) && isPriceMayor(experienciaRest.getPrecioHora(), filtrosExperienciaRest.getPrecioInicial())) {
+                                rests.add(experienciaRest);
+                            } else if (TextUtils.isEmpty(filtrosExperienciaRest.getPrecioInicial()) && isPriceMayor(experienciaRest.getPrecioHora(), filtrosExperienciaRest.getPrecioFinal())) {
+                                rests.add(experienciaRest);
+                            } else if (isPriceMayor(experienciaRest.getPrecioHora(), filtrosExperienciaRest.getPrecioInicial()) && isPriceMayor(experienciaRest.getPrecioHora(), filtrosExperienciaRest.getPrecioFinal())) {
+                                rests.add(experienciaRest);
+                            }
+                        }
+                        return rests;
+                    }
                 } else {
                     return new ArrayList<>();
                 }
@@ -301,5 +360,28 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
             }
         }
         return status;
+    }
+
+    private boolean containsString(String valueOriginal, String field) {
+        return !TextUtils.isEmpty(valueOriginal) && valueOriginal.toUpperCase().contains(field.toUpperCase());
+    }
+
+    private boolean isPriceMayor(String priceOriginal, String field) {
+        if (TextUtils.isEmpty(priceOriginal) || TextUtils.isEmpty(field)) {
+            return false;
+        }
+        double priceO = Double.parseDouble(priceOriginal);
+        double fieldPrice = Double.parseDouble(field);
+        return fieldPrice >= priceO;
+    }
+
+    private boolean isPriceMenor(String priceOriginal, String field) {
+        if (TextUtils.isEmpty(priceOriginal) || TextUtils.isEmpty(field)) {
+            return false;
+        }
+        double priceO = Double.parseDouble(priceOriginal);
+        double fieldPrice = Double.parseDouble(field);
+        return fieldPrice <= priceO;
+
     }
 }

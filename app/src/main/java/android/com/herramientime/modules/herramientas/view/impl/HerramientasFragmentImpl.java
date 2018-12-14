@@ -12,6 +12,7 @@ import android.com.rest.utils.Utilidades;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -23,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.List;
 
@@ -32,7 +34,7 @@ import java.util.List;
 
 public class HerramientasFragmentImpl
         <PRESENTER extends HerramientasFragmentPresenter> extends MvpFragmentImpl<PRESENTER>
-        implements HerramientasFragment, SwipeRefreshLayout.OnRefreshListener, DrawerLayout.DrawerListener {
+        implements HerramientasFragment, SwipeRefreshLayout.OnRefreshListener, DrawerLayout.DrawerListener, View.OnClickListener {
 
     private SwipeRefreshLayout swipeRefreshLayoutHerramienta;
     private RecyclerView recyclerViewHerramienta;
@@ -40,6 +42,13 @@ public class HerramientasFragmentImpl
     private HerramientasAdapter herramientasAdapter;
     private DrawerLayout mDrawer;
     private View viewContainer;
+    //Controles perteneciente a los filtros
+    private TextInputLayout textInputLayoutDescripcion;
+    private TextInputLayout textInputLayoutPrecioInicial;
+    private TextInputLayout textInputLayoutPrecioFinal;
+    private Button buttonAplicar;
+    private Button buttonRestaurar;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,6 +90,13 @@ public class HerramientasFragmentImpl
         mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerViewHerramienta.setLayoutManager(mLayoutManager);
         recyclerViewHerramienta.setAdapter((RecyclerView.Adapter) herramientasAdapter);
+        textInputLayoutDescripcion = view.findViewById(R.id.textInputLayoutDescripcion);
+        textInputLayoutPrecioInicial = view.findViewById(R.id.textInputLayoutPrecioInicial);
+        textInputLayoutPrecioFinal = view.findViewById(R.id.textInputLayoutPrecioFinal);
+        buttonAplicar = view.findViewById(R.id.buttonAplicar);
+        buttonAplicar.setOnClickListener(this);
+        buttonRestaurar = view.findViewById(R.id.buttonRestaurar);
+        buttonRestaurar.setOnClickListener(this);
         setupAdapter();
     }
 
@@ -141,6 +157,28 @@ public class HerramientasFragmentImpl
     }
 
     @Override
+    public String getDescriptionText() {
+        return textInputLayoutDescripcion.getEditText().getText().toString();
+    }
+
+    @Override
+    public String getPrecioInicialText() {
+        return textInputLayoutPrecioInicial.getEditText().getText().toString();
+    }
+
+    @Override
+    public String getPrecioFinalText() {
+        return textInputLayoutPrecioFinal.getEditText().getText().toString();
+    }
+
+    @Override
+    public void restoreFilters() {
+        textInputLayoutDescripcion.getEditText().setText("");
+        textInputLayoutPrecioInicial.getEditText().setText("");
+        textInputLayoutPrecioFinal.getEditText().setText("");
+    }
+
+    @Override
     public void toggleDrawer() {
         if (mDrawer.isDrawerOpen(GravityCompat.END)) {
             mDrawer.closeDrawer(GravityCompat.END, true);
@@ -173,7 +211,7 @@ public class HerramientasFragmentImpl
     public void onDrawerStateChanged(int i) {
 
     }
-    //endreigon DrawerListener
+    //endregion DrawerListener
 
     //region RefreshListener
     @Override
@@ -181,5 +219,21 @@ public class HerramientasFragmentImpl
         getMvpPresenter().onRefresh();
     }
     //endregion RefreshListener
+
+    //region OnClick
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.buttonAplicar:
+                getMvpPresenter().onClickAplicarFilter();
+                break;
+            case R.id.buttonRestaurar:
+                getMvpPresenter().onClickRestaurarFilter();
+                break;
+        }
+
+    }
+    //endregion OnClick
 
 }

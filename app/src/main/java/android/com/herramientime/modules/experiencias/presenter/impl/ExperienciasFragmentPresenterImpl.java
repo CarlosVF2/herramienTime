@@ -13,6 +13,7 @@ import android.com.herramientime.modules.experiencias.injection.ExperienciasFrag
 import android.com.herramientime.modules.experiencias.interactor.ExperienciaFragmentInteractor;
 import android.com.herramientime.modules.experiencias.presenter.ExperienciasFragmentPresenter;
 import android.com.herramientime.modules.experiencias.view.ExperienciasFragment;
+import android.com.herramientime.modules.herramientas.entities.FiltrosExperiencia;
 import android.content.res.Resources;
 import android.os.Bundle;
 
@@ -129,6 +130,28 @@ public class ExperienciasFragmentPresenterImpl<FRAGMENT extends ExperienciasFrag
         }
     }
 
+    @Override
+    public void onClickAplicarFilter() {
+        //recuperamos los textos de la vista
+        FRAGMENT fragment = getMvpFragment();
+        if (fragment != null) {
+            presenterStatus.getFiltrosExperiencia().setDescripcion(fragment.getDescriptionText());
+            presenterStatus.getFiltrosExperiencia().setPrecioInicial(fragment.getPrecioInicialText());
+            presenterStatus.getFiltrosExperiencia().setPrecioFinal(fragment.getPrecioFinalText());
+        }
+        startGetExperiencias();
+    }
+
+    @Override
+    public void onClickRestaurarFilter() {
+        FRAGMENT fragment = getMvpFragment();
+        if (fragment != null) {
+            fragment.restoreFilters();
+        }
+        presenterStatus.setFiltrosExperiencia(new FiltrosExperiencia());
+        startGetExperiencias();
+    }
+
 
     //region OnClickItem
     @Override
@@ -176,7 +199,7 @@ public class ExperienciasFragmentPresenterImpl<FRAGMENT extends ExperienciasFrag
         if (responseFutureExperiencias != null) {
             responseFutureExperiencias.cancel(true);
         }
-        responseFutureExperiencias = experienciaFragmentInteractor.getExperiencias().onData(new OnData<List<Experiencia>>() {
+        responseFutureExperiencias = experienciaFragmentInteractor.getExperiencias(presenterStatus.getFiltrosExperiencia()).onData(new OnData<List<Experiencia>>() {
             @Override
             public void onData(List<Experiencia> experiencias) {
                 presenterStatus.setExperiencias(experiencias);
