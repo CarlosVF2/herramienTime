@@ -1,5 +1,6 @@
 package android.com.herramientime.modules.herramientas.presenter.impl;
 
+import android.com.herramientime.app.HerramienTimeApp;
 import android.com.herramientime.core.entities.ErrorCause;
 import android.com.herramientime.core.presenter.impl.MvpFragmentPresenterImpl;
 import android.com.herramientime.injection.NavigationManager;
@@ -55,12 +56,12 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
     @Override
     public void onViewBinded() {
         super.onViewBinded();
-        //if(navigationManager == null){
-        //    navigationManager = HerramienTimeApp.getComponentDependencies().getNavigationManager();
-        //}
-        //if(herramientasFragmentInteractor == null){
-        //    herramientasFragmentInteractor = HerramienTimeApp.getComponentDependencies().getHerramientasFragmentComponent().getHerramientasFragmentModule().getHerramientasFragmentInteractor();
-        //}
+        if (navigationManager == null) {
+            navigationManager = HerramienTimeApp.getComponentDependencies().getNavigationManager();
+        }
+        if (herramientasFragmentInteractor == null) {
+            herramientasFragmentInteractor = HerramienTimeApp.getComponentDependencies().getHerramientasFragmentComponent().getHerramientasFragmentModule().getHerramientasFragmentInteractor();
+        }
         getMvpFragment().onInitLoading();
         getMvpFragment().setTitle("Herramientas");
         startGetHerramientas();
@@ -121,6 +122,14 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
             navigationManager.navigateToMap();
         } catch (LocalException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClickFilter() {
+        FRAGMENT fragment = getMvpFragment();
+        if (fragment != null) {
+            fragment.toggleDrawer();
         }
     }
 

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +25,13 @@ public class Utilidades {
             e.printStackTrace();
         }
         return date;
+    }
+
+    public static void hideKeyBoard(Context context, View view) {
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     public static String getStringFormatddMMyyyyGuiones(Date date) {

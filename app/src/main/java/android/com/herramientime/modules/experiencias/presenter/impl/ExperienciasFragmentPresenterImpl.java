@@ -121,6 +121,14 @@ public class ExperienciasFragmentPresenterImpl<FRAGMENT extends ExperienciasFrag
         startCheckUpload();
     }
 
+    @Override
+    public void onClickFilter() {
+        FRAGMENT fragment = getMvpFragment();
+        if (fragment != null) {
+            fragment.toggleDrawer();
+        }
+    }
+
 
     //region OnClickItem
     @Override

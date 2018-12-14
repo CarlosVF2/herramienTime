@@ -13,5 +13,6 @@ import java.util.List;
 public interface ExperienciasFragment extends MvpFragment {
     void setData(List<Experiencia> experiencias, ExperienciasVHListener listener);
 
+    void toggleDrawer();
     void setRefresh(boolean visibility);
 }
