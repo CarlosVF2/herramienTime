@@ -26,7 +26,7 @@ public abstract class MvpFragmentImpl<PRESENTER extends MvpFragmentPresenter> ex
 
     public void onResume() {
         super.onResume();
-        this.setMvpFragmentPresenter(this.mvpPresenter);
+        setMvpFragmentPresenter(this.mvpPresenter);
         this.mvpPresenter.onViewBinded();
     }
 

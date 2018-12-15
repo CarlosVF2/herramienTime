@@ -95,7 +95,7 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
 
     @Override
     public MapFragmentRepository getMapFragmentRepository() {
-        return new MapFragmentRepositoryImpl();
+        return new MapFragmentRepositoryImpl(restApiServiceHelper, processors.getProcessorUsuario());
     }
 
     @Override

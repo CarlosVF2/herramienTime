@@ -13,7 +13,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -46,7 +45,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends MvpFragmentImpl<PRESENTER>
         implements MapFragment, OnMapReadyCallback, GoogleMap.OnCameraMoveStartedListener, GoogleMap.OnInfoWindowClickListener, EasyPermissions.PermissionCallbacks, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        com.google.android.gms.location.LocationListener, GoogleMap.OnCameraIdleListener {
 
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
@@ -61,7 +60,6 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
     private GoogleApiClient mGoogleClient;
     private MapView mapView;
     private View view;
-    private boolean isShowingAlert;
 
 
     @Override
@@ -84,10 +82,7 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (view == null) {
-            view = inflater.inflate(R.layout.fragment_map, container, false);
-        }
-        return view;
+        return inflater.inflate(R.layout.fragment_map, container, false);
     }
 
     @Override
@@ -115,6 +110,16 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
         }
     }
 
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -125,12 +130,14 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
         //listeners
         mMap.setOnCameraMoveStartedListener(this);
         mMap.setOnInfoWindowClickListener(this);
+        mMap.setOnCameraIdleListener(this);
 
         width = getResources().getDisplayMetrics().widthPixels;
         height = getResources().getDisplayMetrics().heightPixels;
         padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
 
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -167,9 +174,6 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
 
     // endregion
 
-
-    // endregion
-
     public void addMarker(Point point) {
         mMap.addMarker(new MarkerOptions().position(point.getLatLng()).title(point.getTitle()).snippet(point.getId()));
         builder.include(point.getLatLng());
@@ -190,14 +194,36 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
         }
     }
 
-
     @Override
-    public void onInitLoading() {
+    public void showAlertDialogMessage(String s) {
+        new android.support.v7.app.AlertDialog.Builder(getContext())
+                .setTitle(getString(R.string.title_dialog_atencion))
+                .setMessage(s)
+                .setPositiveButton(getString(android.R.string.yes), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                    }
+                })
+                .setNegativeButton(getString(android.R.string.no), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .create().show();
     }
 
     @Override
-    public void onLoaded() {
-        hideProgressDialog();
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        Bundle mapViewBundle = outState.getBundle(MAP_VIEW_BUNDLE_KEY);
+        if (mapViewBundle == null) {
+            mapViewBundle = new Bundle();
+            outState.putBundle(MAP_VIEW_BUNDLE_KEY, mapViewBundle);
+        }
+
+        mapView.onSaveInstanceState(mapViewBundle);
     }
 
     private void checkNetwork() {
@@ -240,11 +266,8 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
     public void onResume() {
         mapView.onResume();
         super.onResume();
-        if (!isShowingAlert) {
-            isShowingAlert = true;
-            checkNetwork();
-            enableLocation();
-        }
+        checkNetwork();
+        enableLocation();
     }
 
     @Override
@@ -265,7 +288,7 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
         mapView.onPause();
         super.onPause();
         if (mGoogleClient.isConnected()) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleClient, (com.google.android.gms.location.LocationListener) this);
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleClient, this);
             mGoogleClient.disconnect();
         }
     }
@@ -304,26 +327,6 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
         handleNewLocation(location);
     }
 
-    //region Location Listener
-
-
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String s) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
-
-    }
-
-
-    //endregion Location Listener
 
     @SuppressLint("MissingPermission")
     @Override
@@ -332,7 +335,7 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
         @SuppressLint("MissingPermission") Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleClient);
 
         if (location == null) {
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleClient, mLocationRequest, (com.google.android.gms.location.LocationListener) this);
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleClient, mLocationRequest, this);
 
         } else {
             handleNewLocation(location);
@@ -369,5 +372,23 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
 
         mMap.addMarker(options);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+    }
+
+    @Override
+    public void onCameraIdle() {
+        LatLng target = mMap.getCameraPosition().target;
+        LatLngBounds latLngBounds = mMap.getProjection().getVisibleRegion().latLngBounds;
+        getMvpPresenter().onCameraPositionChanged(target.latitude, target.longitude);
+        getMvpPresenter().onCameraBoundsChanged(latLngBounds);
+    }
+
+    @Override
+    public void onInitLoading() {
+
+    }
+
+    @Override
+    public void onLoaded() {
+
     }
 }

@@ -68,6 +68,6 @@ public class PresenterFactoryImpl implements PresenterFactory {
 
     @Override
     public void setupMapFragmentInstance(Bundle args) {
-        MapFragmentPresenterImpl.newMapFragmentPresenterInstance(args, null);
+        MapFragmentPresenterImpl.newMapFragmentPresenterInstance(args);
     }
 }

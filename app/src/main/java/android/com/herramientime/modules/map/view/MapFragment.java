@@ -12,4 +12,6 @@ public interface MapFragment extends MvpFragment {
     void moveCameraToPoints(LatLngBounds bounds);
 
     void clearMap();
+
+    void showAlertDialogMessage(String s);
 }
