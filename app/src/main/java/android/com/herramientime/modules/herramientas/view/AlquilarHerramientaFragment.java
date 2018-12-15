@@ -12,7 +12,7 @@ import java.util.List;
 public interface AlquilarHerramientaFragment extends MvpFragment {
     void setVisibilityMenuItemConfirmar(boolean visibilitMenuItemConfirmar);
 
-    void launchIntentPhoto();
+    void launchIntentPhoto(String path);
 
     String createPhoto(String id, Bitmap bitmap);
 
@@ -21,4 +21,6 @@ public interface AlquilarHerramientaFragment extends MvpFragment {
     void setAdapterSpinnerMoneda(List<String> valuesAdapterMoneda);
 
     void setAdapterSpinnerCategoria(List<String> valuesAdapterCategoria);
+
+    void showPhoto(String pathPhoto);
 }

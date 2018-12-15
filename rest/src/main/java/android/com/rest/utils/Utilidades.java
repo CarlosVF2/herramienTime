@@ -43,10 +43,6 @@ public class Utilidades {
         return createMediaFile(context, MediaStore.ACTION_IMAGE_CAPTURE, account);
     }
 
-    public static File takeVideo(Context context, String account) throws IOException {
-        return createMediaFile(context, MediaStore.ACTION_VIDEO_CAPTURE, account);
-    }
-
     private static File createMediaFile(Context context, String action, String account) throws IOException {
         // Create an image file name
         String suffix = "";
@@ -56,10 +52,6 @@ public class Utilidades {
             suffix = ".jpg";
             name = "JPEG_";
             destination = Environment.DIRECTORY_PICTURES;
-        } else if (TextUtils.equals(action, MediaStore.ACTION_VIDEO_CAPTURE)) {
-            suffix = ".mp4";
-            name = "MP4_";
-            destination = Environment.DIRECTORY_MOVIES;
         }
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String fileName = name + timeStamp + "_";

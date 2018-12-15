@@ -15,6 +15,7 @@ public class AlquilerHerramientaFragmentPresenterStatus extends BasePresenterSta
     private AlquilerHerramienta alquilerHerramienta = new AlquilerHerramienta();
     private List<Moneda> monedas = new ArrayList<>();
     private List<Categoria> categorias = new ArrayList<>();
+    private boolean pendingSaveMediaCamera;
 
     @Override
     public void saveInstance(Bundle saveInstance) {
@@ -29,6 +30,10 @@ public class AlquilerHerramientaFragmentPresenterStatus extends BasePresenterSta
     }
 
     //region GET
+
+    public boolean isPendingSaveMediaCamera() {
+        return pendingSaveMediaCamera;
+    }
 
     public List<Moneda> getMonedas() {
         return monedas;
@@ -46,6 +51,9 @@ public class AlquilerHerramientaFragmentPresenterStatus extends BasePresenterSta
 
     //region SET
 
+    public void setPendingSaveMediaCamera(boolean pendingSaveMediaCamera) {
+        this.pendingSaveMediaCamera = pendingSaveMediaCamera;
+    }
 
     public void setMonedas(List<Moneda> monedas) {
         this.monedas = monedas;

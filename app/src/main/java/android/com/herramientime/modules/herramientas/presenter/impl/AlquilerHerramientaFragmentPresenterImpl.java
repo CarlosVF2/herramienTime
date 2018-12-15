@@ -15,7 +15,6 @@ import android.com.herramientime.modules.herramientas.interactor.AlquilerHerrami
 import android.com.herramientime.modules.herramientas.presenter.AlquilerHerramientaFragmentPresenter;
 import android.com.herramientime.modules.herramientas.view.AlquilarHerramientaFragment;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -100,6 +99,10 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
                     presenterStatus.setError(null);
                     return;
                 }
+                if (presenterStatus.isPendingSaveMediaCamera()) {
+                    presenterStatus.setPendingSaveMediaCamera(false);
+                    fragment.showPhoto(presenterStatus.getAlquilerHerramienta().getPathPhoto());
+                }
                 fragment.setAdapterSpinnerMoneda(getValuesAdapterMoneda());
                 fragment.setAdapterSpinnerCategoria(getValuesAdapterCategoria());
                 fragment.hideProgressDialog();
@@ -159,7 +162,7 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
                 }
                 FRAGMENT fragment = getMvpFragment();
                 if (fragment != null) {
-                    fragment.launchIntentPhoto();
+                    fragment.launchIntentPhoto(s);
                 }
             }
         }).onError(new OnError() {
@@ -175,12 +178,6 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
 
 
     //region set fields
-
-    public void setImagePhoto(Bitmap imageBitmap, FRAGMENT fragment) {
-        if (fragment != null) {
-            presenterStatus.getAlquilerHerramienta().setPathPhoto(fragment.createPhoto("000000", imageBitmap));
-        }
-    }
 
     @Override
     public void setTitulo(String titulo) {
@@ -220,6 +217,12 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
         presenterStatus.saveInstance(outState);
     }
 
+    @Override
+    public void showPhoto() {
+        presenterStatus.setPendingSaveMediaCamera(true);
+
+    }
+
     private void checkAllFieldsFill() {
         FRAGMENT fragment = getMvpFragment();
 
@@ -236,7 +239,6 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
     //endregion set fields
 
     //region ResponseFuture
-
 
     private void startResponseGetMonedas() {
         if (responseFutureMonedas != null) {
@@ -280,7 +282,7 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
         FRAGMENT fragment = getMvpFragment();
         if (fragment != null) {
             fragment.showProgressDialogWithMessage("Dando de alta la herramienta");
-            setImagePhoto(fragment.getBitmapImage(), fragment);
+            //setImagePhoto(fragment.getBitmapImage(), fragment);
         }
         responseFutureSaveHerramienta = interactor.saveHerramienta(presenterStatus.getAlquilerHerramienta()).onData(new OnData<Herramienta>() {
             @Override

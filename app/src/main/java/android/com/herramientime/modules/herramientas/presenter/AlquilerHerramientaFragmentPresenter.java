@@ -25,4 +25,6 @@ public interface AlquilerHerramientaFragmentPresenter extends MvpFragmentPresent
     void onViewStateRestored(Bundle savedInstanceState);
 
     void onSaveInstanceState(Bundle outState);
+
+    void showPhoto();
 }

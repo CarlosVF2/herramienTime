@@ -10,10 +10,11 @@ import android.com.rest.entities.InternetException;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public interface AlquilerHerramientaFragmentRepository {
 
-    Herramienta saveHerramienta(AlquilerHerramienta alquilerHerramienta) throws InternetException, LocalException, UsuarioException;
+    Herramienta saveHerramienta(AlquilerHerramienta alquilerHerramienta) throws InternetException, LocalException, UsuarioException, ExecutionException, InterruptedException;
 
     List<Categoria> getCategorias() throws InternetException;
 

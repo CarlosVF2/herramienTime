@@ -7,6 +7,7 @@ import android.com.herramientime.modules.herramientas.presenter.AlquilerHerramie
 import android.com.herramientime.modules.herramientas.view.AlquilarHerramientaFragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -25,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -51,6 +53,7 @@ public class AlquilarHerramientaFragmentImpl
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        setRetainInstance(true);//Mantenemos el fragment en instancia para no perder los valores del presenter
     }
 
     @Nullable
@@ -60,18 +63,18 @@ public class AlquilarHerramientaFragmentImpl
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initComponentes(view);
-    }
-
-    @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         PRESENTER presenter = getMvpPresenter();
         if (presenter != null) {
             presenter.onViewStateRestored(savedInstanceState);
         }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initComponentes(view);
     }
 
     @Override
@@ -143,11 +146,10 @@ public class AlquilarHerramientaFragmentImpl
     }
 
     @Override
-    public void launchIntentPhoto() {
+    public void launchIntentPhoto(String path) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.parse(path));
+        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
     }
 
     @Override
@@ -184,11 +186,15 @@ public class AlquilarHerramientaFragmentImpl
     }
 
     @Override
+    public void showPhoto(String pathPhoto) {
+        Uri uri = Uri.fromFile(new File(pathPhoto));
+        imageViewFoto.setImageURI(uri);
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            Bundle extras = data.getExtras();
-            imageBitmap = (Bitmap) extras.get("data");
-            imageViewFoto.setImageBitmap(imageBitmap);
+            getMvpPresenter().showPhoto();
         }
     }
 

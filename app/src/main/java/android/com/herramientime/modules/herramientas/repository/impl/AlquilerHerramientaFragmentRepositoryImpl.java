@@ -19,19 +19,17 @@ import android.com.rest.utils.Utilidades;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class AlquilerHerramientaFragmentRepositoryImpl implements AlquilerHerramientaFragmentRepository {
 
@@ -52,7 +50,7 @@ public class AlquilerHerramientaFragmentRepositoryImpl implements AlquilerHerram
     }
 
     @Override
-    public Herramienta saveHerramienta(AlquilerHerramienta alquilerHerramienta) throws InternetException, LocalException, UsuarioException {
+    public Herramienta saveHerramienta(AlquilerHerramienta alquilerHerramienta) throws InternetException, LocalException, UsuarioException, ExecutionException, InterruptedException {
         checkIfAllFieldsAreFill(alquilerHerramienta);
         List<HerramientaRest> herramientaRests = restApiServiceHelper.getHerramientas();
         HerramientaRest herramientaRest = new HerramientaRest();
@@ -73,19 +71,12 @@ public class AlquilerHerramientaFragmentRepositoryImpl implements AlquilerHerram
         herramientaRest.setCategoria(alquilerHerramienta.getCategoria().getId());
         herramientaRests.add(herramientaRest);
         if (!TextUtils.isEmpty(alquilerHerramienta.getPathPhoto())) {
+            //Primero obtenemos el nombre del ultimo fichero subido para relacionarlo
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageReference = storage.getReference();
-            storageReference.putFile(Uri.parse(alquilerHerramienta.getPathPhoto())).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    String s = "";
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    String s = "";
-                }
-            });
+            StorageReference imageRef = storageReference.child(herramientaRest.getDescripcion() + herramientaRest.getId());
+            Tasks.await(imageRef.putFile(Uri.parse(alquilerHerramienta.getPathPhoto())));
+            herramientaRest.setUrlImagen(Tasks.await(imageRef.getDownloadUrl()).toString());
         }
         restApiServiceHelper.postHerramienta(herramientaRests);
         return processorHerramienta.convertFrom(herramientaRest);
