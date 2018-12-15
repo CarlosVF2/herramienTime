@@ -5,6 +5,7 @@ import android.com.herramientime.core.entities.ErrorCause;
 import android.com.herramientime.core.presenter.impl.MvpFragmentPresenterImpl;
 import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.domain.entities.UsuarioException;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.herramientime.modules.herramientas.entities.HerramientaDetalleFragmentPresenterStatus;
 import android.com.herramientime.modules.herramientas.injection.HerramientaDetalleFragmentComponent;
@@ -83,7 +84,12 @@ public class HerramientaDetalleFragmentPresenterImpl<FRAGMENT extends Herramient
             FRAGMENT fragment = getMvpFragment();
             if (fragment != null) {
                 if (presenterStatus.getError() != null) {
-                    fragment.onLoadError(ErrorCause.getCause(presenterStatus.getError()));
+                    if (presenterStatus.getError().getCause() instanceof UsuarioException) {
+                        fragment.onLoadErrorUser(ErrorCause.getCause(presenterStatus.getError()));
+                    } else {
+                        //Si no se habia representado el error (porque no habia vista viva en ese momento) se representa una vez que sea ejecutable.
+                        fragment.onLoadError(ErrorCause.getCause(presenterStatus.getError()));
+                    }
                     presenterStatus.setError(null);
                     return;
                 }
@@ -108,6 +114,15 @@ public class HerramientaDetalleFragmentPresenterImpl<FRAGMENT extends Herramient
     @Override
     public void onClickReservar() {
         startCheckReservar();
+    }
+
+    @Override
+    public void onClickAceptarLogin() {
+        try {
+            navigationManager.navigateToLogin();
+        } catch (LocalException e) {
+            e.printStackTrace();
+        }
     }
 
 

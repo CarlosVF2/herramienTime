@@ -3,6 +3,7 @@ package android.com.herramientime.modules.experiencias.repository.impl;
 import android.com.herramientime.domain.processor.ProcessorExperiencia;
 import android.com.herramientime.modules.domain.entities.LocalException;
 import android.com.herramientime.modules.domain.entities.Moneda;
+import android.com.herramientime.modules.domain.entities.UsuarioException;
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
 import android.com.herramientime.modules.domain.repository.MonedasRepository;
 import android.com.herramientime.modules.experiencias.entities.AlquilerExperiencia;
@@ -31,7 +32,7 @@ public class AlquilerExperienciaFragmentRepositoryImpl implements AlquilerExperi
     }
 
     @Override
-    public Experiencia saveExperiencia(AlquilerExperiencia alquilerExperiencia) throws InternetException, LocalException {
+    public Experiencia saveExperiencia(AlquilerExperiencia alquilerExperiencia) throws InternetException, LocalException, UsuarioException {
         checkIfAllFieldsAreFill(alquilerExperiencia);
         List<ExperienciaRest> experienciaRests = restApiServiceHelper.getExperiencias();
         ExperienciaRest experienciaRest = new ExperienciaRest();

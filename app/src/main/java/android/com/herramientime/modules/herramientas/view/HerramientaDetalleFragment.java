@@ -20,5 +20,7 @@ public interface HerramientaDetalleFragment extends MvpFragment {
 
     void setCategoria(String categoria);
 
+    void onLoadErrorUser(String cause);
+
     //endregion SET text
 }

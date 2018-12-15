@@ -18,5 +18,7 @@ public interface ExperienciaDetalleFragment extends MvpFragment {
 
     void setResumen(String resumen);
 
+    void onLoadErrorUser(String cause);
+
     //endregion SET text
 }

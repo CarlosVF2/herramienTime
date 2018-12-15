@@ -3,6 +3,7 @@ package android.com.herramientime.modules.domain.repository.impl;
 import android.com.herramientime.R;
 import android.com.herramientime.domain.processor.ProcessorUsuario;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.domain.entities.UsuarioException;
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
 import android.com.herramientime.modules.usuarios.entities.Usuario;
 import android.com.rest.RestApiServiceHelper;
@@ -26,7 +27,7 @@ public class MainActivityRepositoryImpl implements MainActivityRepository {
     }
 
     @Override
-    public Usuario getLoggedUser() throws InternetException, LocalException {
+    public Usuario getLoggedUser() throws InternetException, LocalException, UsuarioException {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String userLogged = sharedPref.getString(context.getString(R.string.preference_file_key), null);
@@ -38,6 +39,6 @@ public class MainActivityRepositoryImpl implements MainActivityRepository {
                 return processorUsuario.convertFrom(usuariosRests.get(index));
             }
         }
-        throw new LocalException("No se ha encontrado el usuario");
+        throw new UsuarioException("Primero tiene que registrarse en la aplicación para poder realizar esta acción");
     }
 }

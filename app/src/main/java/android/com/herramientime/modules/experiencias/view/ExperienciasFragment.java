@@ -25,4 +25,5 @@ public interface ExperienciasFragment extends MvpFragment {
     void restoreFilters();
 
 
+    void onLoadErrorUser(String cause);
 }

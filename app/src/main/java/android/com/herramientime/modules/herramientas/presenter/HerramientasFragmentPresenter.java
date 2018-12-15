@@ -18,4 +18,6 @@ public interface HerramientasFragmentPresenter extends MvpFragmentPresenter {
     void onClickRestaurarFilter();
 
     void onClickAplicarFilter();
+
+    void onClickAceptarLogin();
 }

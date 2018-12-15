@@ -4,6 +4,7 @@ import android.com.herramientime.domain.processor.ProcessorHerramienta;
 import android.com.herramientime.modules.domain.entities.Categoria;
 import android.com.herramientime.modules.domain.entities.LocalException;
 import android.com.herramientime.modules.domain.entities.Moneda;
+import android.com.herramientime.modules.domain.entities.UsuarioException;
 import android.com.herramientime.modules.domain.repository.CategoriasRepository;
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
 import android.com.herramientime.modules.domain.repository.MonedasRepository;
@@ -51,7 +52,7 @@ public class AlquilerHerramientaFragmentRepositoryImpl implements AlquilerHerram
     }
 
     @Override
-    public Herramienta saveHerramienta(AlquilerHerramienta alquilerHerramienta) throws InternetException, LocalException {
+    public Herramienta saveHerramienta(AlquilerHerramienta alquilerHerramienta) throws InternetException, LocalException, UsuarioException {
         checkIfAllFieldsAreFill(alquilerHerramienta);
         List<HerramientaRest> herramientaRests = restApiServiceHelper.getHerramientas();
         HerramientaRest herramientaRest = new HerramientaRest();
@@ -101,7 +102,7 @@ public class AlquilerHerramientaFragmentRepositoryImpl implements AlquilerHerram
     }
 
     @Override
-    public String getPathUriPhoto() throws IOException, LocalException {
+    public String getPathUriPhoto() throws IOException, LocalException, UsuarioException {
         Usuario usuario = mainActivityRepository.getLoggedUser();
         File photoFile = Utilidades.takePhoto(context, usuario.getId());
         Uri uri = Uri.fromFile(photoFile);

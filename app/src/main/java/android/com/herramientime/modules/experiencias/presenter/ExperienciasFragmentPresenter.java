@@ -16,4 +16,6 @@ public interface ExperienciasFragmentPresenter extends MvpFragmentPresenter {
     void onClickAplicarFilter();
 
     void onClickRestaurarFilter();
+
+    void onClickAceptarLogin();
 }

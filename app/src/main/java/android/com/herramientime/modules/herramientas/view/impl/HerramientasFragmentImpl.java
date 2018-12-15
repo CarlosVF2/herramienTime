@@ -9,6 +9,7 @@ import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.herramientime.modules.herramientas.presenter.HerramientasFragmentPresenter;
 import android.com.herramientime.modules.herramientas.view.HerramientasFragment;
 import android.com.rest.utils.Utilidades;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -176,6 +178,29 @@ public class HerramientasFragmentImpl
         textInputLayoutDescripcion.getEditText().setText("");
         textInputLayoutPrecioInicial.getEditText().setText("");
         textInputLayoutPrecioFinal.getEditText().setText("");
+    }
+
+    @Override
+    public void onLoadErrorUser(String cause) {
+
+        new AlertDialog.Builder(getContext())
+                .setTitle(getString(R.string.title_dialog_atencion))
+                .setMessage(cause)
+                .setPositiveButton(getString(R.string.prompt_aceptar), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        PRESENTER presenter = getMvpPresenter();
+                        if (presenter != null) {
+                            presenter.onClickAceptarLogin();
+                        }
+
+                    }
+                }).setNegativeButton(getString(R.string.prompt_cancelar), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                //NOTHING TO DO
+
+            }
+        })
+                .create().show();
     }
 
     @Override

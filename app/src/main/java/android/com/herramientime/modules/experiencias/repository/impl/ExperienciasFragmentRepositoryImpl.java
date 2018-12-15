@@ -4,6 +4,7 @@ import android.com.herramientime.R;
 import android.com.herramientime.domain.processor.ProcessorExperiencia;
 import android.com.herramientime.domain.processor.ProcessorFiltroExperiencia;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.domain.entities.UsuarioException;
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
 import android.com.herramientime.modules.experiencias.entities.Experiencia;
 import android.com.herramientime.modules.experiencias.repository.ExperienciasFragmentRepository;
@@ -39,10 +40,10 @@ public class ExperienciasFragmentRepositoryImpl implements ExperienciasFragmentR
     }
 
     @Override
-    public Boolean checkUpload() throws InternetException, LocalException {
+    public Boolean checkUpload() throws InternetException, LocalException, UsuarioException {
         Usuario userLogged = mainActivityRepository.getLoggedUser();
         if (userLogged == null) {
-            throw new LocalException(resources.getString(R.string.error_need_log_upload_experience));
+            throw new UsuarioException(resources.getString(R.string.error_need_log_upload_experience));
         }
         return true;
     }

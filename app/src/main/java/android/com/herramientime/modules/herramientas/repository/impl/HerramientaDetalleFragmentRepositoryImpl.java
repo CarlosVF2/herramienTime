@@ -3,6 +3,7 @@ package android.com.herramientime.modules.herramientas.repository.impl;
 import android.com.herramientime.R;
 import android.com.herramientime.domain.processor.ProcessorHerramienta;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.domain.entities.UsuarioException;
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.herramientime.modules.herramientas.repository.HerramientaDetalleFragmentRepository;
@@ -41,10 +42,10 @@ public class HerramientaDetalleFragmentRepositoryImpl implements HerramientaDeta
     }
 
     @Override
-    public Boolean checkReservar() throws LocalException, InternetException {
+    public Boolean checkReservar() throws LocalException, InternetException, UsuarioException {
         Usuario userLogged = mainActivityRepository.getLoggedUser();
         if (userLogged == null) {
-            throw new LocalException(resources.getString(R.string.prompt_error_first_log_reserve));
+            throw new UsuarioException(resources.getString(R.string.prompt_error_first_log_reserve));
         }
         return true;
     }

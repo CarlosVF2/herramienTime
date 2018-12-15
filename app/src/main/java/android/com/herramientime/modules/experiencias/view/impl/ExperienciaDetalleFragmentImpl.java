@@ -4,8 +4,10 @@ import android.com.herramientime.R;
 import android.com.herramientime.core.view.impl.MvpFragmentImpl;
 import android.com.herramientime.modules.experiencias.presenter.ExperienciaDetalleFragmentPresenter;
 import android.com.herramientime.modules.experiencias.view.ExperienciaDetalleFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -112,6 +114,30 @@ public class ExperienciaDetalleFragmentImpl
     @Override
     public void setResumen(String resumen) {
         textViewResumen.setText(resumen);
+    }
+
+    @Override
+    public void onLoadErrorUser(String cause) {
+
+        new AlertDialog.Builder(getContext())
+                .setTitle(getString(R.string.title_dialog_atencion))
+                .setMessage(cause)
+                .setPositiveButton(getString(R.string.prompt_aceptar), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        PRESENTER presenter = getMvpPresenter();
+                        if (presenter != null) {
+                            presenter.onClickAceptarLogin();
+                        }
+
+                    }
+                }).setNegativeButton(getString(R.string.prompt_cancelar), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                //NOTHING TO DO
+
+            }
+        })
+                .create().show();
+
     }
 
     //endregion set Text

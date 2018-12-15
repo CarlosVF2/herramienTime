@@ -5,6 +5,7 @@ import android.com.herramientime.core.entities.ErrorCause;
 import android.com.herramientime.core.presenter.impl.MvpFragmentPresenterImpl;
 import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.domain.entities.UsuarioException;
 import android.com.herramientime.modules.experiencias.entities.Experiencia;
 import android.com.herramientime.modules.experiencias.entities.ExperienciaDetalleFragmentPresenterStatus;
 import android.com.herramientime.modules.experiencias.injection.ExperienciaDetalleFragmentComponent;
@@ -82,11 +83,16 @@ public class ExperienciaDetalleFragmentPresenterImpl<FRAGMENT extends Experienci
             FRAGMENT fragment = getMvpFragment();
             if (fragment != null) {
                 if (presenterStatus.getError() != null) {
-                    fragment.onLoadError(ErrorCause.getCause(presenterStatus.getError()));
+                    if (presenterStatus.getError().getCause() instanceof UsuarioException) {
+                        fragment.onLoadErrorUser(ErrorCause.getCause(presenterStatus.getError()));
+                    } else {
+                        //Si no se habia representado el error (porque no habia vista viva en ese momento) se representa una vez que sea ejecutable.
+                        fragment.onLoadError(ErrorCause.getCause(presenterStatus.getError()));
+                    }
                     presenterStatus.setError(null);
                     return;
                 }
-                fragment.setImageExperiencia("https://www.google.es/search?q=martillo+electrico&rlz=1C1CHBD_esES792ES795&source=lnms&tbm=isch&sa=X&ved=0ahUKEwi_xrT7i5DfAhXLUBUIHShoB00Q_AUIDigB&biw=1920&bih=889#imgrc=hxDR4kTgXMxP3M:");
+                fragment.setImageExperiencia(presenterStatus.getExperiencia().getUrlImagen());
                 fragment.setDescripcion(presenterStatus.getExperiencia().getDescripcion());
                 fragment.setPrecio(presenterStatus.getExperiencia().getPrecioHora() + " " + presenterStatus.getExperiencia().getSimboloMoneda());
                 fragment.setResumen(presenterStatus.getExperiencia().getResumen());
@@ -106,6 +112,15 @@ public class ExperienciaDetalleFragmentPresenterImpl<FRAGMENT extends Experienci
     @Override
     public void onClickReservar() {
         startCheckReservar();
+    }
+
+    @Override
+    public void onClickAceptarLogin() {
+        try {
+            navigationManager.navigateToLogin();
+        } catch (LocalException e) {
+            e.printStackTrace();
+        }
     }
 
     //region ResponseFuture

@@ -4,6 +4,7 @@ import android.com.herramientime.R;
 import android.com.herramientime.domain.processor.ProcessorFiltroHerramienta;
 import android.com.herramientime.domain.processor.ProcessorHerramienta;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.domain.entities.UsuarioException;
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
 import android.com.herramientime.modules.herramientas.entities.FiltrosHerramientas;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
@@ -39,10 +40,10 @@ public class HerramientasFragmentRepositoryImpl implements HerramientasFragmentR
     }
 
     @Override
-    public Boolean checkUpload() throws InternetException, LocalException {
+    public Boolean checkUpload() throws InternetException, LocalException, UsuarioException {
         Usuario userLogged = mainActivityRepository.getLoggedUser();
         if (userLogged == null) {
-            throw new LocalException(resources.getString(R.string.error_need_log_upload_herramienta));
+            throw new UsuarioException(resources.getString(R.string.error_need_log_upload_herramienta));
         }
         return true;
     }

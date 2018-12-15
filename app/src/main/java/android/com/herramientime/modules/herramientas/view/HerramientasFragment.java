@@ -23,4 +23,6 @@ public interface HerramientasFragment extends MvpFragment {
     String getPrecioFinalText();
 
     void restoreFilters();
+
+    void onLoadErrorUser(String cause);
 }

@@ -5,6 +5,7 @@ import android.com.herramientime.core.entities.ErrorCause;
 import android.com.herramientime.core.presenter.impl.MvpFragmentPresenterImpl;
 import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.domain.entities.UsuarioException;
 import android.com.herramientime.modules.herramientas.adapter.HerramientasVHListener;
 import android.com.herramientime.modules.herramientas.entities.FiltrosHerramientas;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
@@ -88,8 +89,12 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
             if(fragment != null){
                 fragment.setRefresh(false);
                 if(presenterStatus.getError() != null){
-                    //Si no se habia representado el error (porque no habia vista viva en ese momento) se representa una vez que sea ejecutable.
-                    fragment.onLoadError(ErrorCause.getCause(presenterStatus.getError()));
+                    if (presenterStatus.getError().getCause() instanceof UsuarioException) {
+                        fragment.onLoadErrorUser(ErrorCause.getCause(presenterStatus.getError()));
+                    } else {
+                        //Si no se habia representado el error (porque no habia vista viva en ese momento) se representa una vez que sea ejecutable.
+                        fragment.onLoadError(ErrorCause.getCause(presenterStatus.getError()));
+                    }
                     presenterStatus.setError(null);
                     return;
                 }
@@ -154,6 +159,15 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
             presenterStatus.getFiltrosHerramientas().setPrecioFinal(fragment.getPrecioFinalText());
         }
         startGetHerramientas();
+    }
+
+    @Override
+    public void onClickAceptarLogin() {
+        try {
+            navigationManager.navigateToLogin();
+        } catch (LocalException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -23,6 +23,7 @@
     <string name="title_alquiler_herramienta">Alquiler herramienta</string>
     <string name="title_alquiler_experiencia">Contratar experiencia</string>
     <string name="prompt_aceptar">Aceptar</string>
+    <string name="prompt_cancelar">Cancelar</string>
     <string name="action_subir_herramienta">Alquilar Herramienta</string>
     <string name="action_subir_experiencia">Contratar experiencia</string>
     <string name="preference_file_key">Preferences</string>

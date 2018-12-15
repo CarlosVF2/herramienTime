@@ -3,6 +3,7 @@ package android.com.herramientime.modules.experiencias.repository.impl;
 import android.com.herramientime.R;
 import android.com.herramientime.domain.processor.ProcessorExperiencia;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.domain.entities.UsuarioException;
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
 import android.com.herramientime.modules.experiencias.entities.Experiencia;
 import android.com.herramientime.modules.experiencias.repository.ExperienciaDetalleFragmentRepository;
@@ -41,10 +42,10 @@ public class ExperienciaDetalleFragmentRepositoryImpl implements ExperienciaDeta
     }
 
     @Override
-    public Boolean checkReservar() throws LocalException, InternetException {
+    public Boolean checkReservar() throws LocalException, InternetException, UsuarioException {
         Usuario userLogged = mainActivityRepository.getLoggedUser();
         if (userLogged == null) {
-            throw new LocalException(resources.getString(R.string.prompt_error_first_log_reserve));
+            throw new UsuarioException(resources.getString(R.string.prompt_error_first_log_reserve));
         }
         return true;
     }
