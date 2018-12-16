@@ -10,6 +10,7 @@ import android.com.herramientime.modules.herramientas.view.impl.HerramientasFrag
 import android.com.herramientime.modules.login.view.impl.LoginFragmentImpl;
 import android.com.herramientime.modules.map.view.impl.MapFragmentImpl;
 import android.com.herramientime.modules.reservar.view.impl.ReservaFragmentImpl;
+import android.com.herramientime.modules.usuarios.view.impl.UsuarioDetalleFragmentImpl;
 import android.content.Intent;
 
 /**
@@ -41,4 +42,8 @@ public interface ViewFactory {
 
     //Map
     MapFragmentImpl newMapFragmentInstance();
+
+    //Usuario detalle
+    UsuarioDetalleFragmentImpl newUsuarioDetalleFragmentInstance();
+
 }

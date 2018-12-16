@@ -12,6 +12,7 @@ import android.com.herramientime.modules.herramientas.repository.HerramientasFra
 import android.com.herramientime.modules.login.repository.LoginFragmentRepository;
 import android.com.herramientime.modules.map.repository.MapFragmentRepository;
 import android.com.herramientime.modules.reservar.repository.ReservaFragmentRepository;
+import android.com.herramientime.modules.usuarios.repository.UsuarioDetalleFragmentRepository;
 
 /**
  * Created by carlos 06/11/2018.
@@ -47,4 +48,7 @@ public interface RepositoryFactory {
 
     //Monedas helpValue
     MonedasRepository geMonedasRepository();
+
+    //Usuario Detalle
+    UsuarioDetalleFragmentRepository getUsuarioDetalleRepository();
 }

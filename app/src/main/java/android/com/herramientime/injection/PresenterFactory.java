@@ -33,4 +33,7 @@ public interface PresenterFactory {
 
     //Map
     void setupMapFragmentInstance(Bundle args);
+
+    //Usuario detalle
+    void setupUsuarioDetalleFragmentInstance(Bundle args, String idUsuario);
 }

@@ -35,6 +35,9 @@ public interface NavigationManager {
     //Map
     void navigateToMap() throws LocalException;
 
+    //Usuario detalle
+    void navigateToUsuarioDetalle(String idUsuario) throws LocalException;
+
 
     //Gestionar ir hacia atrás con Fragment
     void navigateBack() throws LocalException;

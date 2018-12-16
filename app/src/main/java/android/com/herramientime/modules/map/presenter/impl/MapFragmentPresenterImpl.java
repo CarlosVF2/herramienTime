@@ -99,8 +99,6 @@ public class MapFragmentPresenterImpl<FRAGMENT extends MapFragment>
                 fragment.addMarker(point);
 
             }
-        } else {
-            fragment.showAlertDialogMessage("No hay clientes en esta región");
         }
     }
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">herramienTime</string>
+    <string name="app_name">HerramienTime</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -58,4 +58,6 @@
     <string name="filter_button_aplicar">Aplicar</string>
     <string name="filter_button_reiniciar">Deshacer</string>
     <string name="filter_precio_final">Precio final</string>
+    <string name="prompt_first_register">Primero tiene que registrarse en la aplicación para poder realizar esta acción</string>
+    <string name="title_detalle_usuario">Detalle usuario</string>
 </resources>

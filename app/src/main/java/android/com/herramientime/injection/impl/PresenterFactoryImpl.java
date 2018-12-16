@@ -12,6 +12,7 @@ import android.com.herramientime.modules.herramientas.presenter.impl.Herramienta
 import android.com.herramientime.modules.login.presenter.impl.LoginFragmentPresenterImpl;
 import android.com.herramientime.modules.map.presenter.impl.MapFragmentPresenterImpl;
 import android.com.herramientime.modules.reservar.presenter.impl.ReservaFragmentPresenterImpl;
+import android.com.herramientime.modules.usuarios.presenter.impl.UsuarioDetalleFragmentPresenterImpl;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -69,5 +70,10 @@ public class PresenterFactoryImpl implements PresenterFactory {
     @Override
     public void setupMapFragmentInstance(Bundle args) {
         MapFragmentPresenterImpl.newMapFragmentPresenterInstance(args);
+    }
+
+    @Override
+    public void setupUsuarioDetalleFragmentInstance(Bundle args, String idUsuario) {
+        UsuarioDetalleFragmentPresenterImpl.newUsuarioDetalleFragmentPresenterInstance(args, idUsuario);
     }
 }

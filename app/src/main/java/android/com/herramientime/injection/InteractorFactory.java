@@ -11,6 +11,7 @@ import android.com.herramientime.modules.herramientas.interactor.HerramientasFra
 import android.com.herramientime.modules.login.interactor.LoginFragmentInteractor;
 import android.com.herramientime.modules.map.interactor.MapFragmentInteractor;
 import android.com.herramientime.modules.reservar.interactor.ReservaFragmentInteractor;
+import android.com.herramientime.modules.usuarios.interactor.UsuarioDetalleFragmentInteractor;
 
 /**
  * Created by carlos 06/11/2018.
@@ -42,5 +43,7 @@ public interface InteractorFactory {
     //Mapa
     MapFragmentInteractor getMapFragmentInteractor();
 
+    //UsuarioDetalle
+    UsuarioDetalleFragmentInteractor getUsuarioDetalleFragmentInteractor();
 }
 

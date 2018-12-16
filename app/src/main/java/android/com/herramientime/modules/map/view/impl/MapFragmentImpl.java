@@ -1,21 +1,15 @@
 package android.com.herramientime.modules.map.view.impl;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.com.herramientime.R;
 import android.com.herramientime.core.view.impl.MvpFragmentImpl;
 import android.com.herramientime.modules.map.entities.Point;
 import android.com.herramientime.modules.map.presenter.MapFragmentPresenter;
 import android.com.herramientime.modules.map.view.MapFragment;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -37,13 +31,10 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.List;
-
-import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends MvpFragmentImpl<PRESENTER>
-        implements MapFragment, OnMapReadyCallback, GoogleMap.OnCameraMoveStartedListener, GoogleMap.OnInfoWindowClickListener, EasyPermissions.PermissionCallbacks, GoogleApiClient.ConnectionCallbacks,
+        implements MapFragment, OnMapReadyCallback, GoogleMap.OnCameraMoveStartedListener, GoogleMap.OnInfoWindowClickListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         com.google.android.gms.location.LocationListener, GoogleMap.OnCameraIdleListener {
 
@@ -124,9 +115,6 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // map is a GoogleMap object
-        enableLocation();
-
         //listeners
         mMap.setOnCameraMoveStartedListener(this);
         mMap.setOnInfoWindowClickListener(this);
@@ -134,7 +122,7 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
 
         width = getResources().getDisplayMetrics().widthPixels;
         height = getResources().getDisplayMetrics().heightPixels;
-        padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+        padding = (int) (width * 0.30); // offset from edges of the map 10% of screen
 
     }
 
@@ -145,34 +133,6 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
         // Forward results to EasyPermissions
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
-
-
-    @AfterPermissionGranted(RC_LOCATION_PERM)
-    private void enableLocation() {
-        try {
-            if (EasyPermissions.hasPermissions(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                startMapClient();
-            } else {
-                // Request one permission
-                EasyPermissions.requestPermissions(this, getString(R.string.rationale_locat), RC_LOCATION_PERM, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    // region EasyPermissions.PermissionCallbacks
-
-    @Override
-    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
-        startMapClient();
-    }
-
-    @Override
-    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
-    }
-
-    // endregion
 
     public void addMarker(Point point) {
         mMap.addMarker(new MarkerOptions().position(point.getLatLng()).title(point.getTitle()).snippet(point.getId()));
@@ -226,48 +186,11 @@ public class MapFragmentImpl<PRESENTER extends MapFragmentPresenter> extends Mvp
         mapView.onSaveInstanceState(mapViewBundle);
     }
 
-    private void checkNetwork() {
-        LocationManager mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        boolean gps_enabled = false;
-        boolean network_enabled = false;
-
-        try {
-            gps_enabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        } catch (Exception ex) {
-        }
-
-        try {
-            network_enabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        } catch (Exception ex) {
-        }
-
-        if (!gps_enabled && !network_enabled) {
-            //onAccionChanged user
-            AlertDialog.Builder gpsAlert = new AlertDialog.Builder(getContext());
-            gpsAlert.setMessage("Por favor enciende el GPS para ver tu posición en el mapa");
-            gpsAlert.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if (isAdded()) {
-                        Intent settings = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        startActivity(settings);
-                    }
-                }
-            });
-            gpsAlert.setCancelable(false);
-
-            gpsAlert.show();
-        }
-
-    }
-
 
     @Override
     public void onResume() {
         mapView.onResume();
         super.onResume();
-        checkNetwork();
-        enableLocation();
     }
 
     @Override

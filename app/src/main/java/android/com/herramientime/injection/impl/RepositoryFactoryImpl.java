@@ -26,6 +26,8 @@ import android.com.herramientime.modules.map.repository.MapFragmentRepository;
 import android.com.herramientime.modules.map.repository.impl.MapFragmentRepositoryImpl;
 import android.com.herramientime.modules.reservar.repository.ReservaFragmentRepository;
 import android.com.herramientime.modules.reservar.repository.impl.ReservaFragmentRepositoryImpl;
+import android.com.herramientime.modules.usuarios.repository.UsuarioDetalleFragmentRepository;
+import android.com.herramientime.modules.usuarios.repository.impl.UsuarioDetalleFragmentRepositoryImpl;
 import android.com.rest.RestApiServiceHelper;
 import android.content.Context;
 import android.content.res.Resources;
@@ -50,7 +52,7 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
 
     @Override
     public MainActivityRepository getMainActivityRepository() {
-        return new MainActivityRepositoryImpl(context, processors.getProcessorUsuario(), restApiServiceHelper);
+        return new MainActivityRepositoryImpl(context, processors.getProcessorUsuario(), restApiServiceHelper, resources);
     }
 
     @Override
@@ -106,5 +108,10 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
     @Override
     public MonedasRepository geMonedasRepository() {
         return new MonedasRepositoryImpl(restApiServiceHelper, processors.geProcessorMoneda());
+    }
+
+    @Override
+    public UsuarioDetalleFragmentRepository getUsuarioDetalleRepository() {
+        return new UsuarioDetalleFragmentRepositoryImpl(restApiServiceHelper, processors.getProcessorUsuario(), resources);
     }
 }

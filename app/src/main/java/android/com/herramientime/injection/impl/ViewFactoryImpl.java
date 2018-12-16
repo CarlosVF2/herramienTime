@@ -11,6 +11,7 @@ import android.com.herramientime.modules.herramientas.view.impl.HerramientasFrag
 import android.com.herramientime.modules.login.view.impl.LoginFragmentImpl;
 import android.com.herramientime.modules.map.view.impl.MapFragmentImpl;
 import android.com.herramientime.modules.reservar.view.impl.ReservaFragmentImpl;
+import android.com.herramientime.modules.usuarios.view.impl.UsuarioDetalleFragmentImpl;
 import android.content.Context;
 import android.content.Intent;
 
@@ -83,6 +84,12 @@ public class ViewFactoryImpl implements ViewFactory {
     @Override
     public MapFragmentImpl newMapFragmentInstance() {
         MapFragmentImpl fragment = new MapFragmentImpl();
+        return fragment;
+    }
+
+    @Override
+    public UsuarioDetalleFragmentImpl newUsuarioDetalleFragmentInstance() {
+        UsuarioDetalleFragmentImpl fragment = new UsuarioDetalleFragmentImpl();
         return fragment;
     }
 }

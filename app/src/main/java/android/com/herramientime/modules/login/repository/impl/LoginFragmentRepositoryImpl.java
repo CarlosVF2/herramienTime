@@ -87,8 +87,6 @@ public class LoginFragmentRepositoryImpl implements LoginFragmentRepository {
             throw new InternetException(resources.getString(R.string.error_fill_name));
         } else if (TextUtils.isEmpty(login.getApellido())) {
             throw new InternetException(resources.getString(R.string.errpr_fill_surname));
-        } else if (login.getApellido().length() < 6) {
-            throw new InternetException(resources.getString(R.string.error_minimum_6_characts));
         }
 
     }

@@ -21,6 +21,8 @@ import android.com.herramientime.modules.map.injection.MapFragmentComponent;
 import android.com.herramientime.modules.map.injection.MapFragmentModule;
 import android.com.herramientime.modules.reservar.injection.ReservaFragmentComponent;
 import android.com.herramientime.modules.reservar.injection.ReservaFragmentModule;
+import android.com.herramientime.modules.usuarios.injection.UsuarioDetalleFragmentComponent;
+import android.com.herramientime.modules.usuarios.injection.UsuarioDetalleFragmentModule;
 
 import com.seidor.core.di.annotations.Provides;
 /**
@@ -38,6 +40,7 @@ public class ComponentDependencies extends ModuleDependencies {
     private AlquilerExperienciaFragmentComponent alquilerExperienciaFragmentComponent;
     private LoginFragmentComponent loginFragmentComponent;
     private MapFragmentComponent mapFragmentComponent;
+    private UsuarioDetalleFragmentComponent usuarioDetalleFragmentComponent;
 
     public ComponentDependencies(Application application) {
         super(application);
@@ -51,9 +54,14 @@ public class ComponentDependencies extends ModuleDependencies {
         setupAlquilerExperienciaFragmentComponent(getAlquilerExperienciaFragmentModule());
         setupLoginFragmentComponent(getLoginFragmentModule());
         setupMapFragmentComponent(getMapFragmentModule());
+        setupUsuarioDetalleFragmentComponent(getUsuarioDetalleFragmentModule());
     }
 
     //region Setup
+
+    private void setupUsuarioDetalleFragmentComponent(UsuarioDetalleFragmentModule usuarioDetalleFragmentModule) {
+        usuarioDetalleFragmentComponent = new UsuarioDetalleFragmentComponent(usuarioDetalleFragmentModule);
+    }
 
     private void setupMapFragmentComponent(MapFragmentModule mapFragmentModule) {
         mapFragmentComponent = new MapFragmentComponent(mapFragmentModule);
@@ -147,6 +155,11 @@ public class ComponentDependencies extends ModuleDependencies {
     @Provides
     public MapFragmentComponent getMapFragmentComponent() {
         return mapFragmentComponent;
+    }
+
+    @Provides
+    public UsuarioDetalleFragmentComponent getUsuarioDetalleFragmentComponent() {
+        return usuarioDetalleFragmentComponent;
     }
 
     //endregion Get

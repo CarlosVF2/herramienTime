@@ -11,6 +11,7 @@ import android.com.rest.entities.InternetException;
 import android.com.rest.entities.UsuariosRest;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 
 import java.util.List;
 
@@ -19,11 +20,13 @@ public class MainActivityRepositoryImpl implements MainActivityRepository {
     private final Context context;
     private final ProcessorUsuario processorUsuario;
     private final RestApiServiceHelper restApiServiceHelper;
+    private final Resources resources;
 
-    public MainActivityRepositoryImpl(Context context, ProcessorUsuario processorUsuario, RestApiServiceHelper restApiServiceHelper) {
+    public MainActivityRepositoryImpl(Context context, ProcessorUsuario processorUsuario, RestApiServiceHelper restApiServiceHelper, Resources resources) {
         this.context = context;
         this.processorUsuario = processorUsuario;
         this.restApiServiceHelper = restApiServiceHelper;
+        this.resources = resources;
     }
 
     @Override
@@ -38,7 +41,9 @@ public class MainActivityRepositoryImpl implements MainActivityRepository {
             if (index > -1) {
                 return processorUsuario.convertFrom(usuariosRests.get(index));
             }
+            throw new UsuarioException(resources.getString(R.string.prompt_first_register));
+        } else {
+            return null;
         }
-        throw new UsuarioException("Primero tiene que registrarse en la aplicación para poder realizar esta acción");
     }
 }

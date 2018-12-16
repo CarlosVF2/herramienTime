@@ -18,6 +18,7 @@ import android.com.herramientime.modules.herramientas.view.impl.HerramientasFrag
 import android.com.herramientime.modules.login.view.impl.LoginFragmentImpl;
 import android.com.herramientime.modules.map.view.impl.MapFragmentImpl;
 import android.com.herramientime.modules.reservar.view.impl.ReservaFragmentImpl;
+import android.com.herramientime.modules.usuarios.view.impl.UsuarioDetalleFragmentImpl;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -216,6 +217,19 @@ public class NavigationManagerImpl implements NavigationManager, Application.Act
             throw new LocalException(context.getString(R.string.error_activity_not_prepared));
         }
 
+    }
+
+    @Override
+    public void navigateToUsuarioDetalle(String idUsuario) throws LocalException {
+        if (currentActivity != null) {
+            Bundle args = new Bundle();
+            presenterFactory.setupUsuarioDetalleFragmentInstance(args, idUsuario);
+            UsuarioDetalleFragmentImpl fragment = viewFactory.newUsuarioDetalleFragmentInstance();
+            fragment.setArguments(args);
+            open(currentActivity.getSupportFragmentManager(), fragment, null);
+        } else {
+            throw new LocalException(context.getString(R.string.error_activity_not_prepared));
+        }
     }
 
     //endregion Map

@@ -23,6 +23,8 @@ import android.com.herramientime.modules.map.interactor.MapFragmentInteractor;
 import android.com.herramientime.modules.map.interactor.impl.MapFragmentInteractorImpl;
 import android.com.herramientime.modules.reservar.interactor.ReservaFragmentInteractor;
 import android.com.herramientime.modules.reservar.interactor.impl.ReservaFragmentInteractorImpl;
+import android.com.herramientime.modules.usuarios.interactor.UsuarioDetalleFragmentInteractor;
+import android.com.herramientime.modules.usuarios.interactor.impl.UsuarioDetalleFragmentInteractorImpl;
 
 import com.seidor.core.utils.injection.SchedulerFactory;
 
@@ -86,5 +88,10 @@ public class InteractorFactoryImpl implements InteractorFactory {
     @Override
     public MapFragmentInteractor getMapFragmentInteractor() {
         return new MapFragmentInteractorImpl(schedulerFactory.getUIScheduler(), repositoryFactory.getMapFragmentRepository());
+    }
+
+    @Override
+    public UsuarioDetalleFragmentInteractor getUsuarioDetalleFragmentInteractor() {
+        return new UsuarioDetalleFragmentInteractorImpl(schedulerFactory.getUIScheduler(), repositoryFactory.getUsuarioDetalleRepository());
     }
 }

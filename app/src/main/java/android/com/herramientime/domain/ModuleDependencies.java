@@ -14,6 +14,7 @@ import android.com.herramientime.modules.herramientas.injection.HerramientasFrag
 import android.com.herramientime.modules.login.injection.LoginFragmentModule;
 import android.com.herramientime.modules.map.injection.MapFragmentModule;
 import android.com.herramientime.modules.reservar.injection.ReservaFragmentModule;
+import android.com.herramientime.modules.usuarios.injection.UsuarioDetalleFragmentModule;
 import android.content.res.Resources;
 
 
@@ -33,6 +34,7 @@ public class ModuleDependencies extends DependencyInjectionImpl {
     private AlquilerExperienciaFragmentModule alquilerExperienciaFragmentModule;
     private LoginFragmentModule loginFragmentModule;
     private MapFragmentModule mapFragmentModule;
+    private UsuarioDetalleFragmentModule usuarioDetalleFragmentModule;
 
     public ModuleDependencies(Application application) {
         super(application);
@@ -46,9 +48,14 @@ public class ModuleDependencies extends DependencyInjectionImpl {
         setupAlquilerExperienciaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getResources());
         setupLoginFragmentModule(getInteractorFactoryInstance(), getResources(), getNavigationManager());
         setupMapFragmentModule(getInteractorFactoryInstance(), getNavigationManager(), getResources());
+        setupUsuarioDetalleFragmentModule(getInteractorFactoryInstance(), getResources());
     }
 
     //region setup
+
+    private void setupUsuarioDetalleFragmentModule(InteractorFactory interactorFactoryInstance, Resources resources) {
+        usuarioDetalleFragmentModule = new UsuarioDetalleFragmentModule(interactorFactoryInstance, resources);
+    }
 
     private void setupMapFragmentModule(InteractorFactory interactorFactoryInstance, NavigationManager navigationManager, Resources resources) {
         mapFragmentModule = new MapFragmentModule(interactorFactoryInstance, navigationManager, resources);
@@ -132,6 +139,10 @@ public class ModuleDependencies extends DependencyInjectionImpl {
 
     protected MapFragmentModule getMapFragmentModule() {
         return mapFragmentModule;
+    }
+
+    protected UsuarioDetalleFragmentModule getUsuarioDetalleFragmentModule() {
+        return usuarioDetalleFragmentModule;
     }
 
     //endregion GET
