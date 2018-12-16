@@ -22,5 +22,7 @@ public interface LoginFragmentPresenter extends MvpFragmentPresenter {
 
     void setPassword(String password);
 
+    void setAcercaDeTi(String acercaDeTi);
+
     //endregion set fields
 }

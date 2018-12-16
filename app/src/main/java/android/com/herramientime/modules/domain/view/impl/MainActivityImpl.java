@@ -22,6 +22,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -75,7 +76,6 @@ public class MainActivityImpl
             getSupportActionBar().setHomeButtonEnabled(true);
         }
     }
-
 
     private void setToolbar() {
         // Añadir la Toolbar
@@ -190,7 +190,6 @@ public class MainActivityImpl
         if (navigationView != null) {
             Button buttonIniciarSesion = navigationView.findViewById(R.id.buttonIniciarSesion);
             if (buttonIniciarSesion != null) {
-                buttonIniciarSesion.setOnClickListener(this);
                 buttonIniciarSesion.setVisibility(visibility ? View.VISIBLE : View.GONE);
             }
         }
@@ -225,6 +224,15 @@ public class MainActivityImpl
                 if (m != null) {
                     m.setChecked(true);
                 }
+            }
+
+            Button buttonIniciarSesion = navigationView.findViewById(R.id.buttonIniciarSesion);
+            ImageView imageViewLog = navigationView.findViewById(R.id.imageView);
+            if (imageViewLog != null) {
+                imageViewLog.setOnClickListener(this);
+            }
+            if (buttonIniciarSesion != null) {
+                buttonIniciarSesion.setOnClickListener(this);
             }
         }
     }
@@ -266,6 +274,9 @@ public class MainActivityImpl
         switch (id) {
             case R.id.buttonIniciarSesion:
                 getMvpActivityPresenter().onClickIniciarSesion();
+                break;
+            case R.id.imageView:
+                getMvpActivityPresenter().onClickImageUser();
                 break;
         }
     }

@@ -60,4 +60,8 @@
     <string name="filter_precio_final">Precio final</string>
     <string name="prompt_first_register">Primero tiene que registrarse en la aplicación para poder realizar esta acción</string>
     <string name="title_detalle_usuario">Detalle usuario</string>
+    <string name="prompt_acerca_de_ti">Acerca de ti</string>
+    <string name="prompt_nombre_apellidos">Nombre y apellidos</string>
+    <string name="error_field_acerca_de_ti">Tiene que rellenar algún dato acerca de usted</string>
+    <string name="action_close_session">Cerrar sesión</string>
 </resources>

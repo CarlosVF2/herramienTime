@@ -28,4 +28,14 @@ public class UsuarioDetalleFragmentInteractorImpl extends TaskInteractorImpl imp
             }
         });
     }
+
+    @Override
+    public ResponseFuture<Boolean> cerrarSesion() {
+        return prepare(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                return usuarioDetalleFragmentRepository.cerrarSesion();
+            }
+        });
+    }
 }

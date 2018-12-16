@@ -26,6 +26,7 @@ public class LoginFragmentImpl
     private TextInputLayout textInputLayoutApellidos;
     private TextInputLayout textInputLayoutUsuario;
     private TextInputLayout textInputLayoutPassword;
+    private TextInputLayout textInputLayoutAcercaDeTi;
     private Button buttonIniciarSesion;
     private Button buttonRegistrarse;
 
@@ -46,6 +47,8 @@ public class LoginFragmentImpl
         textInputLayoutApellidos = view.findViewById(R.id.textInputLayoutApellidos);
         textInputLayoutUsuario = view.findViewById(R.id.textInputLayoutUsuario);
         textInputLayoutPassword = view.findViewById(R.id.textInputLayoutPassword);
+        textInputLayoutAcercaDeTi = view.findViewById(R.id.textInputLayoutAcercaDeTi);
+        textInputLayoutAcercaDeTi.getEditText().addTextChangedListener(this);
         textInputLayoutNombre.getEditText().addTextChangedListener(this);
         textInputLayoutApellidos.getEditText().addTextChangedListener(this);
         textInputLayoutUsuario.getEditText().addTextChangedListener(this);
@@ -85,6 +88,11 @@ public class LoginFragmentImpl
         buttonIniciarSesion.setVisibility(visibility ? View.VISIBLE : View.GONE);
     }
 
+    @Override
+    public void setAcercaDeTiVisibility(boolean visibility) {
+        textInputLayoutAcercaDeTi.setVisibility(visibility ? View.VISIBLE : View.GONE);
+    }
+
     //region TextWatcher
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -108,6 +116,8 @@ public class LoginFragmentImpl
                 presenter.setUsuario(editable.toString());
             } else if (textInputLayoutPassword.getEditText().getEditableText() == editable) {
                 presenter.setPassword(editable.toString());
+            } else if (textInputLayoutAcercaDeTi.getEditText().getEditableText() == editable) {
+                presenter.setAcercaDeTi(editable.toString());
             }
         }
 

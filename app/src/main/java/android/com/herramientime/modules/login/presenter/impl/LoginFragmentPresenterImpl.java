@@ -118,6 +118,7 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
             if (fragment != null) {
                 fragment.setNombreVisibility(true);
                 fragment.setApellidosVisibility(true);
+                fragment.setAcercaDeTiVisibility(true);
                 fragment.setButtonIniciarSesionVisibility(false);
             }
         } else {
@@ -144,6 +145,11 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
     @Override
     public void setPassword(String password) {
         presenterStatus.getLogin().setPassword(password);
+    }
+
+    @Override
+    public void setAcercaDeTi(String acercaDeTi) {
+        presenterStatus.getLogin().setAcercaDeTi(acercaDeTi);
     }
 
     //endregion  set fields

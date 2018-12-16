@@ -7,4 +7,9 @@ import android.com.herramientime.core.view.MvpFragment;
  */
 
 public interface UsuarioDetalleFragment extends MvpFragment {
+    void setNombreApellidosUser(String text);
+
+    void setUsuario(String text);
+
+    void setAcercaDeTi(String acercaDeTi);
 }

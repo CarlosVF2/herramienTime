@@ -210,6 +210,22 @@ public class MainActivityPresenterImpl<VIEW extends MainActivity> extends MvpAct
         }
     }
 
+    @Override
+    public void onClickImageUser() {
+        VIEW view = getMvpActivity();
+        if (view != null) {
+            view.closeDrawer();
+        }
+        if (presenterStatus.getUsuario() == null) {
+            return;
+        }
+        try {
+            navigationManager.navigateToUsuarioDetalle(presenterStatus.getUsuario().getId());
+        } catch (LocalException e) {
+            e.printStackTrace();
+        }
+    }
+
     //region NavigationListener
     @Override
     public void onBackstackChanged() {

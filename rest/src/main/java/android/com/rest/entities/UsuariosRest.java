@@ -36,6 +36,9 @@ public class UsuariosRest {
     @SerializedName("password")
     private String password;
 
+    @SerializedName("acercaDeTi")
+    private String acercaDeTi;
+
     public UsuariosRest(String id) {
         this.id = id;
     }
@@ -50,6 +53,7 @@ public class UsuariosRest {
         id = "";
         poblacion = "";
         nombre = "";
+        acercaDeTi = "";
     }
 
     public void setApellidos(String apellidos) {
@@ -130,6 +134,14 @@ public class UsuariosRest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAcercaDeTi() {
+        return acercaDeTi;
+    }
+
+    public void setAcercaDeTi(String acercaDeTi) {
+        this.acercaDeTi = acercaDeTi;
     }
 
     @Override

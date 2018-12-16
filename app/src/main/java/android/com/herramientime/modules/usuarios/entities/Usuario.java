@@ -12,6 +12,7 @@ public class Usuario {
     private String poblacion;
     private String nombre;
     private String password;
+    private String acercaDeTi;
 
     //region GET
 
@@ -53,6 +54,10 @@ public class Usuario {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getAcercaDeTi() {
+        return acercaDeTi;
     }
 
     //endregion GET
@@ -97,6 +102,10 @@ public class Usuario {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setAcercaDeTi(String acercaDeTi) {
+        this.acercaDeTi = acercaDeTi;
     }
 
     //endregion SET

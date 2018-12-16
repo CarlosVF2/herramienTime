@@ -6,6 +6,7 @@ public class Login {
     private String apellido;
     private String password;
     private String user;
+    private String acercaDeTi;
 
     //region GET
 
@@ -23,6 +24,10 @@ public class Login {
 
     public String getUser() {
         return user;
+    }
+
+    public String getAcercaDeTi() {
+        return acercaDeTi;
     }
 
     //endregion GET
@@ -43,6 +48,10 @@ public class Login {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public void setAcercaDeTi(String acercaDeTi) {
+        this.acercaDeTi = acercaDeTi;
     }
 
     //endregion SET

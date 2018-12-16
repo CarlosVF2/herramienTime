@@ -49,7 +49,7 @@ public class LoginFragmentRepositoryImpl implements LoginFragmentRepository {
     }
 
     @Override
-    public Usuario registrar(Login login) throws InternetException {
+    public Usuario registrar(Login login) throws InternetException, InterruptedException {
         checkFieldsFillRegistrar(login);
         List<UsuariosRest> usuariosRests = restApiServiceHelper.getUsuarios();
         checkIfExistsUser(usuariosRests, login.getUser());
@@ -58,8 +58,10 @@ public class LoginFragmentRepositoryImpl implements LoginFragmentRepository {
         usuariosRest.setNombre(login.getNombre());
         usuariosRest.setId(login.getUser());
         usuariosRest.setPassword(login.getPassword());
+        usuariosRest.setAcercaDeTi(login.getAcercaDeTi());
         usuariosRests.add(usuariosRest);
         restApiServiceHelper.postUsuario(usuariosRests);
+        Thread.sleep(500); //Los datos no son bien reflejados y actualizados si no se pone este stop en el hilo.
         iniciarSesion(login);
         return processorUsuario.convertFrom(usuariosRest);
     }
@@ -87,6 +89,8 @@ public class LoginFragmentRepositoryImpl implements LoginFragmentRepository {
             throw new InternetException(resources.getString(R.string.error_fill_name));
         } else if (TextUtils.isEmpty(login.getApellido())) {
             throw new InternetException(resources.getString(R.string.errpr_fill_surname));
+        } else if (TextUtils.isEmpty(login.getAcercaDeTi())) {
+            throw new InternetException(resources.getString(R.string.error_field_acerca_de_ti));
         }
 
     }

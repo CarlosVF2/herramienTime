@@ -112,6 +112,6 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
 
     @Override
     public UsuarioDetalleFragmentRepository getUsuarioDetalleRepository() {
-        return new UsuarioDetalleFragmentRepositoryImpl(restApiServiceHelper, processors.getProcessorUsuario(), resources);
+        return new UsuarioDetalleFragmentRepositoryImpl(restApiServiceHelper, processors.getProcessorUsuario(), resources, context);
     }
 }

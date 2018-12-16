@@ -12,4 +12,6 @@ public interface LoginFragment extends MvpFragment {
     void setApellidosVisibility(boolean visibility);
 
     void setButtonIniciarSesionVisibility(boolean visibility);
+
+    void setAcercaDeTiVisibility(boolean visibility);
 }

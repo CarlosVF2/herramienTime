@@ -48,13 +48,13 @@ public class ModuleDependencies extends DependencyInjectionImpl {
         setupAlquilerExperienciaFragmentModule(getNavigationManager(), getInteractorFactoryInstance(), getResources());
         setupLoginFragmentModule(getInteractorFactoryInstance(), getResources(), getNavigationManager());
         setupMapFragmentModule(getInteractorFactoryInstance(), getNavigationManager(), getResources());
-        setupUsuarioDetalleFragmentModule(getInteractorFactoryInstance(), getResources());
+        setupUsuarioDetalleFragmentModule(getInteractorFactoryInstance(), getResources(), getNavigationManager());
     }
 
     //region setup
 
-    private void setupUsuarioDetalleFragmentModule(InteractorFactory interactorFactoryInstance, Resources resources) {
-        usuarioDetalleFragmentModule = new UsuarioDetalleFragmentModule(interactorFactoryInstance, resources);
+    private void setupUsuarioDetalleFragmentModule(InteractorFactory interactorFactoryInstance, Resources resources, NavigationManager navigationManager) {
+        usuarioDetalleFragmentModule = new UsuarioDetalleFragmentModule(interactorFactoryInstance, resources, navigationManager);
     }
 
     private void setupMapFragmentModule(InteractorFactory interactorFactoryInstance, NavigationManager navigationManager, Resources resources) {

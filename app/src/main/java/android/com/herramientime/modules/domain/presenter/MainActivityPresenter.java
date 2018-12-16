@@ -24,4 +24,6 @@ public interface MainActivityPresenter extends MvpActivityPresenter {
     //endregion Click Navigation Item
 
     void onClickIniciarSesion();
+
+    void onClickImageUser();
 }

@@ -7,4 +7,5 @@ import android.com.herramientime.core.presenter.MvpFragmentPresenter;
  */
 
 public interface UsuarioDetalleFragmentPresenter extends MvpFragmentPresenter {
+    void onClickCerrarSesion();
 }

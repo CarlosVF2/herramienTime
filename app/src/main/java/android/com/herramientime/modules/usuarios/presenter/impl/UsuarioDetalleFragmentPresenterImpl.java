@@ -4,6 +4,8 @@ import android.com.herramientime.R;
 import android.com.herramientime.app.HerramienTimeApp;
 import android.com.herramientime.core.entities.ErrorCause;
 import android.com.herramientime.core.presenter.impl.MvpFragmentPresenterImpl;
+import android.com.herramientime.injection.NavigationManager;
+import android.com.herramientime.modules.domain.entities.LocalException;
 import android.com.herramientime.modules.usuarios.entities.Usuario;
 import android.com.herramientime.modules.usuarios.entities.UsuarioDetalleFragmentPresenterStatus;
 import android.com.herramientime.modules.usuarios.injection.UsuarioDetalleFragmentComponent;
@@ -30,9 +32,11 @@ public class UsuarioDetalleFragmentPresenterImpl<FRAGMENT extends UsuarioDetalle
 
     private UsuarioDetalleFragmentInteractor usuarioDetalleFragmentInteractor;
     private Resources resources;
+    private NavigationManager navigationManager;
 
     private UsuarioDetalleFragmentPresenterStatus presenterStatus = new UsuarioDetalleFragmentPresenterStatus();
     private ResponseFuture<Usuario> responseFutureGetUsuario;
+    private ResponseFuture<Boolean> responseFutureCerrarSesion;
 
     public static void newUsuarioDetalleFragmentPresenterInstance(Bundle bundle, String idUsuario) {
         UsuarioDetalleFragmentPresenterImpl presenter = new UsuarioDetalleFragmentPresenterImpl();
@@ -58,6 +62,7 @@ public class UsuarioDetalleFragmentPresenterImpl<FRAGMENT extends UsuarioDetalle
     public UsuarioDetalleFragmentPresenterImpl(UsuarioDetalleFragmentComponent usuarioDetalleFragmentComponent) {
         this.usuarioDetalleFragmentInteractor = usuarioDetalleFragmentComponent.getUsuarioDetalleFragmentModule().getUsuarioDetalleFragmentInteractor();
         this.resources = usuarioDetalleFragmentComponent.getUsuarioDetalleFragmentModule().getResources();
+        this.navigationManager = usuarioDetalleFragmentComponent.getUsuarioDetalleFragmentModule().getNavigationManager();
     }
 
     @Override
@@ -68,6 +73,9 @@ public class UsuarioDetalleFragmentPresenterImpl<FRAGMENT extends UsuarioDetalle
         }
         if (usuarioDetalleFragmentInteractor == null) {
             usuarioDetalleFragmentInteractor = HerramienTimeApp.getComponentDependencies().getUsuarioDetalleFragmentComponent().getUsuarioDetalleFragmentModule().getUsuarioDetalleFragmentInteractor();
+        }
+        if (navigationManager == null) {
+            navigationManager = HerramienTimeApp.getComponentDependencies().getUsuarioDetalleFragmentComponent().getUsuarioDetalleFragmentModule().getNavigationManager();
         }
         getMvpFragment().onInitLoading();
         startResponseGetUsuario();
@@ -94,6 +102,9 @@ public class UsuarioDetalleFragmentPresenterImpl<FRAGMENT extends UsuarioDetalle
                     presenterStatus.setError(null);
                     return;
                 }
+                fragment.setNombreApellidosUser(presenterStatus.getUsuario().getNombre() + " " + presenterStatus.getUsuario().getApellidos());
+                fragment.setUsuario(presenterStatus.getUsuario().getId());
+                fragment.setAcercaDeTi(presenterStatus.getUsuario().getAcercaDeTi());
                 fragment.onLoaded();
             }
         }
@@ -104,8 +115,38 @@ public class UsuarioDetalleFragmentPresenterImpl<FRAGMENT extends UsuarioDetalle
         return true;
     }
 
+    @Override
+    public void onClickCerrarSesion() {
+        startResponseCerrarSesion();
+    }
+
+
 
     //region ResponseFuture
+
+    private void startResponseCerrarSesion() {
+        if (responseFutureCerrarSesion != null) {
+            responseFutureCerrarSesion.cancel(true);
+        }
+        responseFutureCerrarSesion = usuarioDetalleFragmentInteractor.cerrarSesion().onData(new OnData<Boolean>() {
+            @Override
+            public void onData(Boolean usuario) {
+                if (usuario) {
+                    try {
+                        navigationManager.navigateBack();
+                    } catch (LocalException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).onError(new OnError() {
+            @Override
+            public void onError(Exception e) {
+                presenterStatus.setError(e);
+                onDataLoaded();
+            }
+        });
+    }
 
     private void startResponseGetUsuario() {
         if (responseFutureGetUsuario != null) {
@@ -129,6 +170,7 @@ public class UsuarioDetalleFragmentPresenterImpl<FRAGMENT extends UsuarioDetalle
         });
 
     }
+
 
     //endregion ResponseFuture
 }
