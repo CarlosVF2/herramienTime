@@ -5,6 +5,7 @@ import android.com.herramientime.core.entities.ErrorCause;
 import android.com.herramientime.core.presenter.impl.MvpFragmentPresenterImpl;
 import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.domain.entities.ResultsException;
 import android.com.herramientime.modules.domain.entities.UsuarioException;
 import android.com.herramientime.modules.herramientas.adapter.HerramientasVHListener;
 import android.com.herramientime.modules.herramientas.entities.FiltrosHerramientas;
@@ -55,6 +56,7 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
         this.herramientasFragmentInteractor = herramientasFragmentComponent.getHerramientasFragmentModule().getHerramientasFragmentInteractor();
     }
 
+    //region Core
     @Override
     public void onViewBinded() {
         super.onViewBinded();
@@ -92,6 +94,9 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
                     if (presenterStatus.getError().getCause() instanceof UsuarioException) {
                         fragment.onLoadErrorUser(ErrorCause.getCause(presenterStatus.getError()));
                     } else {
+                        if(presenterStatus.getError().getCause() instanceof ResultsException){
+                            onClickRestaurarFilter();
+                        }
                         //Si no se habia representado el error (porque no habia vista viva en ese momento) se representa una vez que sea ejecutable.
                         fragment.onLoadError(ErrorCause.getCause(presenterStatus.getError()));
                     }
@@ -111,6 +116,7 @@ public class HerramientasFragmentPresenterImpl<FRAGMENT extends HerramientasFrag
         }
         return true;
     }
+    //endregion  Core
 
     @Override
     public void onRefresh() {

@@ -18,4 +18,6 @@ public interface ExperienciasFragmentPresenter extends MvpFragmentPresenter {
     void onClickRestaurarFilter();
 
     void onClickAceptarLogin();
+
+    void onClickMap();
 }

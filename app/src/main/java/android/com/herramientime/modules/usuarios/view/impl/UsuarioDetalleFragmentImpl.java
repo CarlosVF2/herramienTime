@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 
 /**
  * Created by carlo on 06/11/2018.
@@ -25,6 +26,7 @@ public class UsuarioDetalleFragmentImpl
     private TextInputLayout textInputLayoutNombreApellidos;
     private TextInputLayout textInputLayoutUsuario;
     private TextInputLayout textInputLayoutAcercaDeTi;
+    private RatingBar ratingBarCalificacion;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class UsuarioDetalleFragmentImpl
         textInputLayoutNombreApellidos = view.findViewById(R.id.textInputLayoutNombreApellidos);
         textInputLayoutUsuario = view.findViewById(R.id.textInputLayoutUsuario);
         textInputLayoutAcercaDeTi = view.findViewById(R.id.textInputLayoutAcercaDeTi);
+        ratingBarCalificacion = view.findViewById(R.id.ratingBarCalificacion);
     }
 
     @Override
@@ -79,6 +82,10 @@ public class UsuarioDetalleFragmentImpl
         hideProgressDialog();
     }
 
+    //endregion Core LifeCycle
+
+    //region SET
+
     @Override
     public void setNombreApellidosUser(String text) {
         textInputLayoutNombreApellidos.getEditText().setText(text);
@@ -94,5 +101,10 @@ public class UsuarioDetalleFragmentImpl
         textInputLayoutAcercaDeTi.getEditText().setText(acercaDeTi);
     }
 
-    //endregion Core LifeCycle
+    @Override
+    public void setCalificacion(float calificacion) {
+        ratingBarCalificacion.setRating(calificacion);
+    }
+
+    //endregion SEt
 }

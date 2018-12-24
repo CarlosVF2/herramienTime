@@ -4,6 +4,7 @@ import android.com.herramientime.R;
 import android.com.herramientime.domain.processor.ProcessorFiltroHerramienta;
 import android.com.herramientime.domain.processor.ProcessorHerramienta;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.domain.entities.ResultsException;
 import android.com.herramientime.modules.domain.entities.UsuarioException;
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
 import android.com.herramientime.modules.herramientas.entities.FiltrosHerramientas;
@@ -34,8 +35,11 @@ public class HerramientasFragmentRepositoryImpl implements HerramientasFragmentR
     }
 
     @Override
-    public List<Herramienta> getHerramientas(FiltrosHerramientas filtrosHerramientas) throws InternetException {
+    public List<Herramienta> getHerramientas(FiltrosHerramientas filtrosHerramientas) throws InternetException, ResultsException {
         List<HerramientaRest> herramientaRests = restApiServiceHelper.getHerramientas(processorFiltroHerramienta.convertFrom(filtrosHerramientas));
+        if(herramientaRests.size()==0){
+            throw new ResultsException("No se han encontrado resultados");
+        }
         return processorHerramienta.convertFrom(herramientaRests);
     }
 

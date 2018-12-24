@@ -15,7 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -33,7 +34,10 @@ public class HerramientaDetalleFragmentImpl
     private TextView textViewDescripcion;
     private TextView textViewResumen;
     private TextView textViewCategoria;
-    private LinearLayout linearLayoutContainer;
+    private RatingBar ratingBarCalificacion;
+    private TextView textViewAcerca;
+    private TextView textViewIdUsuario;
+    private RelativeLayout relativeLayoutContainer;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +63,10 @@ public class HerramientaDetalleFragmentImpl
         textViewDescripcion = view.findViewById(R.id.textViewDescripcion);
         textViewResumen = view.findViewById(R.id.textViewResumen);
         textViewCategoria = view.findViewById(R.id.textViewCategoria);
-        linearLayoutContainer = view.findViewById(R.id.linearLayoutContainer);
+        ratingBarCalificacion = view.findViewById(R.id.ratingBarCalificacion);
+        textViewAcerca = view.findViewById(R.id.textViewAcerca);
+        textViewIdUsuario = view.findViewById(R.id.textViewIdUsuario);
+        relativeLayoutContainer = view.findViewById(R.id.relativeLayoutContainer);
     }
 
     @Override
@@ -82,12 +89,12 @@ public class HerramientaDetalleFragmentImpl
 
     @Override
     public void onInitLoading() {
-        linearLayoutContainer.setVisibility(View.GONE);
+        relativeLayoutContainer.setVisibility(View.GONE);
     }
 
     @Override
     public void onLoaded() {
-        linearLayoutContainer.setVisibility(View.VISIBLE);
+        relativeLayoutContainer.setVisibility(View.VISIBLE);
         hideProgressDialog();
     }
 
@@ -114,13 +121,28 @@ public class HerramientaDetalleFragmentImpl
     }
 
     @Override
+    public void setIdUsuario(String idUsuario) {
+        textViewIdUsuario.setText(idUsuario);
+    }
+
+    @Override
+    public void setCalificacion(float calificacion) {
+        ratingBarCalificacion.setRating(calificacion);
+    }
+
+    @Override
+    public void setAcerca(String acerca) {
+        textViewAcerca.setText(acerca);
+    }
+
+    @Override
     public void setResumen(String resumen) {
         textViewResumen.setText(resumen);
     }
 
     @Override
     public void setCategoria(String categoria) {
-        textViewResumen.setText(categoria);
+        textViewCategoria.setText(categoria);
     }
 
     @Override

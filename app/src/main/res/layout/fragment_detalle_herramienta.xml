@@ -1,62 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/dimen_margin_fragment"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_margin="@dimen/dimen_margin_fragment">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/relativeLayoutContainer"
         android:layout_width="match_parent"
-        android:id="@+id/linearLayoutContainer"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imageViewHerramienta"
             android:layout_width="match_parent"
-            android:src="@drawable/ic_menu_camera"
-            android:layout_height="@dimen/heigt_ppal_image" />
+            android:layout_height="@dimen/heigt_ppal_image"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_menu_camera" />
 
         <TextView
             android:id="@+id/textViewPrecio"
-            tools:text="20€"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageViewHerramienta"
+            android:layout_margin="5dp"
+            android:textSize="@dimen/dimen_subtitle_image"
+            android:textStyle="bold"
+            tools:text="20€" />
 
         <TextView
             android:id="@+id/textViewDescripcion"
-            tools:text="Destornillador eléctrico muy bonito"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageViewHerramienta"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/textViewPrecio"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:textSize="@dimen/dimen_subtitle_image"
+            tools:text="Destornillador eléctrico muy bonito" />
 
         <TextView
             android:id="@+id/textViewResumen"
-            tools:text="Se ofrece el uso de este destornillador por horas para e"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_below="@+id/textViewDescripcion"
+            android:layout_margin="5dp"
+            android:maxLines="3"
+            android:textSize="@dimen/dimen_description_catagoria"
+            tools:text="Se ofrece el uso de este destornillador por horas para easdasdasdasd" />
 
-            <TextView
-                android:text="Categoria: "
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textViewCat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewResumen"
+            android:layout_marginLeft="5dp"
+            android:text="Categoria: "
+            android:textSize="@dimen/dimen_description_catagoria" />
 
-            <TextView
-                android:id="@+id/textViewCategoria"
-                tools:text="Electico"
-                android:layout_width="0dp"
-                android:layout_weight="5"
-                android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textViewCategoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewResumen"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@+id/textViewCat"
+            android:textSize="@dimen/dimen_description_catagoria"
+            tools:text="Electico" />
 
+        <TextView
+            android:id="@+id/textViewTitleUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewCategoria"
+            android:layout_margin="5dp"
+            android:text="@string/prompt_title_user"
+            android:textSize="@dimen/dimen_subtitle_image"
+            android:textStyle="italic" />
 
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/imageView"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/dimen_image_ppal"
+            android:layout_height="@dimen/dimen_image_ppal"
+            android:layout_below="@+id/textViewTitleUsuario"
+            android:layout_marginLeft="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_person_white_24dp"
+            android:tint="@android:color/black" />
 
+        <RatingBar
+            android:id="@+id/ratingBarCalificacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewTitleUsuario"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/imageView"
+            android:isIndicator="true"
+            android:theme="@style/RatingBar"
+            android:numStars="5"
+            tools:rating="3" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/textViewIdUsuario"
+            android:layout_width="@dimen/dimen_image_ppal"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView"
+            android:layout_marginLeft="5dp"
+            android:ellipsize="end"
+            android:textStyle="bold"
+            tools:text="cvegaf" />
+
+        <TextView
+            android:id="@+id/textViewAcerca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ratingBarCalificacion"
+            android:layout_toRightOf="@+id/textViewIdUsuario"
+            android:textSize="@dimen/dimen_description_catagoria"
+            tools:text="Este es el texto que se va a ver como descripción del usuario" />
+    </RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>

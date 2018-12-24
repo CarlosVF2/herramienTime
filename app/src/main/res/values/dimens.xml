@@ -12,4 +12,7 @@
     <dimen name="dim_drawer_header_height">160dp</dimen>
     <dimen name="dimen_width_precio">80dp</dimen>
     <dimen name="filter_width">200dp</dimen>
+    <dimen name="dimen_subtitle_image">18sp</dimen>
+    <dimen name="dimen_description_catagoria">16sp</dimen>
+    <dimen name="dimen_image_ppal">85dp</dimen>
 </resources>

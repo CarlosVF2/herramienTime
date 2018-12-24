@@ -6,6 +6,7 @@ import android.com.herramientime.core.entities.ErrorCause;
 import android.com.herramientime.core.presenter.impl.MvpFragmentPresenterImpl;
 import android.com.herramientime.injection.NavigationManager;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.domain.entities.ResultsException;
 import android.com.herramientime.modules.domain.entities.UsuarioException;
 import android.com.herramientime.modules.experiencias.adapter.ExperienciasVHListener;
 import android.com.herramientime.modules.experiencias.entities.Experiencia;
@@ -56,6 +57,8 @@ public class ExperienciasFragmentPresenterImpl<FRAGMENT extends ExperienciasFrag
         this.resources = experienciasFragmentComponent.getExperienciasFragmentModule().getResources();
     }
 
+    //region Core
+
     @Override
     public void onViewBinded() {
         super.onViewBinded();
@@ -83,6 +86,9 @@ public class ExperienciasFragmentPresenterImpl<FRAGMENT extends ExperienciasFrag
         if (responseFutureExperiencias != null) {
             responseFutureExperiencias.cancel(true);
         }
+        if(responseFutureCheckUpload != null) {
+            responseFutureCheckUpload.cancel(true);
+        }
         super.onDestroy();
     }
 
@@ -97,6 +103,9 @@ public class ExperienciasFragmentPresenterImpl<FRAGMENT extends ExperienciasFrag
                     if (presenterStatus.getError().getCause() instanceof UsuarioException) {
                         fragment.onLoadErrorUser(ErrorCause.getCause(presenterStatus.getError()));
                     } else {
+                        if(presenterStatus.getError().getCause() instanceof ResultsException){
+                            onClickRestaurarFilter();
+                        }
                         //Si no se habia representado el error (porque no habia vista viva en ese momento) se representa una vez que sea ejecutable.
                         fragment.onLoadError(ErrorCause.getCause(presenterStatus.getError()));
                     }
@@ -116,6 +125,8 @@ public class ExperienciasFragmentPresenterImpl<FRAGMENT extends ExperienciasFrag
         }
         return true;
     }
+
+    //endregion Core
 
     @Override
     public void onRefresh() {
@@ -161,6 +172,15 @@ public class ExperienciasFragmentPresenterImpl<FRAGMENT extends ExperienciasFrag
     public void onClickAceptarLogin() {
         try {
             navigationManager.navigateToLogin();
+        } catch (LocalException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClickMap() {
+        try {
+            navigationManager.navigateToMap();
         } catch (LocalException e) {
             e.printStackTrace();
         }

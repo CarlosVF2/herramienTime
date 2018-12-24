@@ -14,6 +14,7 @@ import android.com.herramientime.modules.usuarios.presenter.UsuarioDetalleFragme
 import android.com.herramientime.modules.usuarios.view.UsuarioDetalleFragment;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.seidor.core.di.annotations.Inject;
 import com.seidor.core.task.executor.future.OnCompleted;
@@ -65,6 +66,8 @@ public class UsuarioDetalleFragmentPresenterImpl<FRAGMENT extends UsuarioDetalle
         this.navigationManager = usuarioDetalleFragmentComponent.getUsuarioDetalleFragmentModule().getNavigationManager();
     }
 
+    //region Core
+
     @Override
     public void onViewBinded() {
         super.onViewBinded();
@@ -105,6 +108,9 @@ public class UsuarioDetalleFragmentPresenterImpl<FRAGMENT extends UsuarioDetalle
                 fragment.setNombreApellidosUser(presenterStatus.getUsuario().getNombre() + " " + presenterStatus.getUsuario().getApellidos());
                 fragment.setUsuario(presenterStatus.getUsuario().getId());
                 fragment.setAcercaDeTi(presenterStatus.getUsuario().getAcercaDeTi());
+                if(!TextUtils.isEmpty(presenterStatus.getUsuario().getCalificacion())){
+                    fragment.setCalificacion(Float.valueOf(presenterStatus.getUsuario().getCalificacion()));
+                }
                 fragment.onLoaded();
             }
         }
@@ -114,6 +120,8 @@ public class UsuarioDetalleFragmentPresenterImpl<FRAGMENT extends UsuarioDetalle
     public boolean isLoadingFinish() {
         return true;
     }
+
+    //endregion  Core
 
     @Override
     public void onClickCerrarSesion() {

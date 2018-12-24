@@ -62,7 +62,7 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
 
     @Override
     public HerramientaDetalleFragmentRepository getHerramientaDetalleFragmentRepository() {
-        return new HerramientaDetalleFragmentRepositoryImpl(processors.getProcessorHerramienta(), restApiServiceHelper, context.getResources(), getMainActivityRepository());
+        return new HerramientaDetalleFragmentRepositoryImpl(processors.getProcessorHerramienta(), restApiServiceHelper, context.getResources(), getMainActivityRepository(), getUsuarioDetalleRepository());
     }
 
     @Override
@@ -72,7 +72,7 @@ public class RepositoryFactoryImpl implements RepositoryFactory {
 
     @Override
     public ExperienciaDetalleFragmentRepository getExperienciaDetalleFragmentRepository() {
-        return new ExperienciaDetalleFragmentRepositoryImpl(processors.getProcessorExperiencia(), restApiServiceHelper, context.getResources(), getMainActivityRepository());
+        return new ExperienciaDetalleFragmentRepositoryImpl(processors.getProcessorExperiencia(), restApiServiceHelper, context.getResources(), getMainActivityRepository(), getHerramientaDetalleFragmentRepository());
     }
 
     @Override

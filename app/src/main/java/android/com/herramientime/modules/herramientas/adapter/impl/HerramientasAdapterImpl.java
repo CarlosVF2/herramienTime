@@ -4,6 +4,7 @@ import android.com.herramientime.R;
 import android.com.herramientime.modules.herramientas.adapter.HerramientasAdapter;
 import android.com.herramientime.modules.herramientas.adapter.HerramientasVHListener;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
+import android.com.rest.utils.Utilidades;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class HerramientasAdapterImpl<MODEL extends Herramienta> extends RecyclerView.Adapter<HerramientasVHImpl> implements HerramientasAdapter<MODEL> {
@@ -36,10 +38,19 @@ public class HerramientasAdapterImpl<MODEL extends Herramienta> extends Recycler
     public void onBindViewHolder(HerramientasVHImpl holder, int position) {
         MODEL model = mAdapterData.get(position);
         holder.setNombreHerramienta(model.getDescripcion());
-        holder.setReservadaVisibility(model.isReservada());
+        if(model.isReservada()){
+            //Si esta reservada para el dia de hoy
+            if(model.getFechaInicio() != null && model.getFechaInicio().before(new Date())){
+                holder.setReservadaVisibility(true);
+            }
+        } else {
+            holder.setReservadaVisibility(false);
+        }
         holder.setPrecioExperiencia(model.getPrecioText() + model.getSimboloMoneda());
         if(!TextUtils.isEmpty(model.getUrlImagen())) {
             holder.setImagenHerramienta(model.getUrlImagen());
+        } else {
+            holder.setDefaultImage();
         }
     }
 

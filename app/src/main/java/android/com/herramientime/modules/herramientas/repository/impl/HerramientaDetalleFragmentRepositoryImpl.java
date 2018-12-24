@@ -8,6 +8,7 @@ import android.com.herramientime.modules.domain.repository.MainActivityRepositor
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.herramientime.modules.herramientas.repository.HerramientaDetalleFragmentRepository;
 import android.com.herramientime.modules.usuarios.entities.Usuario;
+import android.com.herramientime.modules.usuarios.repository.UsuarioDetalleFragmentRepository;
 import android.com.rest.RestApiServiceHelper;
 import android.com.rest.entities.HerramientaRest;
 import android.com.rest.entities.InternetException;
@@ -21,12 +22,14 @@ public class HerramientaDetalleFragmentRepositoryImpl implements HerramientaDeta
     private final ProcessorHerramienta processorHerramienta;
     private final Resources resources;
     private final MainActivityRepository mainActivityRepository;
+    private final UsuarioDetalleFragmentRepository usuarioDetalleFragmentRepository;
 
-    public HerramientaDetalleFragmentRepositoryImpl(ProcessorHerramienta processorHerramienta, RestApiServiceHelper restApiServiceHelper, Resources resources, MainActivityRepository mainActivityRepository) {
+    public HerramientaDetalleFragmentRepositoryImpl(ProcessorHerramienta processorHerramienta, RestApiServiceHelper restApiServiceHelper, Resources resources, MainActivityRepository mainActivityRepository, UsuarioDetalleFragmentRepository usuarioDetalleFragmentRepository) {
         this.restApiServiceHelper = restApiServiceHelper;
         this.processorHerramienta = processorHerramienta;
         this.resources = resources;
         this.mainActivityRepository = mainActivityRepository;
+        this.usuarioDetalleFragmentRepository = usuarioDetalleFragmentRepository;
     }
 
     @Override
@@ -48,5 +51,19 @@ public class HerramientaDetalleFragmentRepositoryImpl implements HerramientaDeta
             throw new UsuarioException(resources.getString(R.string.prompt_error_first_log_reserve));
         }
         return true;
+    }
+
+    @Override
+    public Usuario getUsuarioById(String idUsuario) throws LocalException, InternetException, UsuarioException {
+        Usuario user = usuarioDetalleFragmentRepository.getUserById(idUsuario);
+        if(user != null){
+            return user;
+        }
+        //devolvemos los datos vacios para que se pinten en la vista
+        Usuario defauult = new Usuario();
+        defauult.setId("----");
+        defauult.setAcercaDeTi("----");
+        defauult.setCalificacion("0");
+        return defauult;
     }
 }

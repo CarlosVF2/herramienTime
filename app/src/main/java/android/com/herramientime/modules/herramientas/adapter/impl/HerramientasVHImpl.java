@@ -70,5 +70,9 @@ public class HerramientasVHImpl<DATA extends Herramienta> extends RecyclerView.V
         }
     }
 
+    public void setDefaultImage() {
+        imageViewHerramienta.setImageResource(R.drawable.ic_photo_black_24dp);
+    }
+
     //endregion  OnClickListener
 }

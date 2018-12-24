@@ -59,6 +59,8 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
         this.interactor = alquilerHerramientaFragmentComponent.getAlquilerHerramientaFragmentModule().getAlquilerHerramientaFragmentInteractor();
     }
 
+    //region Core
+
     @Override
     public void onViewBinded() {
         super.onViewBinded();
@@ -73,8 +75,12 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
         }
         getMvpFragment().onInitLoading();
         getMvpFragment().setTitle(resources.getString(R.string.title_alquiler_herramienta));
-        startResponseGetCategorias();
-        startResponseGetMonedas();
+        if(responseFutureCategorias == null) {
+            startResponseGetCategorias();
+        }
+        if(responseFutureMonedas == null) {
+            startResponseGetMonedas();
+        }
     }
 
     @Override
@@ -84,6 +90,15 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
 
     @Override
     public void onDestroy() {
+        if(responseFutureCategorias != null){
+            responseFutureCategorias.cancel(true);
+        }
+        if(responseFutureMonedas != null){
+            responseFutureMonedas.cancel(true);
+        }
+        if(responseUri != null){
+            responseUri.cancel(true);
+        }
         super.onDestroy();
     }
 
@@ -139,6 +154,8 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
 
         return true;
     }
+
+    //endregion Core
 
     @Override
     public void onClickConfirmar() {

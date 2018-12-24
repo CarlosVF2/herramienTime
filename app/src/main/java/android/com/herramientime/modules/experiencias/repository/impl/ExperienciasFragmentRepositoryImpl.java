@@ -4,6 +4,7 @@ import android.com.herramientime.R;
 import android.com.herramientime.domain.processor.ProcessorExperiencia;
 import android.com.herramientime.domain.processor.ProcessorFiltroExperiencia;
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.domain.entities.ResultsException;
 import android.com.herramientime.modules.domain.entities.UsuarioException;
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
 import android.com.herramientime.modules.experiencias.entities.Experiencia;
@@ -34,8 +35,11 @@ public class ExperienciasFragmentRepositoryImpl implements ExperienciasFragmentR
     }
 
     @Override
-    public List<Experiencia> getExperiencias(FiltrosExperiencia filtrosExperiencia) throws InternetException {
+    public List<Experiencia> getExperiencias(FiltrosExperiencia filtrosExperiencia) throws InternetException, ResultsException {
         List<ExperienciaRest> experienciaRests = restApiServiceHelper.getExperiencias(filtroExperiencia.convertFrom(filtrosExperiencia));
+        if(experienciaRests.size()==0){
+            throw new ResultsException("No se han encontrado resultados");
+        }
         return processorExperiencia.convertFrom(experienciaRests);
     }
 

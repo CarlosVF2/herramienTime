@@ -3,6 +3,7 @@ package android.com.herramientime.modules.experiencias.interactor.impl;
 import android.com.herramientime.modules.experiencias.entities.Experiencia;
 import android.com.herramientime.modules.experiencias.interactor.ExperienciaDetalleFragmentInteractor;
 import android.com.herramientime.modules.experiencias.repository.ExperienciaDetalleFragmentRepository;
+import android.com.herramientime.modules.usuarios.entities.Usuario;
 
 import com.seidor.core.task.executor.future.ResponseFuture;
 import com.seidor.core.task.executor.interactor.TaskInteractorImpl;
@@ -35,6 +36,16 @@ public class ExperienciaDetalleFragmentInteractorImpl extends TaskInteractorImpl
             @Override
             public Boolean call() throws Exception {
                 return experienciaDetalleFragmentRepository.checkReservar();
+            }
+        });
+    }
+
+    @Override
+    public ResponseFuture<Usuario> getUsuario(final String idUsuario) {
+        return prepare(new Callable<Usuario>() {
+            @Override
+            public Usuario call() throws Exception {
+                return experienciaDetalleFragmentRepository.getUserById(idUsuario);
             }
         });
     }

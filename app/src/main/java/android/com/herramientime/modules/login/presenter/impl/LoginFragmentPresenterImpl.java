@@ -50,6 +50,8 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
         this.navigationManager = loginFragmentComponent.getLoginFragmentModule().geNavigationManager();
     }
 
+    //region Core
+
     @Override
     public void onViewBinded() {
         super.onViewBinded();
@@ -104,6 +106,8 @@ public class LoginFragmentPresenterImpl<FRAGMENT extends LoginFragment> extends 
     public boolean isLoadingFinish() {
         return true;
     }
+
+    //endregion  Core
 
     @Override
     public void onClickIniciarSesion() {

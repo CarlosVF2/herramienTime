@@ -15,7 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -32,7 +33,10 @@ public class ExperienciaDetalleFragmentImpl
     private TextView textViewPrecio;
     private TextView textViewDescripcion;
     private TextView textViewResumen;
-    private LinearLayout linearLayoutContainer;
+    private RatingBar ratingBarCalificacion;
+    private TextView textViewAcerca;
+    private TextView textViewIdUsuario;
+    private RelativeLayout relativeLayoutContainer;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +61,10 @@ public class ExperienciaDetalleFragmentImpl
         textViewPrecio = view.findViewById(R.id.textViewPrecio);
         textViewDescripcion = view.findViewById(R.id.textViewDescripcion);
         textViewResumen = view.findViewById(R.id.textViewResumen);
-        linearLayoutContainer = view.findViewById(R.id.linearLayoutContainer);
+        ratingBarCalificacion = view.findViewById(R.id.ratingBarCalificacion);
+        textViewAcerca = view.findViewById(R.id.textViewAcerca);
+        textViewIdUsuario = view.findViewById(R.id.textViewIdUsuario);
+        relativeLayoutContainer = view.findViewById(R.id.relativeLayoutContainer);
     }
 
 
@@ -82,11 +89,12 @@ public class ExperienciaDetalleFragmentImpl
 
     @Override
     public void onInitLoading() {
-        linearLayoutContainer.setVisibility(View.GONE);
+        relativeLayoutContainer.setVisibility(View.GONE);
     }
 
     @Override
     public void onLoaded() {
+        relativeLayoutContainer.setVisibility(View.VISIBLE);
         hideProgressDialog();
     }
 
@@ -96,9 +104,9 @@ public class ExperienciaDetalleFragmentImpl
 
     @Override
     public void setImageExperiencia(String url) {
-        Glide.with(getContext())
-                .load(url)
-                .into(imageViewExperiencia);
+        //Glide.with(getContext())
+        //        .load(url)
+        //        .into(imageViewExperiencia);
     }
 
     @Override
@@ -109,6 +117,21 @@ public class ExperienciaDetalleFragmentImpl
     @Override
     public void setDescripcion(String descripcion) {
         textViewDescripcion.setText(descripcion);
+    }
+
+    @Override
+    public void setIdUsuario(String idUsuario) {
+        textViewIdUsuario.setText(idUsuario);
+    }
+
+    @Override
+    public void setCalificacion(float calificacion) {
+        ratingBarCalificacion.setRating(calificacion);
+    }
+
+    @Override
+    public void setAcerca(String acerca) {
+        textViewAcerca.setText(acerca);
     }
 
     @Override

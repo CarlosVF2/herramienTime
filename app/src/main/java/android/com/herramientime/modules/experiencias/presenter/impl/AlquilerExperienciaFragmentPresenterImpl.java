@@ -69,7 +69,9 @@ public class AlquilerExperienciaFragmentPresenterImpl<FRAGMENT extends AlquilarE
         }
         getMvpFragment().onInitLoading();
         getMvpFragment().setTitle(resources.getString(R.string.title_alquiler_experiencia));
-        startResponseGetMonedas();
+        if(responseFutureMonedas == null) {
+            startResponseGetMonedas();
+        }
     }
 
     @Override
@@ -79,6 +81,10 @@ public class AlquilerExperienciaFragmentPresenterImpl<FRAGMENT extends AlquilarE
 
     @Override
     public void onDestroy() {
+        if(responseFutureMonedas != null){
+            responseFutureMonedas.cancel(true);
+        }
+
         super.onDestroy();
     }
 

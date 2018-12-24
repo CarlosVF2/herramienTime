@@ -1,6 +1,7 @@
 package android.com.herramientime.modules.herramientas.repository;
 
 import android.com.herramientime.modules.domain.entities.LocalException;
+import android.com.herramientime.modules.domain.entities.ResultsException;
 import android.com.herramientime.modules.domain.entities.UsuarioException;
 import android.com.herramientime.modules.herramientas.entities.FiltrosHerramientas;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public interface HerramientasFragmentRepository {
 
-    List<Herramienta> getHerramientas(FiltrosHerramientas filtrosHerramientas) throws InternetException;
+    List<Herramienta> getHerramientas(FiltrosHerramientas filtrosHerramientas) throws InternetException, ResultsException;
 
     Boolean checkUpload() throws InternetException, LocalException, UsuarioException;
 }

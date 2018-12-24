@@ -3,6 +3,7 @@ package android.com.herramientime.modules.herramientas.interactor.impl;
 import android.com.herramientime.modules.herramientas.entities.Herramienta;
 import android.com.herramientime.modules.herramientas.interactor.HerramientaDetalleFragmentInteractor;
 import android.com.herramientime.modules.herramientas.repository.HerramientaDetalleFragmentRepository;
+import android.com.herramientime.modules.usuarios.entities.Usuario;
 
 import com.seidor.core.task.executor.future.ResponseFuture;
 import com.seidor.core.task.executor.interactor.TaskInteractorImpl;
@@ -35,6 +36,16 @@ public class HerramientaDetalleFragmentInteractorImpl extends TaskInteractorImpl
             @Override
             public Boolean call() throws Exception {
                 return herramientaDetalleFragmentRepository.checkReservar();
+            }
+        });
+    }
+
+    @Override
+    public ResponseFuture<Usuario> getUsuario(final String idUsuario) {
+        return prepare(new Callable<Usuario>() {
+            @Override
+            public Usuario call() throws Exception {
+                return herramientaDetalleFragmentRepository.getUsuarioById(idUsuario);
             }
         });
     }

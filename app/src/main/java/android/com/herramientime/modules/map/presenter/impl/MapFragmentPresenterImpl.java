@@ -56,15 +56,7 @@ public class MapFragmentPresenterImpl<FRAGMENT extends MapFragment>
         }
     }
 
-    //@Override
-    //public void onRestoreInstanceState(BundleWrapper bundleWrapper) {
-    //    getPresenterStatus().restoreInstance(bundleWrapper);
-    //}
-//
-    //@Override
-    //public void onSaveInstanceState(BundleWrapper bundleWrapper) {
-    //    getPresenterStatus().saveInstance(bundleWrapper);
-    //}
+    //region Core
 
     @Override
     public void onViewBinded() {
@@ -93,6 +85,13 @@ public class MapFragmentPresenterImpl<FRAGMENT extends MapFragment>
         }
     }
 
+    @Override
+    public boolean isLoadingFinish() {
+        return true;
+    }
+
+    //endregion Core
+
     private void addMarkers(FRAGMENT fragment) {
         if (!getPresenterStatus().getPuntos().isEmpty()) {
             for (Point point : getPresenterStatus().getPuntos()) {
@@ -100,12 +99,6 @@ public class MapFragmentPresenterImpl<FRAGMENT extends MapFragment>
 
             }
         }
-    }
-
-
-    @Override
-    public boolean isLoadingFinish() {
-        return true;
     }
 
     public MapFragmentInteractor getInteractor() {

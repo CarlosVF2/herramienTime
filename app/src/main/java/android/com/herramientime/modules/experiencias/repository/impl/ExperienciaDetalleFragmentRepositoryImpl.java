@@ -7,6 +7,7 @@ import android.com.herramientime.modules.domain.entities.UsuarioException;
 import android.com.herramientime.modules.domain.repository.MainActivityRepository;
 import android.com.herramientime.modules.experiencias.entities.Experiencia;
 import android.com.herramientime.modules.experiencias.repository.ExperienciaDetalleFragmentRepository;
+import android.com.herramientime.modules.herramientas.repository.HerramientaDetalleFragmentRepository;
 import android.com.herramientime.modules.usuarios.entities.Usuario;
 import android.com.rest.RestApiServiceHelper;
 import android.com.rest.entities.ExperienciaRest;
@@ -21,12 +22,14 @@ public class ExperienciaDetalleFragmentRepositoryImpl implements ExperienciaDeta
     private final ProcessorExperiencia processorExperiencia;
     private final Resources resources;
     private final MainActivityRepository mainActivityRepository;
+    private final HerramientaDetalleFragmentRepository herramientaDetalleFragmentRepository;
 
-    public ExperienciaDetalleFragmentRepositoryImpl(ProcessorExperiencia processorExperiencia, RestApiServiceHelper restApiServiceHelper, Resources resources, MainActivityRepository mainActivityRepository) {
+    public ExperienciaDetalleFragmentRepositoryImpl(ProcessorExperiencia processorExperiencia, RestApiServiceHelper restApiServiceHelper, Resources resources, MainActivityRepository mainActivityRepository, HerramientaDetalleFragmentRepository herramientaDetalleFragmentRepository) {
         this.restApiServiceHelper = restApiServiceHelper;
         this.processorExperiencia = processorExperiencia;
         this.resources = resources;
         this.mainActivityRepository = mainActivityRepository;
+        this.herramientaDetalleFragmentRepository = herramientaDetalleFragmentRepository;
     }
 
     @Override
@@ -48,5 +51,10 @@ public class ExperienciaDetalleFragmentRepositoryImpl implements ExperienciaDeta
             throw new UsuarioException(resources.getString(R.string.prompt_error_first_log_reserve));
         }
         return true;
+    }
+
+    @Override
+    public Usuario getUserById(String idUsuario) throws Exception {
+        return herramientaDetalleFragmentRepository.getUsuarioById(idUsuario);
     }
 }

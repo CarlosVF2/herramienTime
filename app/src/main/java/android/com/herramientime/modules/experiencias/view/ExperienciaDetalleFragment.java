@@ -16,6 +16,12 @@ public interface ExperienciaDetalleFragment extends MvpFragment {
 
     void setDescripcion(String descripcion);
 
+    void setIdUsuario(String idUsuario);
+
+    void setCalificacion(float calificacion);
+
+    void setAcerca(String acerca);
+
     void setResumen(String resumen);
 
     void onLoadErrorUser(String cause);

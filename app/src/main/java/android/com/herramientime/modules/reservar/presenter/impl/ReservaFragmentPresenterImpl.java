@@ -75,6 +75,8 @@ public class ReservaFragmentPresenterImpl<FRAGMENT extends ReservaFragment> exte
         this.resources = reservaFragmentComponent.getReservaFragmentModule().getResources();
     }
 
+    //region Core
+
     @Override
     public void onViewBinded() {
         super.onViewBinded();
@@ -143,6 +145,8 @@ public class ReservaFragmentPresenterImpl<FRAGMENT extends ReservaFragment> exte
         }
         return true;
     }
+
+    //endregion Core
 
     @Override
     public void onClickFechaInicial() {

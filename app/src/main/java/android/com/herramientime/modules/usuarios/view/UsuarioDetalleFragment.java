@@ -12,4 +12,5 @@ public interface UsuarioDetalleFragment extends MvpFragment {
     void setUsuario(String text);
 
     void setAcercaDeTi(String acercaDeTi);
+    void setCalificacion(float calificacion);
 }

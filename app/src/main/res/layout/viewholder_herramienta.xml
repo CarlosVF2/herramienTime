@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imageViewReservada"
@@ -24,7 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"
+            android:textSize="@dimen/dimen_subtitle_image"
+            android:layout_margin="5dp"
             android:layout_toRightOf="@+id/imageViewReservada"
             tools:text="Martillo" />
 
@@ -33,16 +34,19 @@
             android:layout_width="@dimen/dimen_image_herramienta"
             android:layout_height="@dimen/dimen_image_herramienta"
             android:layout_below="@+id/textViewNombreHerramienta"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/ic_photo_black_24dp" />
 
         <TextView
             android:id="@+id/textViewPrecioExperiencia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:textStyle="bold"
+            android:textSize="@dimen/dimen_subtitle_image"
             android:layout_below="@+id/imageViewHerramienta"
-            android:layout_marginTop="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="5dp"
             tools:text="20€" />
 
     </RelativeLayout>

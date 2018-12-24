@@ -87,9 +87,9 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
                             }
                             if (TextUtils.isEmpty(filtrosHerramientasRest.getPrecioFinal()) && isPriceMayor(herramientaRest.getPrecio(), filtrosHerramientasRest.getPrecioInicial())) {
                                 rests.add(herramientaRest);
-                            } else if (TextUtils.isEmpty(filtrosHerramientasRest.getPrecioInicial()) && isPriceMayor(herramientaRest.getPrecio(), filtrosHerramientasRest.getPrecioFinal())) {
+                            } else if (TextUtils.isEmpty(filtrosHerramientasRest.getPrecioInicial()) && isPriceMenor(herramientaRest.getPrecio(), filtrosHerramientasRest.getPrecioFinal())) {
                                 rests.add(herramientaRest);
-                            } else if (isPriceMayor(herramientaRest.getPrecio(), filtrosHerramientasRest.getPrecioInicial()) && isPriceMayor(herramientaRest.getPrecio(), filtrosHerramientasRest.getPrecioFinal())) {
+                            } else if (isPriceMayor(herramientaRest.getPrecio(), filtrosHerramientasRest.getPrecioInicial()) && isPriceMenor(herramientaRest.getPrecio(), filtrosHerramientasRest.getPrecioFinal())) {
                                 rests.add(herramientaRest);
                             }
                         }
@@ -135,9 +135,9 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
                             }
                             if (TextUtils.isEmpty(filtrosExperienciaRest.getPrecioFinal()) && isPriceMayor(experienciaRest.getPrecioHora(), filtrosExperienciaRest.getPrecioInicial())) {
                                 rests.add(experienciaRest);
-                            } else if (TextUtils.isEmpty(filtrosExperienciaRest.getPrecioInicial()) && isPriceMayor(experienciaRest.getPrecioHora(), filtrosExperienciaRest.getPrecioFinal())) {
+                            } else if (TextUtils.isEmpty(filtrosExperienciaRest.getPrecioInicial()) && isPriceMenor(experienciaRest.getPrecioHora(), filtrosExperienciaRest.getPrecioFinal())) {
                                 rests.add(experienciaRest);
-                            } else if (isPriceMayor(experienciaRest.getPrecioHora(), filtrosExperienciaRest.getPrecioInicial()) && isPriceMayor(experienciaRest.getPrecioHora(), filtrosExperienciaRest.getPrecioFinal())) {
+                            } else if (isPriceMayor(experienciaRest.getPrecioHora(), filtrosExperienciaRest.getPrecioInicial()) && isPriceMenor(experienciaRest.getPrecioHora(), filtrosExperienciaRest.getPrecioFinal())) {
                                 rests.add(experienciaRest);
                             }
                         }
@@ -363,7 +363,7 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
     }
 
     private boolean containsString(String valueOriginal, String field) {
-        return !TextUtils.isEmpty(valueOriginal) && valueOriginal.toUpperCase().contains(field.toUpperCase());
+        return !TextUtils.isEmpty(field) && !TextUtils.isEmpty(valueOriginal) && valueOriginal.toUpperCase().contains(field.toUpperCase());
     }
 
     private boolean isPriceMayor(String priceOriginal, String field) {
@@ -372,7 +372,7 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
         }
         double priceO = Double.parseDouble(priceOriginal);
         double fieldPrice = Double.parseDouble(field);
-        return fieldPrice >= priceO;
+        return priceO >= fieldPrice;
     }
 
     private boolean isPriceMenor(String priceOriginal, String field) {
@@ -381,7 +381,7 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
         }
         double priceO = Double.parseDouble(priceOriginal);
         double fieldPrice = Double.parseDouble(field);
-        return fieldPrice <= priceO;
+        return priceO <= fieldPrice;
 
     }
 }
