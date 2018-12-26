@@ -44,6 +44,9 @@ public class LoginFragmentRepositoryImpl implements LoginFragmentRepository {
     public Usuario iniciarSesion(Login login) throws InternetException {
         checkFieldsFillIniciarSesion(login);
         Usuario usuario = getUserById(login.getUser());
+        if(usuario != null && !login.getPassword().contentEquals(usuario.getPassword())){
+            throw new InternetException(context.getString(R.string.prompt_need_password));
+        }
         createUserInSharedPreferences(usuario);
         return usuario;
     }
@@ -61,7 +64,7 @@ public class LoginFragmentRepositoryImpl implements LoginFragmentRepository {
         usuariosRest.setAcercaDeTi(login.getAcercaDeTi());
         usuariosRests.add(usuariosRest);
         restApiServiceHelper.postUsuario(usuariosRests);
-        Thread.sleep(500); //Los datos no son bien reflejados y actualizados si no se pone este stop en el hilo.
+        Thread.sleep(1000); //Los datos no son bien reflejados y actualizados si no se pone este stop en el hilo.
         iniciarSesion(login);
         return processorUsuario.convertFrom(usuariosRest);
     }

@@ -5,6 +5,6 @@
         android:id="@+id/action_cerrar_sesion"
         android:orderInCategory="1"
         android:title="@string/action_close_session"
-        android:icon="@drawable/ic_today_white_24dp"
+        android:icon="@drawable/ic_undo_white_24dp"
         app:showAsAction="always" />
 </menu>

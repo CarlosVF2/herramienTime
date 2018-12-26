@@ -46,6 +46,9 @@ public class HerramientaRest{
     @SerializedName("categoria")
     private String categoria;
 
+    @SerializedName("categoriaDescriptivo")
+    private String categoriaDescriptivo;
+
     public HerramientaRest(String id) {
         this.id = id;
     }
@@ -168,6 +171,14 @@ public class HerramientaRest{
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public String getCategoriaDescriptivo() {
+        return categoriaDescriptivo;
+    }
+
+    public void setCategoriaDescriptivo(String categoriaDescriptivo) {
+        this.categoriaDescriptivo = categoriaDescriptivo;
     }
 
     @Override

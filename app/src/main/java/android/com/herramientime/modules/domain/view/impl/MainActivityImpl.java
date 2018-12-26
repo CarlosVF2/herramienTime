@@ -233,12 +233,12 @@ public class MainActivityImpl
                 case R.id.nav_experiencias:
                     presenter.navigationExperienciasClicked();
                     break;
-                case R.id.nav_help:
-                    presenter.navigationHelpClicked();
-                    break;
-                case R.id.nav_settings:
-                    presenter.navigationSettingsClicked();
-                    break;
+                //case R.id.nav_help:
+                //    presenter.navigationHelpClicked();
+                //    break;
+                //case R.id.nav_settings:
+                //    presenter.navigationSettingsClicked();
+                //    break;
                 case R.id.nav_herramientas:
                     presenter.navigationHerramientasClicked();
                     break;

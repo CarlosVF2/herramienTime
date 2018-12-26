@@ -186,6 +186,11 @@ public class RestApiServiceHelperImpl implements RestApiServiceHelper {
             i++;
         }
         databaseReference.setValue(users);
+        try {
+            Thread.sleep(1000); //Porque no funciona correctamente y tiene que tener un tiempo de espera para luego hacer otra petición actualizada
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -187,7 +187,7 @@ public class AlquilarHerramientaFragmentImpl
 
     @Override
     public void showPhoto(String pathPhoto) {
-        Uri uri = Uri.fromFile(new File(pathPhoto));
+        Uri uri = Uri.parse(pathPhoto);
         imageViewFoto.setImageURI(uri);
     }
 

@@ -65,4 +65,6 @@
     <string name="error_field_acerca_de_ti">Tiene que rellenar algún dato acerca de usted</string>
     <string name="action_close_session">Cerrar sesión</string>
     <string name="prompt_title_user">USUARIO</string>
+    <string name="prompt_need_password">El password introducido no es correcto</string>
+    <string name="upload_herramienta">Dando de alta la herramienta</string>
 </resources>

@@ -91,7 +91,6 @@ public class HerramientasFragmentImpl
         recyclerViewHerramienta = view.findViewById(R.id.recyclerViewHerramienta);
         mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerViewHerramienta.setLayoutManager(mLayoutManager);
-        recyclerViewHerramienta.setAdapter((RecyclerView.Adapter) herramientasAdapter);
         textInputLayoutDescripcion = view.findViewById(R.id.textInputLayoutDescripcion);
         textInputLayoutPrecioInicial = view.findViewById(R.id.textInputLayoutPrecioInicial);
         textInputLayoutPrecioFinal = view.findViewById(R.id.textInputLayoutPrecioFinal);
@@ -100,6 +99,7 @@ public class HerramientasFragmentImpl
         buttonRestaurar = view.findViewById(R.id.buttonRestaurar);
         buttonRestaurar.setOnClickListener(this);
         setupAdapter();
+        recyclerViewHerramienta.setAdapter((RecyclerView.Adapter) herramientasAdapter);
     }
 
     private void setupAdapter() {

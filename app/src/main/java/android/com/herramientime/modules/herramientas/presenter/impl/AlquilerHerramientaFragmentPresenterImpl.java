@@ -81,6 +81,9 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
         if(responseFutureMonedas == null) {
             startResponseGetMonedas();
         }
+        if(responseFutureMonedas != null && responseFutureCategorias != null){
+            onDataLoaded();
+        }
     }
 
     @Override
@@ -108,6 +111,8 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
             super.onDataLoaded();
             FRAGMENT fragment = getMvpFragment();
             if (fragment != null) {
+                fragment.hideProgressDialog();
+                fragment.onLoaded();
                 if (presenterStatus.getError() != null) {
                     //Si no se habia representado el error (porque no habia vista viva en ese momento) se representa una vez que sea ejecutable.
                     fragment.onLoadError(ErrorCause.getCause(presenterStatus.getError()));
@@ -120,8 +125,6 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
                 }
                 fragment.setAdapterSpinnerMoneda(getValuesAdapterMoneda());
                 fragment.setAdapterSpinnerCategoria(getValuesAdapterCategoria());
-                fragment.hideProgressDialog();
-                fragment.onLoaded();
             }
         }
     }
@@ -165,32 +168,6 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
     @Override
     public void onClickMakePhoto() {
         startResponseTakePhoto();
-    }
-
-    private void startResponseTakePhoto() {
-        if (responseUri != null) {
-            responseUri.cancel(true);
-        }
-        responseUri = interactor.getPathPhoto().onData(new OnData<String>() {
-            @Override
-            public void onData(String s) {
-                if (!TextUtils.isEmpty(s)) {
-                    presenterStatus.getAlquilerHerramienta().setPathPhoto(s);
-                }
-                FRAGMENT fragment = getMvpFragment();
-                if (fragment != null) {
-                    fragment.launchIntentPhoto(s);
-                }
-            }
-        }).onError(new OnError() {
-            @Override
-            public void onError(Exception e) {
-                FRAGMENT fragment = getMvpFragment();
-                if (fragment != null) {
-                    fragment.onLoadError(ErrorCause.getCause(e));
-                }
-            }
-        });
     }
 
 
@@ -237,7 +214,7 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
     @Override
     public void showPhoto() {
         presenterStatus.setPendingSaveMediaCamera(true);
-
+        onDataLoaded();
     }
 
     private void checkAllFieldsFill() {
@@ -298,7 +275,7 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
         }
         FRAGMENT fragment = getMvpFragment();
         if (fragment != null) {
-            fragment.showProgressDialogWithMessage("Dando de alta la herramienta");
+            fragment.showProgressDialogWithMessage(resources.getString(R.string.upload_herramienta));
             //setImagePhoto(fragment.getBitmapImage(), fragment);
         }
         responseFutureSaveHerramienta = interactor.saveHerramienta(presenterStatus.getAlquilerHerramienta()).onData(new OnData<Herramienta>() {
@@ -325,6 +302,38 @@ public class AlquilerHerramientaFragmentPresenterImpl<FRAGMENT extends AlquilarH
                 if (fragment1 != null) {
                     fragment1.hideProgressDialog();
                 }
+            }
+        });
+    }
+
+    private void startResponseTakePhoto() {
+        if (responseUri != null) {
+            responseUri.cancel(true);
+        }
+        responseUri = interactor.getPathPhoto().onData(new OnData<String>() {
+            @Override
+            public void onData(String s) {
+                if (!TextUtils.isEmpty(s)) {
+                    presenterStatus.getAlquilerHerramienta().setPathPhoto(s);
+                }
+                FRAGMENT fragment = getMvpFragment();
+                if (fragment != null) {
+                    fragment.launchIntentPhoto(s);
+                }
+            }
+        }).onError(new OnError() {
+            @Override
+            public void onError(Exception e) {
+                FRAGMENT fragment = getMvpFragment();
+                if (fragment != null) {
+                    fragment.onLoadError(ErrorCause.getCause(e));
+                }
+            }
+        }).onCompleted(new OnCompleted() {
+            @Override
+            public void onCompleted() {
+                FRAGMENT fragment = getMvpFragment();
+
             }
         });
     }

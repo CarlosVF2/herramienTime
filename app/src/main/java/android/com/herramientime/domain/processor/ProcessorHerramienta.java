@@ -33,6 +33,7 @@ public class ProcessorHerramienta {
         herramienta.setPrecioText(from.getPrecio());
         herramienta.setPrecio(Double.valueOf(from.getPrecio()));
         herramienta.setCategoria(from.getCategoria());
+        herramienta.setCategoriaDescriptivo(from.getCategoriaDescriptivo());
         ;
         if (!TextUtils.isEmpty(from.getFechaInicio())) {
             herramienta.setFechaFin(Utilidades.getDateFromString(from.getFechaInicio()));

@@ -52,29 +52,10 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="Categoria: "
-            android:id="@+id/textViewCat"
-            android:layout_width="wrap_content"
-            android:textSize="@dimen/dimen_description_catagoria"
-            android:layout_below="@+id/textViewResumen"
-            android:layout_marginLeft="5dp"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/textViewCategoria"
-            tools:text="Electico"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/textViewResumen"
-            android:textSize="@dimen/dimen_description_catagoria"
-            android:layout_toRightOf="@+id/textViewCat"
-            android:layout_marginRight="5dp"
-            android:layout_height="wrap_content" />
-
-        <TextView
             android:id="@+id/textViewTitleUsuario"
             android:layout_width="match_parent"
             android:textStyle="italic"
-            android:layout_below="@+id/textViewCategoria"
+            android:layout_below="@+id/textViewResumen"
             android:layout_height="wrap_content"
             android:textSize="@dimen/dimen_subtitle_image"
             android:layout_margin="5dp"
